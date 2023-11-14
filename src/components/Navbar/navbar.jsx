@@ -9,7 +9,7 @@ import {
   faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
 
-import Users from "../shared/user";
+import Users from "../shared/User";
 const Navbar = () => {
   return (
     <div className="flex text-lg   justify-between font-bold text-white items-center mt-2 bg-transparent">
