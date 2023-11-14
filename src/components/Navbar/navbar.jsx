@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Users from "../shared/user";
-const navbar = () => {
+const Navbar = () => {
   return (
     <div className="flex text-lg   justify-between font-bold text-white items-center mt-2 bg-transparent">
       <div className="flex justify-between flex-1">
@@ -42,4 +42,4 @@ const navbar = () => {
   );
 };
 
-export default navbar;
+export default Navbar;
