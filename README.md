@@ -1,6 +1,6 @@
 # Work-Tracker
 
-## Deployed Link: 
+## Deployed Link: https://work-tracker-rkm.netlify.app/
 
 A sophisticated task tracking application unlike Trello Board. The UI is much similar to Trello. Here you can manage your day to day task. 
 
