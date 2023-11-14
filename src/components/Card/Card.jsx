@@ -10,7 +10,7 @@ import Select from "../shared/Select/Select";
 import useCard from "../../hooks/useCard";
 
 const Card = ({
-  title = "Card 😅",
+  title,
   status_color = "brown",
   description,
   taskId,
@@ -18,6 +18,7 @@ const Card = ({
   comments,
   addTask,
   fetchTask,
+  listName,
 }) => {
   const {
     show,
@@ -31,9 +32,12 @@ const Card = ({
     deleteTask,
     updateTaskColors,
   } = useCard(listId, taskId, status_color, description, fetchTask);
-  
+
   return (
-    <div className="card">
+    <div
+      className="bg-white shadow-lg m-2 rounded-md p-2 flex flex-col gap-2"
+      ref={cardRef}
+    >
       <CardView
         setShow={setShow}
         addTask={addTask}
@@ -47,21 +51,27 @@ const Card = ({
         taskId={taskId}
         comments={comments}
         fetchTask={fetchTask}
+        listName={listName}
         // update={update}
         // stateUpdate={stateUpdate}
       />
 
-      <div
-        ref={cardRef}
-        onClick={() => {
-          setShow(true);
-        }}
-        className="card--custom-bg cursor-pointer"
-        style={{ backgroundColor: `${status_color}` }}
-      ></div>
-      <div className="card-name cursor-pointer">{title}</div>
-      <div className="flex items-center justify-between">
-        <div className="custom--padding text-sm">{description}</div>
+      <div className="">
+        <div
+          className={`h-3 w-12 rounded-xl`}
+          style={{ backgroundColor: `${color}` }}
+        />
+      </div>
+      <div className=" font-semibold text-base tracking-tight cursor-pointer">
+        {title}
+      </div>
+      <div className="flex items-center justify-between ">
+        {/* <div className="custom--padding text-sm">{description}</div> */}
+        <FontAwesomeIcon
+          className="cursor-pointer w-3"
+          onClick={() => setShow(true)}
+          icon={faBars}
+        />
         <FontAwesomeIcon
           icon={faTrash}
           className="m-1 cursor-pointer"
@@ -71,14 +81,8 @@ const Card = ({
           }}
         />
       </div>
-      <div className="custom--padding flex gap-4 items-center justify-between">
-        <div className="flex gap-2">
-          <FontAwesomeIcon
-            className="cursor-pointer"
-            onClick={() => setShow(true)}
-            icon={faBars}
-          />
-        </div>
+      {/* <div className="custom--padding flex gap-4 items-center justify-between">
+        <div className="flex gap-2"></div>
         <Select
           selectColor={setColor}
           updateTaskColors={updateTaskColors}
@@ -88,7 +92,7 @@ const Card = ({
           color={color}
           // stateUpdate={stateUpdate}
         />
-      </div>
+      </div>  */}
     </div>
   );
 };

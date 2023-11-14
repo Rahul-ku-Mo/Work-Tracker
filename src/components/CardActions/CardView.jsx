@@ -37,6 +37,7 @@ const CardView = ({
   updateTaskDes,
   comments,
   taskDescription,
+  listName,
 }) => {
   const { handleSubmit, comment, setComment } = useCardView(
     listId,
@@ -54,23 +55,29 @@ const CardView = ({
     >
       <div className="text-base mb-10 ">
         <FontAwesomeIcon className="px-2" icon={faBookBookmark} /> {taskName}
-        <div className="text-xs text-slate-400 pl-9">in the list</div>
+        <div className="text-xs text-slate-400 pl-9">
+          in the list <span className="underline">{listName}</span>{" "}
+        </div>
       </div>
 
       <div className="float-left m-0  relative w-[447px]">
         <div className="text-base mb-10">
           <FontAwesomeIcon className="px-2" icon={faBars} /> Description
           <textarea
-            className="ml-[2.1rem] text-xs"
+            className="ml-8 my-2 px-3 py-2 font-semibold  bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
+            focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
+            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+            invalid:border-pink-500 invalid:text-pink-600
+            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
             type="text"
             value={taskDescription}
             placeholder="Add a more detailed desciption..."
             onChange={(e) => setDes(e.target.value)}
           />
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             {" "}
             <div
-              className={`${styles.actionBtn} ml-[2.1rem] w-fit`}
+              className={`bg-emerald-500 hover:bg-emerald-700 px-4 py-2 rounded-md text-white text-sm font-semibold ml-8 w-fit`}
               onClick={() => {
                 updateTaskDes(listId, taskId);
                 // update(!stateUpdate);
@@ -79,7 +86,7 @@ const CardView = ({
               Save
             </div>
             <FontAwesomeIcon
-              className="px-2 h-2 cursor-pointer"
+              className="px-2 h-4 cursor-pointer"
               icon={faXmark}
             />
           </div>
@@ -101,7 +108,7 @@ const CardView = ({
               <FontAwesomeIcon className="px-2" icon={faLaptopCode} />
               Activity
             </div>
-            <div className="pr-14 text-white hover:text-black">
+            <div className=" text-white hover:text-black">
               {" "}
               <Button btnInput={"Show Details"} />
             </div>
@@ -120,7 +127,7 @@ const CardView = ({
             />
             <button
               type="submit"
-              className="p-2 rounded-md text-white hover:text-black hover:bg-slate-300 bg-slate-600 mx-2"
+              className="py-2 px-4 text-sm font-semibold bg-emerald-500  rounded-md text-white  hover:bg-emerald-700  mx-2"
             >
               Add
             </button>
@@ -145,7 +152,7 @@ const CardView = ({
           </div>
         </div>
       </div>
-      <div className="modal-sidebar text-white">
+      <div className="modal-sidebar text-white md:block hidden">
         <div className="text-xs !text-slate-400 font-semibold">Add to card</div>
         <div className="my-2 hover:text-black">
           <Button btnInput={"Members"} icon={faUser} />

@@ -3,7 +3,7 @@ import AddCardView from "./CardActions/AddCardView";
 
 import useTask from "../hooks/useTask";
 
-const ListView = ({ listId }) => {
+const ListView = ({ listId, listName }) => {
   const { taskList, currentTask, setCurrentTask, getTask, addTask } = useTask(listId);
 
   return (
@@ -13,6 +13,7 @@ const ListView = ({ listId }) => {
           return (
             <Card
               listId={listId}
+              listName={listName}
               key={card.taskId}
               taskId={card.taskId}
               title={card.taskName}

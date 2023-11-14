@@ -1,13 +1,9 @@
 .board {
-  background: rgba(113, 113, 113, 0.2);
-  background-repeat: no-repeat;
-  padding: 12px;
-  margin: 20px;
+  margin: 12px;
   height: 90vh;
   display: flex;
   align-items: baseline;
-  gap: 4px;
-  box-shadow: black 0px 0px 20px 2px;
+  gap: 12px;
   overflow-x: auto;
 }
 
@@ -19,18 +15,20 @@
 }
 .board_sec {
   display: flex;
-  padding: 6px;
+  padding: 0.5rem;
+  line-height: 2rem;
   justify-content: space-between;
   align-items: center;
-  color: #fff;
+  color: #000000;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .boardGap {
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  border-radius: 2px;
+  border-radius: 8px;
   background-color: transparent;
-  height: 100%;
   overflow: scroll;
   min-width: 272px;
 }

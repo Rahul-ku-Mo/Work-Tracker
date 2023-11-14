@@ -28,18 +28,21 @@ const Modal = (props) => {
       timeout={{ enter: 0, exit: 300 }}
     >
       <div className="modal" onClick={props.onClose}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="modal-content max-w-fit rounded-md md:max-w-3xl"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div
-            className="modal-header"
+            className="modal-header rounded-t-md"
             style={{ backgroundColor: `${props.color}` }}
           >
             <div
-              className="modal-close-btn rounded-full"
+              className="modal-close-btn rounded-full text-white"
               onClick={props.onClose}
             >
               <FontAwesomeIcon icon={faXmark} />
             </div>
-            <div className="absolute top-[118px] right-[12px] text-white">
+            <div className="absolute top-[110px] right-[12px] text-white">
               <NavbarButton icon={faBookBible} btnInput={"Cover"} />
             </div>
           </div>
