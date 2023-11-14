@@ -1,9 +1,12 @@
 # Work-Tracker
+
+## Deployed Link: 
+
 A sophisticated task tracking application unlike Trello Board. The UI is much similar to Trello. Here you can manage your day to day task. 
 
 What you will find here: **React**, **Firebase**, **Custom Hooks**, **Tailwind CSS**
 
-##Things to add Auth Integration, Real-time user Updates and much more......
+## Things to add Auth Integration, Real-time user Updates and much more......
 
 # Walkthrough
 
