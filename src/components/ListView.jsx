@@ -1,5 +1,5 @@
 import Card from "./Card/Card";
-import AddCardView from "./CardActions/addCardView";
+import AddCardView from "./CardActions/AddCardView";
 
 import useTask from "../hooks/useTask";
 
