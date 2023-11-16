@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import "./card.css";
 
@@ -38,6 +38,14 @@ const Card = ({
   const [isOpen, setIsOpen] = useState(false);
   const [showInput, setShowInput] = useState(false);
 
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -49,6 +57,12 @@ const Card = ({
   const deleteCard = () => {
     deleteTask(listId, taskId);
   };
+
+  useEffect(() => {
+    if (showInput) {
+      focusInput();
+    }
+  }, [showInput]);
 
   return (
     <>
@@ -67,14 +81,16 @@ const Card = ({
         {!showInput && (
           <div
             className=" font-semibold text-base tracking-tight cursor-pointer"
-            onClick={() => setShowInput(true)}
+            onClick={() => {
+              setShowInput(true);
+            }}
           >
             {taskName}
           </div>
         )}
         {showInput && (
           <form
-            className="p-1 flex gap-2 flex-col min-w-[272px]"
+            className="p-1 flex gap-2 flex-col w-full"
             onSubmit={(e) => {
               e.preventDefault();
               updateTaskName();
@@ -82,6 +98,10 @@ const Card = ({
             }}
           >
             <input
+              ref={inputRef}
+              onBlur={() => {
+                setShowInput(false);
+              }}
               value={taskName}
               className="flex w-full !h-8 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
