@@ -1,5 +1,3 @@
-import React from "react";
-import "./navbar.css";
 import NavbarButton from "../shared/Button/Button";
 import {
   faLock,
@@ -12,7 +10,7 @@ import {
 import Users from "../shared/User";
 const Navbar = () => {
   return (
-    <div className="flex text-lg   justify-between font-bold text-white items-center mt-2 bg-transparent">
+    <div className="flex text-lg justify-between font-semibold text-white items-center mt-2 bg-transparent">
       <div className="flex justify-between flex-1">
         <div className="flex items-center">
           <div className="ml-2 px-2">Work Tracker</div>

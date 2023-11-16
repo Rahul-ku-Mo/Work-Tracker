@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
-const AddCardView = ({ setCurrentTask, addTask, listId, currentTask }) => {
+const AddCard = ({ setCurrentTask, addTask, listId, currentTask }) => {
   const [showCardInput, setShowCardInput] = useState(false);
 
   return (
@@ -47,7 +47,7 @@ const AddCardView = ({ setCurrentTask, addTask, listId, currentTask }) => {
       )}
       {!showCardInput && (
         <div
-          className="p-2 rounded-md m-2 w-full text-zinc-600 font-semibold bg-zinc-00 transition-all 250ms ease-in-out cursor-pointer"
+          className="px-4 my-2 py-2 rounded-md  w-full text-zinc-600 font-semibold bg-zinc-00 transition-all 250ms ease-in-out cursor-pointer"
           onClick={() => {
             setShowCardInput(true);
           }}
@@ -60,4 +60,4 @@ const AddCardView = ({ setCurrentTask, addTask, listId, currentTask }) => {
   );
 };
 
-export default AddCardView;
+export default AddCard;

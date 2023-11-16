@@ -1,32 +1,35 @@
 import Card from "./Card/Card";
-import AddCardView from "./CardActions/AddCardView";
+import AddCard from "./CardActions/AddCard";
 
 import useTask from "../hooks/useTask";
 
 const ListView = ({ listId, listName }) => {
-  const { taskList, currentTask, setCurrentTask, getTask, addTask } = useTask(listId);
+  const { taskList, currentTask, setCurrentTask, getTask, addTask } =
+    useTask(listId);
 
   return (
     <>
       <div className="">
-        {taskList.map((card) => {
-          return (
-            <Card
-              listId={listId}
-              listName={listName}
-              key={card.taskId}
-              taskId={card.taskId}
-              title={card.taskName}
-              description={card.taskDescription}
-              status_color={card.taskBg}
-              status={card.status}
-              fetchTask={getTask}
-              comments={card?.taskComments}
-            />
-          );
-        })}
+        {taskList
+          ?.sort((a, b) => a.timeStamp.seconds - b.timeStamp.seconds)
+          .map((card) => {
+            return (
+              <Card
+                listId={listId}
+                listName={listName}
+                key={card.taskId}
+                taskId={card.taskId}
+                title={card.taskName}
+                description={card.taskDescription}
+                status_color={card.taskBg}
+                status={card.status}
+                fetchTask={getTask}
+                comments={card?.taskComments}
+              />
+            );
+          })}
       </div>
-      <AddCardView
+      <AddCard
         currentTask={currentTask}
         setCurrentTask={setCurrentTask}
         listId={listId}

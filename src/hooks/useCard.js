@@ -2,10 +2,17 @@ import { useRef, useState, useEffect } from "react";
 import { db } from "../Firebase";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 
-const useCard = (listId, taskId, status_color, description, fetchTask) => {
-  const [show, setShow] = useState(false);
-  const [taskDescription, setTaskDescription] = useState(description);
+const useCard = (
+  listId,
+  taskId,
+  status_color,
+  description,
+  fetchTask,
+  title
+) => {
+  const [taskName, setTaskName] = useState(title);
   const [color, setColor] = useState(status_color);
+  const [taskDescription, setTaskDescription] = useState(description);
 
   const cardRef = useRef();
 
@@ -19,7 +26,17 @@ const useCard = (listId, taskId, status_color, description, fetchTask) => {
     fetchTask(listId);
   };
 
-  const updateTaskColors = async (color, listId, taskId) => {
+  const updateTaskName = async () => {
+    const docRef = doc(db, "Lists", listId, "Tasks", taskId);
+
+    await updateDoc(docRef, {
+      taskName: taskName,
+    });
+
+    fetchTask(listId);
+  };
+
+  const updateTaskColors = async () => {
     const docRef = doc(db, "Lists", listId, "Tasks", taskId);
 
     await updateDoc(docRef, {
@@ -63,8 +80,6 @@ const useCard = (listId, taskId, status_color, description, fetchTask) => {
   }, []);
 
   return {
-    show,
-    setShow,
     color,
     setColor,
     cardRef,
@@ -73,6 +88,9 @@ const useCard = (listId, taskId, status_color, description, fetchTask) => {
     setTaskDescription,
     deleteTask,
     updateTaskColors,
+    updateTaskName,
+    taskName,
+    setTaskName,
   };
 };
 

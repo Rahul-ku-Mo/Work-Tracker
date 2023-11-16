@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { db } from "../Firebase";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { Timestamp, addDoc, collection, getDocs } from "firebase/firestore";
 
 import { randomColorGenerator } from "../constant";
 
@@ -33,6 +33,7 @@ const useTask = (listId) => {
           taskDescription: currentDescription,
           taskBg: color,
           taskComments: [],
+          timeStamp: Timestamp.fromDate(new Date(Date.now()))
         });
 
         setCurrentTask(""); //empty the current task field

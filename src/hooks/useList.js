@@ -6,6 +6,7 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  Timestamp,
 } from "firebase/firestore";
 
 const useList = () => {
@@ -19,6 +20,7 @@ const useList = () => {
       if (currentList != "") {
         await addDoc(collection(db, "Lists"), {
           listName: currentList,
+          timeStamp: Timestamp.fromDate(new Date(Date.now()))
         });
         setCurrentList("");
       }

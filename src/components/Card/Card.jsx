@@ -1,13 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./card.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import CardView from "../CardActions/CardView";
-import Select from "../shared/Select/Select";
 import useCard from "../../hooks/useCard";
+
+import DialogCardView from "../CardActions/DialogCardView";
+import CardDropMenu from "../Menu";
 
 const Card = ({
   title,
@@ -21,8 +22,6 @@ const Card = ({
   listName,
 }) => {
   const {
-    show,
-    setShow,
     color,
     setColor,
     cardRef,
@@ -31,17 +30,81 @@ const Card = ({
     setTaskDescription,
     deleteTask,
     updateTaskColors,
-  } = useCard(listId, taskId, status_color, description, fetchTask);
+    updateTaskName,
+    taskName,
+    setTaskName,
+  } = useCard(listId, taskId, status_color, description, fetchTask, title);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [showInput, setShowInput] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const deleteCard = () => {
+    deleteTask(listId, taskId);
+  };
 
   return (
-    <div
-      className="bg-white shadow-lg m-2 rounded-md p-2 flex flex-col gap-2"
-      ref={cardRef}
-    >
-      <CardView
-        setShow={setShow}
+    <>
+      <div
+        className="bg-white transition m-2 rounded-md p-2 flex flex-col gap-1"
+        ref={cardRef}
+      >
+        <div className="flex justify-between items-center relative">
+          <div
+            className={`h-3 w-12 rounded-xl hover:h-4 hover:min-w-13`}
+            style={{ backgroundColor: `${color}` }}
+          />
+
+          <CardDropMenu openCard={openModal} deleteCard={deleteCard} />
+        </div>
+        {!showInput && (
+          <div
+            className=" font-semibold text-base tracking-tight cursor-pointer"
+            onClick={() => setShowInput(true)}
+          >
+            {taskName}
+          </div>
+        )}
+        {showInput && (
+          <form
+            className="p-1 flex gap-2 flex-col min-w-[272px]"
+            onSubmit={(e) => {
+              e.preventDefault();
+              updateTaskName();
+              setShowInput(false);
+            }}
+          >
+            <input
+              value={taskName}
+              className="flex w-full !h-8 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
+          focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
+          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+          invalid:border-pink-500 invalid:text-pink-600
+          focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+              type="text"
+              onChange={(e) => setTaskName(e.target.value)}
+            />
+          </form>
+        )}
+
+        <FontAwesomeIcon
+          className="cursor-pointer w-3"
+          onClick={openModal}
+          icon={faBars}
+        />
+      </div>
+
+      <DialogCardView
         addTask={addTask}
-        show={show}
+        closeModal={closeModal}
+        isOpen={isOpen}
         taskDescription={taskDescription}
         setDes={setTaskDescription}
         taskName={title}
@@ -52,48 +115,8 @@ const Card = ({
         comments={comments}
         fetchTask={fetchTask}
         listName={listName}
-        // update={update}
-        // stateUpdate={stateUpdate}
       />
-
-      <div className="">
-        <div
-          className={`h-3 w-12 rounded-xl`}
-          style={{ backgroundColor: `${color}` }}
-        />
-      </div>
-      <div className=" font-semibold text-base tracking-tight cursor-pointer">
-        {title}
-      </div>
-      <div className="flex items-center justify-between ">
-        {/* <div className="custom--padding text-sm">{description}</div> */}
-        <FontAwesomeIcon
-          className="cursor-pointer w-3"
-          onClick={() => setShow(true)}
-          icon={faBars}
-        />
-        <FontAwesomeIcon
-          icon={faTrash}
-          className="m-1 cursor-pointer"
-          onClick={() => {
-            deleteTask(listId, taskId);
-            // setDel(!del);
-          }}
-        />
-      </div>
-      {/* <div className="custom--padding flex gap-4 items-center justify-between">
-        <div className="flex gap-2"></div>
-        <Select
-          selectColor={setColor}
-          updateTaskColors={updateTaskColors}
-          listId={listId}
-          taskId={taskId}
-          // update={update}
-          color={color}
-          // stateUpdate={stateUpdate}
-        />
-      </div>  */}
-    </div>
+    </>
   );
 };
 

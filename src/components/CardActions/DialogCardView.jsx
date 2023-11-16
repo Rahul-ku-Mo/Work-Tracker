@@ -1,8 +1,13 @@
-import React from "react";
-import styles from "./addCardView.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from "../Modal/Modal";
+import React, { useState } from "react";
+import CardDialog from "../Dialog/CardDialog";
 import User from "../shared/User";
+import Button from "../shared/Button/Button";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { formatDate } from "../../constant";
+import useCardView from "../../hooks/useCardView";
+
 import {
   faBars,
   faBookBookmark,
@@ -18,16 +23,8 @@ import {
   faMobile,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import Button from "../shared/Button/Button";
-import { faEye } from "@fortawesome/free-regular-svg-icons";
 
-import { formatDate } from "../../constant";
-import useCardView from "../../hooks/useCardView";
-
-const CardView = ({
-  setShow,
-  addTask,
-  show,
+const DialogCardView = ({
   setDes,
   fetchTask,
   taskName,
@@ -38,6 +35,8 @@ const CardView = ({
   comments,
   taskDescription,
   listName,
+  isOpen,
+  closeModal,
 }) => {
   const { handleSubmit, comment, setComment } = useCardView(
     listId,
@@ -45,51 +44,81 @@ const CardView = ({
     fetchTask
   );
 
+  const [showTextArea, setShowTextArea] = useState(false);
+
   return (
-    <Modal
-      title={taskName}
-      onClose={() => setShow(false)}
-      onAddTasks={() => addTask()}
-      show={show}
-      color={color}
-    >
-      <div className="text-base mb-10 ">
-        <FontAwesomeIcon className="px-2" icon={faBookBookmark} /> {taskName}
-        <div className="text-xs text-slate-400 pl-9">
-          in the list <span className="underline">{listName}</span>{" "}
+    <CardDialog closeModal={closeModal} isOpen={isOpen}>
+      <div className="text-base mb-10 flex justify-between">
+        <div>
+          <FontAwesomeIcon className="px-2 " icon={faBookBookmark} />{" "}
+          <span className="text-lg font-semibold">{taskName}</span>
+          <div className="text-sm leading-3 text-slate-600 pl-9">
+            in the list{" "}
+            <span className="underline hover:text-slate-300">{listName}</span>{" "}
+          </div>
+          <div className="flex flex-col">
+            <div className="ml-9 mt-4 text-xs font-bold tracking-wide">
+              Labels
+            </div>
+            <div className="flex gap-1 ml-9 w-full font-semibold text-sm leading-8">
+              <div className="text-center h-8 min-w-12 rounded-md px-3  bg-blue-800 flex-1 text-white">
+                IT
+              </div>
+              <div className="text-center h-8 min-w-12 rounded-md px-3  bg-emerald-500 flex-1 text-white">
+                Product
+              </div>
+              <div className="text-center h-8 min-w-12 rounded-md px-3  bg-orange-600 flex-1 text-white">
+                Marketing
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="cursor-pointer" onClick={closeModal}>
+          <FontAwesomeIcon
+            icon={faPlus}
+            className="rotate-45 hover:bg-slate-200 p-2 rounded-full "
+          />
         </div>
       </div>
 
-      <div className="float-left m-0  relative w-[447px]">
+      <div className="float-left m-0 relative w-[447px]">
         <div className="text-base mb-10">
-          <FontAwesomeIcon className="px-2" icon={faBars} /> Description
-          <textarea
-            className="ml-8 my-2 px-3 py-2 font-semibold  bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
-            focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
-            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-            invalid:border-pink-500 invalid:text-pink-600
-            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-            type="text"
-            value={taskDescription}
-            placeholder="Add a more detailed desciption..."
-            onChange={(e) => setDes(e.target.value)}
-          />
-          <div className="flex items-center gap-4">
-            {" "}
+          <FontAwesomeIcon className="px-2 text-sm" icon={faBars} />{" "}
+          <span className="font-semibold">Description</span>
+          {showTextArea ? (
+            <>
+              <textarea
+                className="ml-8 my-2 px-3 py-2 font-semibold  bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
+                focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
+              disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+              invalid:border-pink-500 invalid:text-pink-600
+              focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                type="text"
+                value={taskDescription}
+                placeholder="Add a more detailed desciption..."
+                onChange={(e) => setDes(e.target.value)}
+              />
+              <button
+                className={`bg-emerald-500 hover:bg-emerald-700 px-4 py-2 rounded-md text-white text-sm font-semibold ml-8 w-fit`}
+                onClick={() => {
+                  updateTaskDes(listId, taskId);
+                  // update(!stateUpdate);
+                }}
+              >
+                Save
+              </button>
+            </>
+          ) : (
             <div
-              className={`bg-emerald-500 hover:bg-emerald-700 px-4 py-2 rounded-md text-white text-sm font-semibold ml-8 w-fit`}
+              className="ml-8 text-sm mt-2"
               onClick={() => {
-                updateTaskDes(listId, taskId);
-                // update(!stateUpdate);
+                setShowTextArea(true);
               }}
             >
-              Save
+              {taskDescription ||
+                `Our brand & product have evolved over the past two years, and our website should be updated to reflect this. The new site will be mobile-first, responsive and lightweight.`}
             </div>
-            <FontAwesomeIcon
-              className="px-2 h-4 cursor-pointer"
-              icon={faXmark}
-            />
-          </div>
+          )}
         </div>
         <div className="text-base mb-10 flex flex-col">
           <div>
@@ -119,7 +148,11 @@ const CardView = ({
               <User />
             </div>
             <input
-              className="ml-2 text-sm flex-1 pl-2"
+              className="ml-2 flex-1 pl-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
+              focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
+              disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+              invalid:border-pink-500 invalid:text-pink-600
+              focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               type="text"
               value={comment}
               placeholder="Write a comment..."
@@ -200,8 +233,8 @@ const CardView = ({
           <Button btnInput={"Watch"} icon={faEye} />
         </div>
       </div>
-    </Modal>
+    </CardDialog>
   );
 };
 
-export default CardView;
+export default DialogCardView;

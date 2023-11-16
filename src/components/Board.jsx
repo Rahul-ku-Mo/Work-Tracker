@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 import useList from "../hooks/useList";
-import styles from "./ToDoBoard.module.css";
+import styles from "./Board.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -15,38 +15,46 @@ import {
 
 import ListView from "./ListView";
 
-const ToDoBoard = () => {
+const Board = () => {
   const [showListInput, setShowListInput] = useState(false);
 
   const { lists, setCurrentList, addLists, deleteList } = useList();
 
   return (
     <div className={styles.board + ` no-scrollbar`}>
-      {lists.map((eachList, i) => {
-        return (
-          <div
-            className={styles.boardGap + ` no-scrollbar bg-zinc-200`}
-            key={i}
-          >
-            <div className={`${styles.board_sec} ${styles.p}`}>
-              {eachList.listName}
-              <FontAwesomeIcon
-                className="cursor-pointer"
-                icon={faXmarkCircle}
-                onClick={() => {
-                  deleteList(eachList.listId);
-                }}
-              />
+      {lists
+        ?.sort((a, b) => a.timeStamp.seconds - b.timeStamp.seconds)
+        .map((eachList) => {
+          return (
+            <div
+              className={styles.boardGap + ` no-scrollbar bg-zinc-200`}
+              key={eachList.listId}
+            >
+              <div
+                className={`flex justify-between items-center font-bold ${styles.p} text-sm py-3 pr-3 pl-4`}
+              >
+                {eachList.listName}
+                <FontAwesomeIcon
+                  className="cursor-pointer"
+                  icon={faXmarkCircle}
+                  onClick={() => {
+                    deleteList(eachList.listId);
+                  }}
+                />
+              </div>
+              <ListView listId={eachList.listId} listName={eachList.listName} />
             </div>
-            <ListView listId={eachList.listId} listName={eachList.listName} />
-          </div>
-        );
-      })}
+          );
+        })}
 
       <div className="bg-slate-200 rounded-md ">
         {showListInput && (
-          <form className="p-1 flex gap-2 flex-col min-w-[272px]" onSubmit={(e) => e.preventDefault()}>
+          <form
+            className="p-1 flex gap-2 flex-col min-w-[272px]"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <input
+              placeholder="Good to go..."
               className="flex w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
           disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
@@ -92,4 +100,4 @@ const ToDoBoard = () => {
   );
 };
 
-export default ToDoBoard;
+export default Board;
