@@ -1,6 +1,6 @@
 import React from "react";
 import Board from "./components/Board";
-import Navbar from "./components/Navbar/Navbar"
+import Navbar from "./components/Navbar/Navbar.jsx"
 
 const App = () => {
   return (
