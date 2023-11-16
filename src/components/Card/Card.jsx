@@ -3,16 +3,16 @@ import React, { useState, useRef, useEffect } from "react";
 import "./card.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 import useCard from "../../hooks/useCard";
 
 import DialogCardView from "../CardActions/DialogCardView";
 import CardDropMenu from "../Menu";
+import CardLabelGroup from "../Label/CardLabelGroup";
 
 const Card = ({
   title,
-  status_color = "brown",
   description,
   taskId,
   listId,
@@ -20,20 +20,24 @@ const Card = ({
   addTask,
   fetchTask,
   listName,
+  active,
+  setActive,
+  currentLabelGroup,
 }) => {
   const {
-    color,
-    setColor,
     cardRef,
     updateTaskDes,
     taskDescription,
     setTaskDescription,
     deleteTask,
-    updateTaskColors,
+
     updateTaskName,
     taskName,
     setTaskName,
-  } = useCard(listId, taskId, status_color, description, fetchTask, title);
+
+    setTaskLabel,
+    updateTaskLabel,
+  } = useCard(listId, taskId, description, fetchTask, title);
 
   const [isOpen, setIsOpen] = useState(false);
   const [showInput, setShowInput] = useState(false);
@@ -71,9 +75,10 @@ const Card = ({
         ref={cardRef}
       >
         <div className="flex justify-between items-center relative">
-          <div
-            className={`h-3 w-12 rounded-xl hover:h-4 hover:min-w-13`}
-            style={{ backgroundColor: `${color}` }}
+          <CardLabelGroup
+            labelGroup={currentLabelGroup}
+            activeLabelGroups={active}
+            setActiveLabelGroups={setActive}
           />
 
           <CardDropMenu openCard={openModal} deleteCard={deleteCard} />
@@ -128,13 +133,15 @@ const Card = ({
         taskDescription={taskDescription}
         setDes={setTaskDescription}
         taskName={title}
-        color={status_color}
         updateTaskDes={updateTaskDes}
         listId={listId}
         taskId={taskId}
         comments={comments}
         fetchTask={fetchTask}
         listName={listName}
+        setTaskLabel={setTaskLabel}
+        taskLabel={currentLabelGroup}
+        updateTaskLabel={updateTaskLabel}
       />
     </>
   );

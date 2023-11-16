@@ -24,7 +24,8 @@ const CardDropMenu = ({ deleteCard, openCard }) => {
       <DeleteDialog
         isOpen={isOpen}
         closeModal={closeModal}
-        deleteTask={deleteCard}
+        deleteItem={deleteCard}
+        title="card"
       />
       <Menu>
         <Menu.Button>
@@ -40,7 +41,7 @@ const CardDropMenu = ({ deleteCard, openCard }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="flex flex-col gap-2 top-8 right-4 bg-zinc-200 font-semibold rounded-md absolute p-2 text-black">
+          <Menu.Items className="flex flex-col gap-2 top-8 right-4 bg-zinc-200 font-semibold rounded-md absolute p-2 text-black z-20">
             <Menu.Item>
               {({ active }) => (
                 <div

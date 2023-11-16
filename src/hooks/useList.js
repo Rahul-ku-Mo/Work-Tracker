@@ -20,7 +20,7 @@ const useList = () => {
       if (currentList != "") {
         await addDoc(collection(db, "Lists"), {
           listName: currentList,
-          timeStamp: Timestamp.fromDate(new Date(Date.now()))
+          timeStamp: Timestamp.fromDate(new Date(Date.now())),
         });
         setCurrentList("");
       }
@@ -43,11 +43,11 @@ const useList = () => {
     setLists(listArray);
   };
 
-  const deleteList = async (lid) => {
+  const deleteList = async (listId) => {
     try {
-      await deleteDoc(doc(db, "Lists", lid));
+       await deleteDoc(doc(db, "Lists", listId));
 
-      getLists();
+       getLists();
     } catch (err) {
       console.error(err);
     }

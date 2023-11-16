@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CardDialog from "../Dialog/CardDialog";
 import User from "../shared/User";
 import Button from "../shared/Button/Button";
@@ -23,12 +23,14 @@ import {
   faMobile,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import LabelPopover from "../Popover/LabelPopover";
+import CardDialogLabel from "../Label/CardDialogLabel";
 
 const DialogCardView = ({
   setDes,
   fetchTask,
   taskName,
-  color,
+
   listId,
   taskId,
   updateTaskDes,
@@ -37,6 +39,9 @@ const DialogCardView = ({
   listName,
   isOpen,
   closeModal,
+  taskLabel,
+  setTaskLabel,
+  updateTaskLabel,
 }) => {
   const { handleSubmit, comment, setComment } = useCardView(
     listId,
@@ -45,6 +50,16 @@ const DialogCardView = ({
   );
 
   const [showTextArea, setShowTextArea] = useState(false);
+  const textAreaRef = useRef(null);
+
+  const focusTextAreaRef = () => {
+    if (textAreaRef.current) {
+      textAreaRef.current.focus();
+    }
+  };
+  useEffect(() => {
+    focusTextAreaRef();
+  }, [showTextArea]);
 
   return (
     <CardDialog closeModal={closeModal} isOpen={isOpen}>
@@ -56,21 +71,9 @@ const DialogCardView = ({
             in the list{" "}
             <span className="underline hover:text-slate-300">{listName}</span>{" "}
           </div>
-          <div className="flex flex-col">
-            <div className="ml-9 mt-4 text-xs font-bold tracking-wide">
-              Labels
-            </div>
-            <div className="flex gap-1 ml-9 w-full font-semibold text-sm leading-8">
-              <div className="text-center h-8 min-w-12 rounded-md px-3  bg-blue-800 flex-1 text-white">
-                IT
-              </div>
-              <div className="text-center h-8 min-w-12 rounded-md px-3  bg-emerald-500 flex-1 text-white">
-                Product
-              </div>
-              <div className="text-center h-8 min-w-12 rounded-md px-3  bg-orange-600 flex-1 text-white">
-                Marketing
-              </div>
-            </div>
+          <div className="flex flex-col pl-9 pt-4">
+            <div className="text-xs font-bold tracking-wide">Labels</div>
+            <CardDialogLabel labelGroup={taskLabel} />
           </div>
         </div>
         <div className="cursor-pointer" onClick={closeModal}>
@@ -81,18 +84,20 @@ const DialogCardView = ({
         </div>
       </div>
 
-      <div className="float-left m-0 relative w-[447px]">
+      <div className="float-left m-0 relative max-w-md w-full">
         <div className="text-base mb-10">
           <FontAwesomeIcon className="px-2 text-sm" icon={faBars} />{" "}
           <span className="font-semibold">Description</span>
           {showTextArea ? (
             <>
               <textarea
-                className="ml-8 my-2 px-3 py-2 font-semibold  bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
+                ref={textAreaRef}
+                onBlur={() => setShowTextArea(false)}
+                className="ml-8 my-2 px-3 py-2 font-semibold w-full  bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
                 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
               disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
               invalid:border-pink-500 invalid:text-pink-600
-              focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+              focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
                 type="text"
                 value={taskDescription}
                 placeholder="Add a more detailed desciption..."
@@ -103,21 +108,22 @@ const DialogCardView = ({
                 onClick={() => {
                   updateTaskDes(listId, taskId);
                   // update(!stateUpdate);
+                  setShowTextArea(false);
                 }}
               >
                 Save
               </button>
             </>
           ) : (
-            <div
-              className="ml-8 text-sm mt-2"
+            <p
+              className="pl-8 text-sm break-words  w-full"
               onClick={() => {
                 setShowTextArea(true);
               }}
             >
               {taskDescription ||
-                `Our brand & product have evolved over the past two years, and our website should be updated to reflect this. The new site will be mobile-first, responsive and lightweight.`}
-            </div>
+                ` Click on here to add some description to your task`}
+            </p>
           )}
         </div>
         <div className="text-base mb-10 flex flex-col">
@@ -142,13 +148,11 @@ const DialogCardView = ({
               <Button btnInput={"Show Details"} />
             </div>
           </div>
-          <form className="flex items-center" onSubmit={handleSubmit}>
-            <div className="ml-1">
-              {" "}
-              <User />
-            </div>
+          <form className="flex items-center gap-1" onSubmit={handleSubmit}>
+            <User />
+
             <input
-              className="ml-2 flex-1 pl-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
+              className=" flex-1 pl-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
               focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
               disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
               invalid:border-pink-500 invalid:text-pink-600
@@ -160,23 +164,26 @@ const DialogCardView = ({
             />
             <button
               type="submit"
-              className="py-2 px-4 text-sm font-semibold bg-emerald-500  rounded-md text-white  hover:bg-emerald-700  mx-2"
+              className="py-2 px-4 text-sm font-semibold bg-emerald-500  rounded-md text-white  hover:bg-emerald-700 "
             >
               Add
             </button>
           </form>
           {/****add time stamp and array of strings */}
-          <div className="h-[60vh] overflow-auto flex flex-col gap-2">
+          <div className="h-[40vh] overflow-auto flex flex-col gap-2">
             {comments
               ?.sort((a, b) => b.timeStamp.seconds - a.timeStamp.seconds)
               .map((c, i) => {
                 return (
                   <div
-                    className="ml-10 p-2 bg-zinc-200 text-sm leading-5 rounded-md"
+                    className="md:ml-10 m-0 md:p-2 p-1 bg-zinc-200 text-sm leading-5 rounded-md"
                     key={`c.timeStamp${i}`}
                   >
                     <div className="text-xs font-black flex justify-between">
-                      Rahul KM <span>{formatDate(c.timeStamp)}</span>
+                      Rahul KM{" "}
+                      <span className="font-light text-slate-800">
+                        {formatDate(c.timeStamp)}
+                      </span>
                     </div>
                     <p>{c.comment}</p>
                   </div>
@@ -190,9 +197,13 @@ const DialogCardView = ({
         <div className="my-2 hover:text-black">
           <Button btnInput={"Members"} icon={faUser} />
         </div>
-        <div className="my-2 hover:text-black">
+        {/* <div className="my-2 hover:text-black">
           <Button btnInput={"Label"} icon={faTag} />
-        </div>
+        </div> */}
+        <LabelPopover
+          setTaskLabel={setTaskLabel}
+          updateTaskLabel={updateTaskLabel}
+        />
         <div className="my-2 hover:text-black">
           <Button btnInput={"CheckList"} icon={faCheckToSlot} />
         </div>

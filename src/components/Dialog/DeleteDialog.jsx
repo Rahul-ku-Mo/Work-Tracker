@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-const DeleteDialog = ({ closeModal, isOpen , deleteTask , cardName}) => {
+const DeleteDialog = ({ closeModal, isOpen, deleteItem, title }) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -34,11 +34,11 @@ const DeleteDialog = ({ closeModal, isOpen , deleteTask , cardName}) => {
                     as="h3"
                     className="text-lg font-semibold leading-6 text-gray-900"
                   >
-                    Delete Card
+                    Delete <span className="capitalize">{title}</span>
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-800">
-                      Are you sure you want to delete this card ?
+                      Are you sure you want to delete this {title} ?
                     </p>
                   </div>
 
@@ -46,7 +46,7 @@ const DeleteDialog = ({ closeModal, isOpen , deleteTask , cardName}) => {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-6 py-2 text-sm  font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                      onClick={deleteTask}
+                      onClick={deleteItem}
                     >
                       Yes
                     </button>

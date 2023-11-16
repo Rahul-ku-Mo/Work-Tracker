@@ -3,13 +3,11 @@ import { useState, useEffect } from "react";
 import { db } from "../Firebase";
 import { Timestamp, addDoc, collection, getDocs } from "firebase/firestore";
 
-import { randomColorGenerator } from "../constant";
-
 const useTask = (listId) => {
   const [taskList, setTaskList] = useState([]);
   const [currentTask, setCurrentTask] = useState("");
   const [currentDescription, _setCurrentDescription] = useState("");
-  const [color, setColor] = useState(randomColorGenerator());
+  const [currentLabelGroup, setCurrentLabelGroup] = useState([]);
 
   const getTask = async (currentListId) => {
     const querySnapshot = await getDocs(
@@ -31,9 +29,10 @@ const useTask = (listId) => {
         addDoc(collection(db, "Lists", currentListId, "Tasks"), {
           taskName: currentTask,
           taskDescription: currentDescription,
-          taskBg: color,
+
           taskComments: [],
-          timeStamp: Timestamp.fromDate(new Date(Date.now()))
+          taskLabel: [],
+          timeStamp: Timestamp.fromDate(new Date(Date.now())),
         });
 
         setCurrentTask(""); //empty the current task field
@@ -49,20 +48,16 @@ const useTask = (listId) => {
     getTask(listId);
   }, []);
 
-  useEffect(() => {
-    setColor(randomColorGenerator());
-  }, []);
-
   return {
     taskList,
     setTaskList,
     currentTask,
     setCurrentTask,
     currentDescription,
-    color,
-    setColor,
     getTask,
     addTask,
+    currentLabelGroup,
+    setCurrentLabelGroup,
   };
 };
 

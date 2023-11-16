@@ -19,3 +19,9 @@ export const formatDate = (timestamp) => {
         .toUpperCase()
     );
   };
+
+  export const DEFAULT_LABEL = {
+    label: "None",
+    color: "bg-slate-500",
+    hoverColor: 'bg-slate-700'
+  };

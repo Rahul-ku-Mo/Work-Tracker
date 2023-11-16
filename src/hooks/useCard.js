@@ -5,14 +5,13 @@ import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 const useCard = (
   listId,
   taskId,
-  status_color,
   description,
   fetchTask,
   title
 ) => {
   const [taskName, setTaskName] = useState(title);
-  const [color, setColor] = useState(status_color);
   const [taskDescription, setTaskDescription] = useState(description);
+  const [taskLabel, setTaskLabel] = useState([]);
 
   const cardRef = useRef();
 
@@ -36,11 +35,11 @@ const useCard = (
     fetchTask(listId);
   };
 
-  const updateTaskColors = async () => {
+  const updateTaskLabel = async (taskLabels) => {
     const docRef = doc(db, "Lists", listId, "Tasks", taskId);
 
     await updateDoc(docRef, {
-      taskBg: color,
+      taskLabel: taskLabels,
     });
 
     fetchTask(listId);
@@ -80,17 +79,17 @@ const useCard = (
   }, []);
 
   return {
-    color,
-    setColor,
     cardRef,
     updateTaskDes,
     taskDescription,
     setTaskDescription,
     deleteTask,
-    updateTaskColors,
     updateTaskName,
     taskName,
     setTaskName,
+    updateTaskLabel,
+    taskLabel,
+    setTaskLabel,
   };
 };
 
