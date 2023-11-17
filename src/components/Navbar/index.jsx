@@ -14,7 +14,12 @@ const Navbar = () => {
     <div className="flex text-lg justify-between font-semibold text-white items-center mt-2 bg-transparent">
       <div className="flex justify-between flex-1">
         <div className="flex items-center">
-          <div className="ml-2 px-2">Work Tracker</div>
+          <div className="ml-2 px-2">
+            {" "}
+            <h1 className="font-bold text-xl relative text-white tracking-tighter">
+              Work<span className="text-emerald-500">Tracker</span>
+            </h1>
+          </div>
           <div className="px-2 border-x-2 hidden md:block">
             <NavbarButton icon={faLock} btnInput={"Private"} />
           </div>

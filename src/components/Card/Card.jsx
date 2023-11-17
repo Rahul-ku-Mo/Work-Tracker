@@ -71,7 +71,7 @@ const Card = ({
   return (
     <>
       <div
-        className="bg-white transition m-2 rounded-md p-2 flex flex-col gap-1"
+        className="bg-white transition m-2 rounded-md p-2 flex flex-col gap-1 card"
         ref={cardRef}
       >
         <div className="flex justify-between items-center relative">

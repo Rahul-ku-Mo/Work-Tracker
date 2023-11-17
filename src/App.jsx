@@ -1,14 +1,13 @@
-import React from "react";
-import Board from "./components/Board";
-import Navbar from "./components/Navbar"
+import { BrowserRouter, RouterProvider } from "react-router-dom";
+import Router from "./routes";
 
 const App = () => {
   return (
-    <div>
-      <div className="background"></div>
-      <Navbar/>
-      <Board />
-    </div>
+    <>
+      <BrowserRouter>
+        <Router/>
+      </BrowserRouter>
+    </>
   );
 };
 

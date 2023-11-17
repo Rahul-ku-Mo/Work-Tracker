@@ -26,7 +26,6 @@
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-radius: 8px;
-  background-color: transparent;
   overflow: scroll;
   min-width: 272px;
   max-width: 300px;

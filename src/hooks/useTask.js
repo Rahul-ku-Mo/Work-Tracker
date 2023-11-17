@@ -26,18 +26,31 @@ const useTask = (listId) => {
   const addTask = async (currentListId) => {
     try {
       if (currentTask !== "") {
-        addDoc(collection(db, "Lists", currentListId, "Tasks"), {
+        const docRef = addDoc(collection(db, "Lists", currentListId, "Tasks"), {
           taskName: currentTask,
           taskDescription: currentDescription,
-
           taskComments: [],
           taskLabel: [],
           timeStamp: Timestamp.fromDate(new Date(Date.now())),
         });
 
+        //client-side
+        setTaskList((oldTaskList) => [
+          ...oldTaskList,
+          {
+            taskName: currentTask,
+            taskDescription: currentDescription,
+            taskComments: [],
+            taskLabel: [],
+            taskId: docRef.id,
+            timeStamp: Timestamp.fromDate(new Date(Date.now())),
+          },
+        ]);
+
         setCurrentTask(""); //empty the current task field
       }
 
+      //server-fetch
       getTask(currentListId);
     } catch (err) {
       console.log(err);

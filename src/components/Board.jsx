@@ -17,7 +17,7 @@ const Board = () => {
 
   return (
     <>
-      <div className={styles.board + ` no-scrollbar`}>
+      <main className={styles.board + ` no-scrollbar`}>
         {lists
           ?.sort((a, b) => a.timeStamp.seconds - b.timeStamp.seconds)
           .map((eachList, i) => {
@@ -59,7 +59,7 @@ const Board = () => {
                     addLists();
                     setShowListInput(false);
                   }}
-                  className="py-2 px-4 tracking-tight font-semibold text-white bg-emerald-500 hover:bg-emerald-700 flex items-center justify-center cursor-pointer rounded-md text-md"
+                  className="py-2 px-4 tracking-tight font-semibold text-white bg-emerald-500 hover:bg-emerald-700 flex items-center justify-center cursor-pointer rounded-md text-md transition-all"
                 >
                   Add a List
                 </button>
@@ -86,7 +86,7 @@ const Board = () => {
             </div>
           )}
         </div>
-      </div>
+      </main>
     </>
   );
 };

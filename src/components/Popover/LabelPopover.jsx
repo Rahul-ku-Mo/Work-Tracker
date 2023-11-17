@@ -2,7 +2,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import Button from "../shared/Button/Button";
-
+import { Check } from "lucide-react";
 const popoverItems = [
   {
     hoverColor: "bg-emerald-700",
@@ -86,7 +86,9 @@ const LabelPopover = ({ setTaskLabel, updateTaskLabel }) => {
                         (selectedItem) => selectedItem.label === item.label
                       ) && (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="h-full w-full bg-black/50 rounded-md" />
+                          <div className="h-full w-full bg-black/50 rounded-md flex items-end justify-end">
+                            <Check className="h-4 w-4 text-white" />
+                          </div>
                         </div>
                       )}
                     </div>
@@ -98,7 +100,7 @@ const LabelPopover = ({ setTaskLabel, updateTaskLabel }) => {
                   onClick={() => {
                     setTaskLabel(selectedItems);
                     updateTaskLabel(selectedItems);
-                    close()
+                    close();
                   }}
                   className="flex items-center bg-emerald-500 hover:bg-emerald-700 w-full justify-center rounded-md py-2"
                 >

@@ -1,15 +1,8 @@
 .card {
-  background: #fff;
-  margin: 0px 6px 4px 6px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 4px;
-  justify-content: space-between;
-  border: 1px solid rgb(176, 176, 176);
   transition: all 200ms ease-in-out;
   animation: 300ms ease-out 0s 1 fadeIn;
-  position: relative;
 }
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -67,7 +60,9 @@ textarea {
 
 input {
   height: 40px !important;
-  transition: all 250ms ease-in-out;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 textarea:hover {

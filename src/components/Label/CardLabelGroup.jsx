@@ -13,8 +13,6 @@ const CardLabelGroup = ({
       ? "text-white rounded-md text-xs text-center text-ellipsis max-w-12 min-w-8 px-2 h-5 transition-all"
       : "rounded-lg h-3 py-1 px-2 text-xs min-w-[40px] max-w-[40px] transition-all inline-block ";
 
-  console.log(labelGroup);
-
   return (
     <div className="flex gap-1 flex-1 flex-wrap">
       {labelGroup?.length > 0 ? (
@@ -24,7 +22,12 @@ const CardLabelGroup = ({
             className={clsx(item.color, activeClassDiv)}
             onClick={() => setActiveLabelGroups((prev) => !prev)}
           >
-            <span className="font-bold">
+            <span
+              className={clsx(
+                "font-bold",
+                activeLabelGroups ? "opacity-100" : "opacity-0"
+              )}
+            >
               {activeLabelGroups ? item.label : ""}
             </span>
           </div>
@@ -34,7 +37,12 @@ const CardLabelGroup = ({
           className={clsx(DEFAULT_LABEL.color, activeClassDiv)}
           onClick={() => setActiveLabelGroups((prev) => !prev)}
         >
-          <span className="font-bold">
+          <span
+            className={clsx(
+              "font-bold",
+              activeLabelGroups ? "opacity-100" : "opacity-0"
+            )}
+          >
             {activeLabelGroups ? DEFAULT_LABEL.label : ""}
           </span>
         </div>

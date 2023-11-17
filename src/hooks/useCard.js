@@ -55,28 +55,28 @@ const useCard = (
     }
   };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Apply the fade-in animation with a random duration between 0.5s and 2s
-          const animationDuration = Math.random() * 1.5 + 0.5;
-          entry.target.style.animation = `${animationDuration}s fadeIn`;
-        }
-      });
-    });
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver((entries) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         // Apply the fade-in animation with a random duration between 0.5s and 2s
+  //         const animationDuration = Math.random() * 1.5 + 0.5;
+  //         entry.target.style.animation = `${animationDuration}s fadeIn`;
+  //       }
+  //     });
+  //   });
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
+  //   if (cardRef.current) {
+  //     observer.observe(cardRef.current);
+  //   }
 
-    // Clean up the observer when the component unmounts
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
+  //   // Clean up the observer when the component unmounts
+  //   return () => {
+  //     if (cardRef.current) {
+  //       observer.unobserve(cardRef.current);
+  //     }
+  //   };
+  // }, []);
 
   return {
     cardRef,
