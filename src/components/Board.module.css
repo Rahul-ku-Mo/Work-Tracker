@@ -1,18 +1,12 @@
 .board {
   margin: 12px;
-  height: 90vh;
+  height: 90svh; /* Subtract double the margin from the total height */
   display: flex;
   align-items: baseline;
   gap: 12px;
   overflow-x: auto;
 }
 
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-  .board {
-    -webkit-backdrop-filter: blur(1.5px);
-    backdrop-filter: blur(1.5px);
-  }
-}
 .board_sec {
   display: flex;
 
