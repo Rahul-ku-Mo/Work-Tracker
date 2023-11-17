@@ -34,7 +34,7 @@ const LandingPage = () => {
           to={"/dashboard"}
           className="px-12 py-2 hover:bg-emerald-500 bg-emerald-700 hover:text-black rounded-md text-sm font-semibold text-white mt-4 transition-all"
         >
-          Try for free
+          Try for WorkTracker free
         </Link>
       </main>
       <footer className="bg-slate-100 shadow-lg py-3 px-4 flex justify-between items-center fixed bottom-0 w-full border-t-slate-200 border-t-2">
