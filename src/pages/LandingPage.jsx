@@ -19,7 +19,7 @@ const LandingPage = () => {
           </Link>
         </nav>
       </header>
-      <main className="flex flex-col pt-60 pb-20 items-center justify-center bg-slate-100">
+      <main className="flex flex-col md:pt-60 pt-40 pb-20 items-center justify-center bg-slate-100">
         <h1 className="text-3xl md:text-6xl text-center text-neutral-800 mb-6 font-bold tracking-tighter">
           Track your work seamlessly
         </h1>
@@ -27,8 +27,8 @@ const LandingPage = () => {
           work forward.
         </div>
         <div className="text-sm md:text-xl text-neutral-400 mt-4 max-w-xs md:max-w-2xl text-center mx-auto __className_6d1a03">
-          Priotize your project. Collaborate and Manage seamlessly, reaching new
-          heights of productivity. Save your with time with <span className="font-bold text-emerald-600 text-2xl tracking-tight">WorkTracker</span>.
+          Priortize your time. Collaborate and Manage seamlessly, reaching new
+          heights of productivity. Save your work with WorkTracker.
         </div>
         <Link
           to={"/dashboard"}
