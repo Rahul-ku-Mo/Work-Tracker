@@ -13,7 +13,7 @@ const LandingPage = () => {
           </h1>
           <Link
             to={"/dashboard"}
-            className="px-4 py-2 hover:bg-emerald-500 bg-emerald-700 rounded-md text-sm font-semibold hover:text-black text-white"
+            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-700 rounded-md text-sm font-semibold hover:text-white text-black"
           >
             Try for free
           </Link>
@@ -32,7 +32,7 @@ const LandingPage = () => {
         </div>
         <Link
           to={"/dashboard"}
-          className="px-12 py-2 hover:bg-emerald-500 bg-emerald-700 hover:text-black rounded-md text-sm font-semibold text-white mt-4 transition-all"
+          className="px-12 py-2 bg-emerald-500 hover:bg-emerald-700 hover:text-white rounded-md text-sm font-semibold hover:text-white mt-4 transition-all"
         >
           Try for WorkTracker free
         </Link>
