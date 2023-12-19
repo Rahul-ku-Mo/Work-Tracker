@@ -40,7 +40,7 @@ const ListView = ({ listId, listName, deleteList, setActive, active }) => {
         deleteItem={deleteCurrentList}
       />
       <div
-        className={`flex justify-between items-center font-bold ${styles.p} text-sm py-3 pr-3 pl-4`}
+        className={`flex justify-between items-center font-bold ${styles.p} text-sm pt-3 pr-3 pl-4`}
       >
         {listName}
         <FontAwesomeIcon

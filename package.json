@@ -16,6 +16,7 @@
     "@headlessui/react": "^1.7.17",
     "clsx": "^2.0.0",
     "firebase": "^9.17.2",
+    "js-cookie": "^3.0.5",
     "localforage": "^1.10.0",
     "lucide-react": "^0.292.0",
     "match-sorter": "^6.3.1",
@@ -23,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.19.0",
     "react-transition-group": "^4.4.5",
+    "sonner": "^1.2.4",
     "sort-by": "^1.2.0"
   },
   "devDependencies": {

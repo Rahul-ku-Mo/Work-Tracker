@@ -12,3 +12,4 @@ const Loadable = (Component) => (props) =>
 
 export const LandingPage = Loadable(lazy(() => import('../pages/LandingPage.jsx')))
 export const DashboardPage = Loadable(lazy(() => import('../pages/Dashboard.jsx')))
+export const AuthPage = Loadable(lazy(() => import('../pages/AuthPage.jsx')))

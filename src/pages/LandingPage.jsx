@@ -1,9 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React, { useEffect } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 import github from "../assets/github.svg";
+import Cookies from "js-cookie";
 
 const LandingPage = () => {
+  const token = Cookies.get("accessToken");
+
   return (
     <div className="bg-slate-100 h-screen transition-all">
       <header>
@@ -12,10 +15,10 @@ const LandingPage = () => {
             Work<span className="text-emerald-500">Tracker</span>
           </h1>
           <Link
-            to={"/dashboard"}
+            to={token === undefined ? '/auth' : '/dashboard'}
             className="px-4 py-2 bg-emerald-500 hover:bg-emerald-700 rounded-md text-sm font-semibold hover:text-white text-black"
           >
-            Try for free
+           {token === undefined ? 'Try for free' : 'Continue'}
           </Link>
         </nav>
       </header>
@@ -26,15 +29,17 @@ const LandingPage = () => {
         <div className="text-3xl md:text-5xl bg-gradient-to-r from-emerald-600 to-green-600 text-white px-4 p-2 rounded-md pb-4 w-fit font-semibold">
           work forward.
         </div>
-        <div className="text-sm md:text-xl text-neutral-400 mt-4 max-w-xs md:max-w-2xl text-center mx-auto __className_6d1a03">
+        <div className="text-sm md:text-xl text-neutral-600 mt-4 max-w-xs md:max-w-2xl text-center mx-auto __className_6d1a03">
           Priortize your time. Collaborate and Manage seamlessly, reaching new
           heights of productivity. Save your work with WorkTracker.
         </div>
         <Link
-          to={"/dashboard"}
+          to={token === undefined ? '/auth' : '/dashboard'}
           className="px-12 py-2 bg-emerald-500 hover:bg-emerald-700 text-black rounded-md text-sm font-semibold hover:text-white mt-4 transition-all"
         >
-          Try for WorkTracker free
+          {token === undefined
+            ? "Try WorkTracker for free"
+            : "Continue with WorkTracker"}
         </Link>
       </main>
       <footer className="bg-slate-100 shadow-lg py-3 px-4 flex justify-between items-center fixed bottom-0 w-full border-t-slate-200 border-t-2">
