@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const Auth = () => {
   const [signupStatus, setSignupStatus] = useState(false);
-  
+
   const {
     values,
     handleChange,
@@ -29,55 +29,57 @@ const Auth = () => {
         </nav>
       </header>
       <main className="p-10 flex flex-col gap-4 bg-zinc-100 rounded-lg mx-auto mt-24 max-w-sm shadow-md">
-       <form className='flex flex-col gap-3'>
-       {signupStatus && (
-          <label className="text-sm ">
-            Name
+        <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
+          {signupStatus && (
+            <label className="text-sm ">
+              Name
+              <Input
+                value={name}
+                type="text"
+                placeholder="eg. Rahul KM.."
+                onHandleChange={handleNameChange}
+              />
+            </label>
+          )}
+          <label className="text-sm">
+            Email
             <Input
-              value={name}
+              value={values.email}
               type="text"
-              placeholder="eg. Rahul KM.."
-              onHandleChange={handleNameChange}
+              placeholder="test@gmail.com"
+              onHandleChange={handleChange("email")}
             />
           </label>
-        )}
-        <label className="text-sm">
-          Email
-          <Input
-            value={values.email}
-            type="text"
-            placeholder="test@gmail.com"
-            onHandleChange={handleChange("email")}
-          />
-        </label>
 
-        <label className="text-sm ">
-          Password
-          <Input
-            type="password"
-            placeholder={'test123'}
-            isPassword={true}
-            value={values.password}
-            onHandleChange={handleChange("password")}
-          />
-        </label>
+          <label className="text-sm ">
+            Password
+            <Input
+              type="password"
+              placeholder={"test123"}
+              isPassword={true}
+              value={values.password}
+              onHandleChange={handleChange("password")}
+            />
+          </label>
 
-        {signupStatus ? (
-          <div
-            onClick={() => signupUser()}
-            className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:bg-emerald-800 hover:text-white text-black w-full bg-emerald-400/95 p-2 font-semibold shadow-lg"
-          >
-            Join now
-          </div>
-        ) : (
-          <div
-            onClick={() => signinUser()}
-            className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:bg-emerald-800 hover:text-white text-black w-full bg-emerald-400/95 p-2 font-semibold shadow-lg"
-          >
-            Log in
-          </div>
-        )}
-       </form>
+          {signupStatus ? (
+            <button
+              type="submit"
+              onClick={() => signupUser()}
+              className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:bg-emerald-800 hover:text-white text-black w-full bg-emerald-400/95 p-2 font-semibold shadow-lg"
+            >
+              Join now
+            </button>
+          ) : (
+            <button
+              type="submit"
+              onClick={() => signinUser()}
+              className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:bg-emerald-800 hover:text-white text-black w-full bg-emerald-400/95 p-2 font-semibold shadow-lg"
+            >
+              Log in
+            </button>
+          )}
+        </form>
 
         <div className="flex gap-4 items-center">
           <div className="w-full border-t-2 border-black" />

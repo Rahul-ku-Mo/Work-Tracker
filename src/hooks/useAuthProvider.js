@@ -9,9 +9,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { toast } from "sonner";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const useAuthProvider = () => {
+  const navigate = useNavigate();
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
 
@@ -25,7 +26,7 @@ const useAuthProvider = () => {
         const user = result.user;
 
         toast.success("🎉 Goggle Sign In Successful 🎉");
-        redirect("/dashboard");
+        navigate("/dashboard");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -54,7 +55,7 @@ const useAuthProvider = () => {
         // ...
 
         toast.success("🎉 Github Sign In Successful 🎉");
-        redirect("/dashboard");
+        navigate("/dashboard");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -87,6 +88,7 @@ const useAuthProvider = () => {
       await createUserWithEmailAndPassword(auth, values.email, values.password)
         .then(() => {
           toast.success("🎉 Success! User Created Successfully 🎉");
+          navigate("/dashboard");
         })
         .catch((error) => {
           toast.error(error.message);
@@ -112,9 +114,10 @@ const useAuthProvider = () => {
         .then((userCredential) => {
           // Signed in
           toast.success("🎉 Success! Signed In Successfully 🎉");
-          // ...
-
-          redirect("/dashboard");
+          // ...Clear fields
+          setValues({ email: "", password: "" });
+          //...Navigate on success
+          navigate("/dashboard");
         })
         .catch((error) => {
           toast.error(error.message);
