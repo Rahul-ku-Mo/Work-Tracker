@@ -13,6 +13,7 @@ const Input = ({ value, type, onHandleChange, placeholder, isPassword }) => {
       {isPassword ? (
         <input
           placeholder={placeholder}
+          autoComplete="true"
           className={clsx(
             "flex w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none",
             "focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500",

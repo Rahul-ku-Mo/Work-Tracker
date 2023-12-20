@@ -7,6 +7,7 @@ import {
   GithubAuthProvider,
   signInWithPopup,
   updateProfile,
+  
 } from "firebase/auth";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +27,7 @@ const useAuthProvider = () => {
         const user = result.user;
 
         toast.success("🎉 Goggle Sign In Successful 🎉");
+
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -55,6 +57,7 @@ const useAuthProvider = () => {
         // ...
 
         toast.success("🎉 Github Sign In Successful 🎉");
+        
         navigate("/dashboard");
       })
       .catch((error) => {
