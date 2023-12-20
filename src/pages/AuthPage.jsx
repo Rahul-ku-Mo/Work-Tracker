@@ -29,7 +29,8 @@ const Auth = () => {
         </nav>
       </header>
       <main className="p-10 flex flex-col gap-4 bg-zinc-100 rounded-lg mx-auto mt-24 max-w-sm shadow-md">
-        {signupStatus && (
+       <form className='flex flex-col gap-3'>
+       {signupStatus && (
           <label className="text-sm ">
             Name
             <Input
@@ -76,6 +77,7 @@ const Auth = () => {
             Log in
           </div>
         )}
+       </form>
 
         <div className="flex gap-4 items-center">
           <div className="w-full border-t-2 border-black" />

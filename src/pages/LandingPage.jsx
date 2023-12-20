@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext";
+import React from "react";
+import { Link } from "react-router-dom";
+
 import github from "../assets/github.svg";
 import Cookies from "js-cookie";
 
@@ -15,10 +15,10 @@ const LandingPage = () => {
             Work<span className="text-emerald-500">Tracker</span>
           </h1>
           <Link
-            to={token === undefined ? '/auth' : '/dashboard'}
+            to={token === undefined ? "/auth" : "/dashboard"}
             className="px-4 py-2 bg-emerald-500 hover:bg-emerald-700 rounded-md text-sm font-semibold hover:text-white text-black"
           >
-           {token === undefined ? 'Try for free' : 'Continue'}
+            {token === undefined ? "Try for free" : "Continue"}
           </Link>
         </nav>
       </header>
@@ -34,7 +34,7 @@ const LandingPage = () => {
           heights of productivity. Save your work with WorkTracker.
         </div>
         <Link
-          to={token === undefined ? '/auth' : '/dashboard'}
+          to={token === undefined ? "/auth" : "/dashboard"}
           className="px-12 py-2 bg-emerald-500 hover:bg-emerald-700 text-black rounded-md text-sm font-semibold hover:text-white mt-4 transition-all"
         >
           {token === undefined
