@@ -16,26 +16,26 @@ const LandingPage = () => {
           </h1>
           <Link
             to={token === undefined ? "/auth" : "/dashboard"}
-            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-700 rounded-md text-sm font-semibold hover:text-white text-black"
+            className="px-4 py-2 hover:bg-emerald-600 bg-emerald-700 rounded-md text-sm font-semibold text-white"
           >
             {token === undefined ? "Try for free" : "Continue"}
           </Link>
         </nav>
       </header>
-      <main className="flex flex-col md:pt-60 pt-40 pb-20 items-center justify-center bg-slate-100">
+      <main className="flex flex-col pt-60 pb-20 items-center justify-center bg-slate-100">
         <h1 className="text-3xl md:text-6xl text-center text-neutral-800 mb-6 font-bold tracking-tighter">
           Track your work seamlessly
         </h1>
         <div className="text-3xl md:text-5xl bg-gradient-to-r from-emerald-600 to-green-600 text-white px-4 p-2 rounded-md pb-4 w-fit font-semibold">
           work forward.
         </div>
-        <div className="text-sm md:text-xl text-neutral-600 mt-4 max-w-xs md:max-w-2xl text-center mx-auto __className_6d1a03">
+        <div className="text-sm md:text-xl text-neutral-500 mt-4 max-w-xs md:max-w-2xl text-center mx-auto __className_6d1a03">
           Priortize your time. Collaborate and Manage seamlessly, reaching new
           heights of productivity. Save your work with WorkTracker.
         </div>
         <Link
           to={token === undefined ? "/auth" : "/dashboard"}
-          className="px-12 py-2 bg-emerald-500 hover:bg-emerald-700 text-black rounded-md text-sm font-semibold hover:text-white mt-4 transition-all"
+          className="px-12 py-2 hover:bg-emerald-600 bg-emerald-700 rounded-md text-sm font-semibold text-white mt-4 transition-all"
         >
           {token === undefined
             ? "Try WorkTracker for free"
