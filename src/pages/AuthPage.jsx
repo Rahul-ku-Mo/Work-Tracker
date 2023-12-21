@@ -28,7 +28,7 @@ const Auth = () => {
           </h1>
         </nav>
       </header>
-      <main className="p-10 flex flex-col gap-4 bg-zinc-100 rounded-lg mx-auto mt-24 max-w-sm shadow-md">
+      <main className="p-10 flex flex-col gap-4 bg-zinc-100 rounded-lg mx-auto translate-y-1/2 max-w-sm shadow-md">
         <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
           {signupStatus && (
             <label className="text-sm ">
