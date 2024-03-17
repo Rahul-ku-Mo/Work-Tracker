@@ -7,7 +7,6 @@ import {
   GithubAuthProvider,
   signInWithPopup,
   updateProfile,
-  
 } from "firebase/auth";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +27,7 @@ const useAuthProvider = () => {
 
         toast.success("🎉 Goggle Sign In Successful 🎉");
 
-        navigate("/dashboard");
+        console.log(user);
       })
       .catch((error) => {
         // Handle Errors here.
@@ -57,8 +56,8 @@ const useAuthProvider = () => {
         // ...
 
         toast.success("🎉 Github Sign In Successful 🎉");
-        
-        navigate("/dashboard");
+
+        navigate("/kanban");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -91,7 +90,7 @@ const useAuthProvider = () => {
       await createUserWithEmailAndPassword(auth, values.email, values.password)
         .then(() => {
           toast.success("🎉 Success! User Created Successfully 🎉");
-          navigate("/dashboard");
+          navigate("/kanban");
         })
         .catch((error) => {
           toast.error(error.message);
@@ -120,7 +119,7 @@ const useAuthProvider = () => {
           // ...Clear fields
           setValues({ email: "", password: "" });
           //...Navigate on success
-          navigate("/dashboard");
+          navigate("/kanban");
         })
         .catch((error) => {
           toast.error(error.message);

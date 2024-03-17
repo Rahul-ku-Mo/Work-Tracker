@@ -11,5 +11,8 @@ const Loadable = (Component) => (props) =>
 
 
 export const LandingPage = Loadable(lazy(() => import('../pages/LandingPage.jsx')))
-export const DashboardPage = Loadable(lazy(() => import('../pages/Dashboard.jsx')))
+export const KanbanPage = Loadable(lazy(() => import('../pages/KanbanPage.jsx')))
 export const AuthPage = Loadable(lazy(() => import('../pages/AuthPage.jsx')))
+export const AccountPage = Loadable(lazy(() => import('../pages/AccountPage.jsx')))
+export const BoardPage = Loadable(lazy(() => import('../pages/BoardPage.jsx')));
+export const NotFoundPage = Loadable(lazy(() => import('../pages/NotFoundPage.jsx')));

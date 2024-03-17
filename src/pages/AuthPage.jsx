@@ -1,23 +1,69 @@
-import Input from "../components/shared/Input";
+import { useContext, useState } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
+import useAuthProvider from "../hooks/useAuthProvider";
+
+import { Link } from "react-router-dom";
+
 import Google from "../assets/google.svg";
 import Github from "../assets/github.svg";
-import { Link } from "react-router-dom";
-import useUser from "../hooks/useAuthProvider";
-import { useState } from "react";
+
+import Input from "../components/shared/Input";
+
+import Cookies from "js-cookie";
 
 const Auth = () => {
+  const navigate = useNavigate();
+
   const [signupStatus, setSignupStatus] = useState(false);
+
+  const { setIsLoggedIn, setAccessToken } = useContext(AuthContext);
 
   const {
     values,
     handleChange,
     signinUser,
     signupUser,
-    signinWithGoogle,
     signInWithGithub,
     name,
     handleNameChange,
-  } = useUser();
+  } = useAuthProvider();
+
+  const signinWithGoogle = async () => {
+    const popup = window.open(
+      `${import.meta.env}/oauth2/google`,
+      "Google Sign in",
+      "popup=true"
+    );
+
+    const messageEventListener = (event) => {
+      if (event.origin !== "http://localhost:8000") {
+        // Not the expected origin: reject the message!
+        return;
+      }
+      // Expected origin. Handle the message.
+      if (event.data.status === "login-success") {
+        if (popup && !popup.closed) {
+          popup.close();
+        }
+
+        setIsLoggedIn("accessToken", event.data.accessToken); // set the access token in the cookie
+
+        setAccessToken(event.data.accessToken);
+
+        Cookies.set("accessToken", event.data.accessToken); //update the state
+
+        navigate("/kanban");
+      }
+    };
+
+    window.addEventListener("message", messageEventListener, false);
+
+    return () => {
+      window.removeEventListener("message", messageEventListener, false);
+    };
+  };
 
   return (
     <>
@@ -29,7 +75,10 @@ const Auth = () => {
         </nav>
       </header>
       <main className="p-10 flex flex-col gap-4 bg-zinc-100 rounded-lg mx-auto translate-y-1/2 max-w-sm shadow-md">
-        <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={(e) => e.preventDefault()}
+        >
           {signupStatus && (
             <label className="text-sm ">
               Name

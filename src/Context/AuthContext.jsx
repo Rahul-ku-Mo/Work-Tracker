@@ -1,29 +1,23 @@
-import { createContext, useEffect, useState } from "react";
-
-import { auth } from "../Firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { createContext, useState } from "react";
+import { useUser } from "../hooks/useQueries";
 import Cookies from "js-cookie";
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Cookies.get("accessToken") === undefined ? false : true
+  );
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(auth?.currentUser);
-      }
-    });
+  const [accessToken, setAccessToken] = useState(Cookies.get("accessToken"));
 
-    if (user) {
-      Cookies.set("accessToken", auth?.currentUser?.accessToken, {
-        expires: 7,
-      });
-    }
-  }, [user, auth?.currentUser?.accessToken]);
+  const { data: user } = useUser(accessToken);
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{ user, isLoggedIn, setIsLoggedIn, accessToken, setAccessToken }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };
 

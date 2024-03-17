@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, useState } from "react";
 import DeleteDialog from "../Dialog/DeleteDialog";
 
-const CardDropMenu = ({ deleteCard, openCard }) => {
+const CardDropMenu = ({ deleteCard, openCard, cardId  }) => {
   
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,6 +26,8 @@ const CardDropMenu = ({ deleteCard, openCard }) => {
         closeModal={closeModal}
         deleteItem={deleteCard}
         title="card"
+        id={cardId}
+
       />
       <Menu>
         <Menu.Button>

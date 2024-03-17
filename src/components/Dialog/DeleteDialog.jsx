@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-const DeleteDialog = ({ closeModal, isOpen, deleteItem, title }) => {
+const DeleteDialog = ({ closeModal, isOpen, deleteItem, title , id }) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -46,7 +46,7 @@ const DeleteDialog = ({ closeModal, isOpen, deleteItem, title }) => {
                     <button
                       type="button"
                       className="inline-flex transition-all justify-center rounded-md border border-transparent bg-red-100 px-6 py-2 text-sm  font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                      onClick={deleteItem}
+                      onClick={() => deleteItem.mutate(id)}
                     >
                       Yes
                     </button>
