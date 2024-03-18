@@ -25,8 +25,7 @@ const Auth = () => {
     handleChange,
     signinUser,
     signupUser,
-    signInWithGithub,
-    name,
+    username,
     handleNameChange,
   } = useAuthProvider();
 
@@ -81,11 +80,11 @@ const Auth = () => {
         >
           {signupStatus && (
             <label className="text-sm ">
-              Name
+              Username
               <Input
-                value={name}
+                value={username}
                 type="text"
-                placeholder="eg. Rahul KM.."
+                placeholder="eg. Rahul@KMxa.."
                 onHandleChange={handleNameChange}
               />
             </label>

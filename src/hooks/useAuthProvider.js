@@ -1,78 +1,16 @@
-import { useCallback, useState } from "react";
-import { auth } from "../Firebase";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  GithubAuthProvider,
-  signInWithPopup,
-  updateProfile,
-} from "firebase/auth";
+import { useContext, useState } from "react";
+
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../Context/AuthContext";
 
 const useAuthProvider = () => {
   const navigate = useNavigate();
-  const googleProvider = new GoogleAuthProvider();
-  const githubProvider = new GithubAuthProvider();
 
-  const signinWithGoogle = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
+  const { accessToken, setAccessToken } = useContext(AuthContext);
 
-        toast.success("🎉 Goggle Sign In Successful 🎉");
-
-        console.log(user);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-
-        toast.error(errorMessage);
-        // ...
-      });
-  };
-
-  const signInWithGithub = () => {
-    signInWithPopup(auth, githubProvider)
-      .then((result) => {
-        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        const credential = GithubAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-
-        toast.success("🎉 Github Sign In Successful 🎉");
-
-        navigate("/kanban");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GithubAuthProvider.credentialFromError(error);
-
-        toast.error(errorCode);
-      });
-  };
-
-  const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
 
   const [values, setValues] = useState({
     email: "",
@@ -83,58 +21,53 @@ const useAuthProvider = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleNameChange = (e) => setName(e.target.value);
+  const signinUser = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/login`,
+        values
+      );
 
-  const signupUser = useCallback(async () => {
-    if (values.email !== "" && values.password !== "" && name !== "") {
-      await createUserWithEmailAndPassword(auth, values.email, values.password)
-        .then(() => {
-          toast.success("🎉 Success! User Created Successfully 🎉");
-          navigate("/kanban");
-        })
-        .catch((error) => {
-          toast.error(error.message);
-        });
+      const token = response.data.data.accessToken;
 
-      if (name !== "") {
-        await updateProfile(auth.currentUser, {
-          displayName: name,
-        })
-          .then(() => {
-            toast.success("🎉 username added Successfully 🎉");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      if (response.status === 200) {
+        setAccessToken(token);
+        toast.success("Login successful 🎉");
+        navigate("/boards");
       }
+    } catch (err) {
+      toast.error(err.message);
     }
-  }, [values.email, values.password, name]);
+  };
 
-  const signinUser = useCallback(() => {
-    if (values.email !== "" && values.password !== "") {
-      signInWithEmailAndPassword(auth, values.email, values.password)
-        .then((userCredential) => {
-          // Signed in
-          toast.success("🎉 Success! Signed In Successfully 🎉");
-          // ...Clear fields
-          setValues({ email: "", password: "" });
-          //...Navigate on success
-          navigate("/kanban");
-        })
-        .catch((error) => {
-          toast.error(error.message);
-        });
+  const signupUser = async () => {
+    const updatedData = { ...values, username };
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/signup`,
+        updatedData
+      );
+
+      const token = response.data.data.accessToken;
+
+      if (response.status === 200) {
+        setAccessToken(token);
+        toast.success("Signed up and logged in successfully 🎉");
+        navigate("/boards");
+      }
+    } catch (err) {
+      toast.error(err.message);
     }
-  }, [values.email, values.password]);
+  };
+
+  const handleNameChange = (e) => setUserName(e.target.value);
 
   return {
     signinUser,
     signupUser,
-    signinWithGoogle,
-    signInWithGithub,
     values,
     handleChange,
-    name,
+    username,
     handleNameChange,
   };
 };
