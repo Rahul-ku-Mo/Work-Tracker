@@ -29,9 +29,7 @@ const useAuthProvider = () => {
         values
       );
 
-      const token = response.data.accessToken;
-
-      
+      const token = response.data.accesstoken;
 
       Cookies.set("accessToken", token, { expires: 7 });
       setAccessToken(token);
@@ -51,14 +49,14 @@ const useAuthProvider = () => {
         updatedData
       );
 
-      console.log(response);
-      const token = response.data.accessToken;
+      console.log(response.data.accesstoken);
+      const token = response.data.accesstoken;
 
       Cookies.set("accessToken", token, { expires: 7 });
 
       setAccessToken(token);
       toast.success("Signed up and logged in successfully 🎉");
-      // navigate("/boards");
+      navigate("/boards");
     } catch (err) {
       toast.error(err.message);
     }
