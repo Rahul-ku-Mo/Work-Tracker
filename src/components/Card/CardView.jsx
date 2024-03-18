@@ -1,13 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import CardDialog from "../Dialog/CardDialog";
-import User from "../shared/User";
 import Button from "../shared/Button/Button";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { formatDate } from "../../constant";
-
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   faBars,
   faBookBookmark,
@@ -23,32 +19,22 @@ import {
   faMobile,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import LabelPopover from "../Popover/LabelPopover";
+import LabelPopover from "../LabelPopover/LabelPopover";
 import CardDialogLabel from "../Label/CardDialogLabel";
 import Cookies from "js-cookie";
 import { fetchCard, updateCard } from "../../apis/CardApis";
 import { toast } from "sonner";
 
 const CardView = ({
-  // setDes,
-  // fetchTask,
-  // taskName,
   cardId,
   columnId,
   columnName,
   title,
   description,
-  // listId,
-  // taskId,
-  // updateTaskDes,
-  // comments,
-  // taskDescription,
-  // listName,
+
   isOpen,
   closeModal,
-  // taskLabel,
-  // setTaskLabel,
-  // updateTaskLabel,
+
   updateCardMutation,
 }) => {
   const [cardDescription, setCardDescription] = useState(description);
@@ -74,7 +60,7 @@ const CardView = ({
           </div>
           <div className="flex flex-col pl-9 pt-4">
             <div className="text-xs font-bold tracking-wide">Labels</div>
-            {/* <CardDialogLabel labelGroup={taskLabel} /> */}
+            <CardDialogLabel cardId={cardId} />
           </div>
         </div>
         <div className="cursor-pointer" onClick={closeModal}>
@@ -211,10 +197,7 @@ const CardView = ({
           {/* <div className="my-2 hover:text-black">
           <Button btnInput={"Label"} icon={faTag} />
         </div> */}
-          <LabelPopover
-          // setTaskLabel={setTaskLabel}
-          // updateTaskLabel={updateTaskLabel}
-          />
+          <LabelPopover cardId={cardId} />
           <div className="my-2 hover:text-black">
             <Button btnInput={"CheckList"} icon={faCheckToSlot} />
           </div>

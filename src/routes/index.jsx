@@ -8,8 +8,9 @@ import {
   NotFoundPage,
 } from "./element";
 import { useContext } from "react";
-import { AuthContext } from "../Context/AuthContext";
+
 import { KanbanContextProvider } from "../Context/KanbanContext";
+import { AuthContext } from "../Context/AuthContext";
 
 const Router = () => {
   const { isLoggedIn } = useContext(AuthContext);

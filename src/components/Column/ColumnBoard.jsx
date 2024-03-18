@@ -19,6 +19,14 @@ import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 
 import KanbanContext from "../../Context/KanbanContext";
 
+function reOrder(list, startIndex, endIndex) {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+}
+
 const ColumnBoard = ({ title }) => {
   const { id: boardId } = useParams();
 
@@ -65,6 +73,60 @@ const ColumnBoard = ({ title }) => {
     setShowListInput(true);
   };
 
+  const onDragEnd = (result) => {
+    
+    const { destination, source, type } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    if (type === "column") {
+      const columnItems = reOrder(
+        sortedColumns,
+        source.index,
+        destination.index
+      ).map((item, idx) => ({ ...item, order: idx }));
+      // Here you should update the state of your columns and make a request to your API to persist the new order
+      // setColumns(newColumns);
+      // updateColumnOrderInAPI(newColumns);
+
+      queryClient.setQueryData(["columns", "boards", boardId], columnItems);
+    }
+
+    if (type === "card") {
+      const sourceColumn = columns.find(
+        (column) => column.id === source.droppableId
+      );
+      const destColumn = columns.find(
+        (column) => column.id === destination.droppableId
+      );
+      const [removed] = sourceColumn.cards.splice(source.index, 1);
+
+      if (source.droppableId === destination.droppableId) {
+        sourceColumn.cards.splice(destination.index, 0, removed);
+
+        // Here you should update the state of your columns and make a request to your API to persist the new order
+        // setColumns(columns);
+        // updateCardOrderInAPI(sourceColumn);
+      } else {
+        removed.columnId = destination.droppableId;
+        destColumn.cards.splice(destination.index, 0, removed);
+
+        // Here you should update the state of your columns and make a request to your API to persist the new order
+        // setColumns(columns);
+        // updateCardOrderInAPI(destColumn);
+      }
+    }
+  };
+
   useEffect(() => {
     if (showListInput) {
       inputRef.current.focus();
@@ -76,41 +138,43 @@ const ColumnBoard = ({ title }) => {
       <SubHeader title={title} />
       <Container background="bg-transparent">
         <div className="h-full w-full relative">
-          <DragDropContext onDragEnd={() => {}}>
-            <Droppable droppableId="list" direction="horizontal">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="list" type="column" direction="horizontal">
               {(provided) => (
                 <ol
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                   className="flex items-start gap-3 overflow-x-auto pb-2.5 pt-[3.5rem] absolute inset-0"
                 >
-                  {sortedColumns?.map((column, idx) => (
-                    <ColumnView
-                      columnId={column.id}
-                      title={column.title}
-                      key={`${idx}${column.id}`}
-                      cards={column.cards}
-                      index={idx}
-                    />
-                  ))}
+                  {sortedColumns
+                    ?.sort((a, b) => a.order - b.order)
+                    .map((column, idx) => (
+                      <ColumnView
+                        columnId={column.id}
+                        title={column.title}
+                        key={`${idx}${column.id}`}
+                        cards={column.cards}
+                        index={idx}
+                      />
+                    ))}
                   {provided.placeholder}
+                  <div className="bg-slate-200 rounded-md ">
+                    {showListInput ? (
+                      <AddColumnForm
+                        columnName={columnName}
+                        setColumnName={setColumnName}
+                        onAddColumn={handleAddColumn}
+                        onCancel={handleCancelAddColumn}
+                        inputRef={inputRef}
+                      />
+                    ) : (
+                      <ExpandAddColumnButton onClick={handleShowListInput} />
+                    )}
+                  </div>
                 </ol>
               )}
             </Droppable>
           </DragDropContext>
-        </div>
-        <div className="bg-slate-200 rounded-md ">
-          {showListInput ? (
-            <AddColumnForm
-              columnName={columnName}
-              setColumnName={setColumnName}
-              onAddColumn={handleAddColumn}
-              onCancel={handleCancelAddColumn}
-              inputRef={inputRef}
-            />
-          ) : (
-            <ExpandAddColumnButton onClick={handleShowListInput} />
-          )}
         </div>
       </Container>
     </>

@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 import useAuthProvider from "../hooks/useAuthProvider";
@@ -12,6 +11,7 @@ import Github from "../assets/github.svg";
 import Input from "../components/shared/Input";
 
 import Cookies from "js-cookie";
+import { AuthContext } from "../Context/AuthContext";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Auth = () => {
 
   const signinWithGoogle = async () => {
     const popup = window.open(
-      `${import.meta.env}/oauth2/google`,
+      `${import.meta.env.VITE_API_URL}/oauth2/google`,
       "Google Sign in",
       "popup=true"
     );
@@ -54,7 +54,7 @@ const Auth = () => {
 
         Cookies.set("accessToken", event.data.accessToken); //update the state
 
-        navigate("/kanban");
+        navigate("/boards");
       }
     };
 
@@ -142,11 +142,11 @@ const Auth = () => {
             src={Google}
             className="w-full h-8 bg-zinc-200 p-2 rounded-lg cursor-pointer hover:bg-zinc-400 transition-all ease-in-out duration-300"
           />
-          <img
+          {/* <img
             src={Github}
             onClick={() => signInWithGithub()}
             className="w-full h-8 bg-zinc-200 p-2 rounded-lg cursor-pointer hover:bg-zinc-400 transition-all ease-in-out duration-300"
-          />
+          /> */}
         </div>
 
         <div className="text-sm text-center">

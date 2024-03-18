@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, useState } from "react";
 import DeleteDialog from "../Dialog/DeleteDialog";
 
-const CardDropMenu = ({ deleteCard, openCard, cardId  }) => {
-  
+const CardDropMenu = ({ deleteCard, openCard, cardId }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
@@ -27,7 +26,6 @@ const CardDropMenu = ({ deleteCard, openCard, cardId  }) => {
         deleteItem={deleteCard}
         title="card"
         id={cardId}
-
       />
       <Menu>
         <Menu.Button>
@@ -43,7 +41,7 @@ const CardDropMenu = ({ deleteCard, openCard, cardId  }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="flex flex-col gap-2 top-8 right-4 bg-zinc-200 font-semibold rounded-md absolute p-2 text-black z-20">
+          <Menu.Items className="flex flex-col gap-2 top-8 right-4 bg-zinc-200 font-semibold rounded-md absolute p-2 text-black z-20 w-52">
             <Menu.Item>
               {({ active }) => (
                 <div
@@ -63,7 +61,7 @@ const CardDropMenu = ({ deleteCard, openCard, cardId  }) => {
                   onClick={openModal}
                   className={`${
                     active && "bg-emerald-500"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm gap-2 cursor-pointer bg-zinc-100`}
+                  } group flex w-full items-start rounded-md px-2 py-2 text-sm gap-2 cursor-pointer bg-zinc-100`}
                 >
                   <FontAwesomeIcon icon={faTrashCan} />
                   Delete this card

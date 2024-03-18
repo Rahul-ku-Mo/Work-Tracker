@@ -1,16 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import CardDropMenu from "../Menu";
+import CardDropMenu from "./CardDropMenu";
 import CardView from "./CardView";
 import CardInputForm from "../shared/CardInputForm";
+import { Draggable, Droppable } from "@hello-pangea/dnd";
+
 import { toast } from "sonner";
 import { deleteCard, updateCard } from "../../apis/CardApis";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
+import CardLabelGroup from "../Label/CardLabelGroup";
 
-const Card = ({ columnName, columnId, title, id, description }) => {
+const Card = ({
+  columnName,
+  columnId,
+  title,
+  id,
+  description,
+  index,
+  labelGroup,
+}) => {
   const [editCardName, setEditCardName] = useState(title);
 
   const { id: boardId } = useParams();
@@ -79,6 +90,7 @@ const Card = ({ columnName, columnId, title, id, description }) => {
     cardId: id,
     description: description,
     updateCardMutation: updateCardMutation,
+    labelGroup: labelGroup,
   };
 
   useEffect(() => {
@@ -102,13 +114,23 @@ const Card = ({ columnName, columnId, title, id, description }) => {
 
   return (
     <>
-      <li className="bg-white transition m-1 rounded-md p-2 flex flex-col gap-1 card list-none">
-        <CardHeader
-          onOpenModal={handleOpenModal}
-          id={id}
-          deleteCardMutation={deleteCardMutation}
-        />
-        {showInput ? (
+      <Draggable draggableId={id.toString()} index={index}>
+        {(provided) => (
+          <li
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            className="bg-white transition m-1 rounded-md p-2 flex flex-col gap-1 card list-none"
+          >
+            <div className="flex justify-between items-start">
+              <CardLabelGroup labelGroup={labelGroup} />
+              <CardHeader
+                onOpenModal={handleOpenModal}
+                id={id}
+                deleteCardMutation={deleteCardMutation}
+              />
+            </div>
+            {/* {showInput ? (
           <CardInputForm
             input={editCardName}
             onInputChange={handleInputChange}
@@ -119,14 +141,20 @@ const Card = ({ columnName, columnId, title, id, description }) => {
           />
         ) : (
           <CardTitle title={title} onShowInput={handleShowInput} />
-        )}
-        <FontAwesomeIcon
-          className="cursor-pointer w-3"
-          onClick={handleOpenModal}
-          icon={faBars}
-        />
-      </li>
+        )} */}
+            <CardTitle
+              title={title}
 
+              // onShowInput={handleShowInput}
+            />
+            <FontAwesomeIcon
+              className="cursor-pointer w-3"
+              onClick={handleOpenModal}
+              icon={faBars}
+            />
+          </li>
+        )}
+      </Draggable>
       <CardView
         closeModal={handleCloseModal}
         isOpen={isOpen}

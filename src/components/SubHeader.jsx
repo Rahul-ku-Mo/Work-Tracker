@@ -48,13 +48,13 @@ const SubHeader = ({ title }) => {
 
   return (
     <>
-      <nav className="flex w-full top-12 z-20 px-4 bg-zinc-300 fixed h-fit py-2 justify-between items-center">
-        <div className="text-xl tracking-tighter font-black uppercase ">
+      <nav className="flex w-full top-12 z-20 px-4 bg-black/30 fixed h-fit py-2 justify-between items-center">
+        <div className="text-xl tracking-tighter font-black text-white uppercase ">
           {title}
         </div>
         <div
           onClick={openModal}
-          className="inline-flex gap-2 cursor-pointer items-center px-4 hover:opacity-100 opacity-70 transition-all ease-linear p-2 rounded-md bg-slate-800 text-slate-50"
+          className="inline-flex gap-2 cursor-pointer items-center px-4 hover:opacity-90 opacity-100 transition-all ease-linear p-2 rounded-md bg-red-700 text-slate-50"
         >
           <FontAwesomeIcon icon={faTrash} className="h-3 w-3" />
           <span className="text-sm font-medium">Trash</span>

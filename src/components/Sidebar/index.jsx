@@ -11,11 +11,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { Link, useLocation } from "react-router-dom";
 import { useSidebarContext } from "../../Context/SidebarContext";
+import Cookies from "js-cookie";
 
-const SidebarItem = ({ icon, text, active }) => {
+const SidebarItem = ({ icon, text, active, onClick }) => {
   return (
     <li>
       <Link
+        onClick={onClick}
         to={`/${text}`}
         className={clsx(
           active
@@ -37,7 +39,6 @@ const ITEMS = [
   { icon: faUser, text: "profile", id: "pf" },
   { icon: faMoneyBill, text: "pricing", id: "pi" },
   { icon: faClipboardList, text: "boards", id: "bd" },
-  { icon: faDoorOpen, text: "logout", id: "lo" },
 ];
 
 const Sidebar = () => {
@@ -87,6 +88,15 @@ const Sidebar = () => {
                 />
               );
             })}
+            <SidebarItem
+              icon={faDoorOpen}
+              text="logout"
+              key={"lo"}
+              onClick={() => {
+                Cookies.remove("accessToken");
+                navigate("/auth");
+              }}
+            ></SidebarItem>
           </ol>
         </div>
 

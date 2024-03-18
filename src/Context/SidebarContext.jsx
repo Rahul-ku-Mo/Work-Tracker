@@ -1,13 +1,20 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export const SidebarContext = createContext();
 
 export const SidebarContextProvider = ({ children }) => {
+  const { pathname } = useLocation();
+
   const [isOpen, setIsOpen] = useState(true);
 
   const openSidebar = () => setIsOpen(true);
 
   const closeSidebar = () => setIsOpen(false);
+
+  useEffect(() => {
+    setIsOpen(pathname.startsWith("/kanban") ? false : true);
+  }, [pathname]);
 
   return (
     <SidebarContext.Provider

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 import Cookies from "js-cookie";
+import { Droppable } from "@hello-pangea/dnd";
 
 import { createCard } from "../../apis/CardApis";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,9 +12,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Card from "./Card";
 import AddCardForm from "./AddCardForm";
 
-const ColumnCards = ({ columnId, columnName, cards }) => {
-
-  const {id: boardId} = useParams()
+const CardColumns = ({ columnId, columnName, cards }) => {
+  const { id: boardId } = useParams();
   const queryClient = useQueryClient();
 
   const accessToken = Cookies.get("accessToken");
@@ -44,29 +44,32 @@ const ColumnCards = ({ columnId, columnName, cards }) => {
 
   return (
     <>
-      <ol className="px-1 flex-1 flex flex-col h-full overflow-x-hidden overflow-y-auto list-none">
-        {cards
-          ?.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))
-          .map((card) => {
-            return (
-              <Card
-                // listId={listId}
-                // listName={listName}
-                key={card.id}
-                // taskId={card.taskId}
-                {...card}
-                columnName={columnName}
-                // status_color={card.taskBg}
-                // status={card.status}
-                // fetchTask={getTask}
-                // comments={card?.taskComments}
-                // active={active}
-                // setActive={setActive}
-                // currentLabelGroup={card.taskLabel}
-              />
-            );
-          })}
-      </ol>
+      <Droppable droppableId={columnId.toString()} type="card">
+        {(provided) => (
+          <ol
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className="px-1 flex-1 flex flex-col h-full overflow-x-hidden overflow-y-auto list-none"
+          >
+            {cards
+              ?.sort(
+                (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
+              )
+              .map((card, index) => {
+                return (
+                  <Card
+                    key={card.id}
+                    {...card}
+                    index={index}
+                    columnName={columnName}
+                    labelGroup={card?.labels}
+                  />
+                );
+              })}
+            {provided.placeholder}
+          </ol>
+        )}
+      </Droppable>
       <AddCardForm
         columnId={columnId}
         createCardMutation={createCardMutation}
@@ -77,4 +80,4 @@ const ColumnCards = ({ columnId, columnName, cards }) => {
   );
 };
 
-export default ColumnCards;
+export default CardColumns;

@@ -3,6 +3,7 @@ import { fetchCard, fetchCards } from "../apis/CardApis";
 import { fetchColumn, fetchColumns } from "../apis/ColumnApis";
 import { fetchBoards, fetchBoard } from "../apis/BoardApis";
 import { fetchUserProfile } from "../apis/userApis";
+import { fetchLabels } from "../apis/LabelApis";
 
 export const useCard = (accessToken, cardId) => {
   return useQuery({
@@ -51,3 +52,11 @@ export const useUser = (accessToken) => {
     queryFn: async () => await fetchUserProfile(accessToken),
   });
 };
+
+
+export const useLabels = (accessToken, cardId) => {
+  return useQuery({
+    queryKey: ["labels", cardId],
+    queryFn: async () => await fetchLabels(accessToken, cardId)
+  })
+}

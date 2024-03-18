@@ -14,7 +14,7 @@ import { Draggable, Droppable } from "@hello-pangea/dnd";
 
 import CardInput from "../shared/CardInput";
 import DeleteDialog from "../Dialog/DeleteDialog";
-import ColumnCards from "../Card/ColumnCards.jsx";
+import CardColumns from "../Card/CardColumn.jsx";
 
 const ColumnView = ({ columnId, title, cards, index }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -88,7 +88,7 @@ const ColumnView = ({ columnId, title, cards, index }) => {
 
   return (
     <>
-      <Draggable draggableId={columnId} index={index}>
+      <Draggable draggableId={columnId.toString()} index={index}>
         {(provided) => (
           <li
             {...provided.draggableProps}
@@ -99,7 +99,7 @@ const ColumnView = ({ columnId, title, cards, index }) => {
               {...provided.dragHandleProps}
               className="bg-zinc-200 flex justify-between max-h-full flex-col relative whitespace-normal scroll-m-1 w-64 rounded-md"
             >
-              {showEditColumnInput ? (
+              {/* {showEditColumnInput ? (
                 <EditColumnForm
                   prevColumnName={title}
                   columnName={columnName}
@@ -109,20 +109,24 @@ const ColumnView = ({ columnId, title, cards, index }) => {
                   inputRef={inputRef}
                 />
               ) : (
-                <div className="flex py-3 pb-1 px-2 grow-0 gap-y-0 relative justify-between items-center wrap text-sm font-bold">
-                  <span className="w-full" onClick={handleshowEditColumn}>
-                    {columnName}
-                  </span>
-                  <FontAwesomeIcon
-                    className="cursor-pointer rounded-full hover:rotate-90 transition-all ease-linear h-4 w-4 p-1"
-                    icon={faXmark}
-                    onClick={() => {
-                      openModal();
-                    }}
-                  />
-                </div>
-              )}
-              <ColumnCards
+                
+              )} */}
+              <div className="flex py-3 pb-1 px-2 grow-0 gap-y-0 relative justify-between items-center wrap text-sm font-bold">
+                <span
+                  className="w-full"
+                  // onClick={handleshowEditColumn}
+                >
+                  {columnName}
+                </span>
+                <FontAwesomeIcon
+                  className="cursor-pointer rounded-full hover:rotate-90 transition-all ease-linear h-4 w-4 p-1"
+                  icon={faXmark}
+                  onClick={() => {
+                    openModal();
+                  }}
+                />
+              </div>
+              <CardColumns
                 columnId={columnId}
                 columnName={columnName}
                 cards={cards}

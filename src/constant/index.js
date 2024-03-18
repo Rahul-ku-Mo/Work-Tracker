@@ -23,9 +23,8 @@ export const randomColorGenerator = () => {
 export const MAX_BOARDS = 5;
 
 export const DEFAULT_LABEL = {
-  label: "None",
+  name: "None",
   color: "bg-slate-500",
-  hoverColor: "bg-slate-700",
 };
 
 export const DEFAULT_IMAGES = [
@@ -1023,4 +1022,16 @@ export const DEFAULT_IMAGES = [
     views: 17920054,
     downloads: 20220,
   },
+];
+
+export const DEFAULT_COLORS = [
+  { color: "bg-red-500", value: "Red" },
+  { color: "bg-yellow-500", value: "Yellow" },
+  { color: "bg-green-500", value: "Green" },
+  { color: "bg-blue-500", value: "Blue" },
+  { color: "bg-indigo-500", value: "Indigo" },
+  { color: "bg-purple-500", value: "Purple" },
+  { color: "bg-pink-500", value: "Pink" },
+  { color: "bg-gray-500", value: "Gray" },
+  { color: "bg-black", value: "Black" },
 ];

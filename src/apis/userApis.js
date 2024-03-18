@@ -1,6 +1,9 @@
 import axios from "axios";
 
 export const fetchUserProfile = async (accessToken) => {
+  //TODO: Work on context!!
+  if (accessToken === undefined) return {};
+
   try {
     const response = await axios.get(
       `${import.meta.env.VITE_API_URL}/users/me`,
