@@ -15,7 +15,7 @@ const LandingPage = () => {
             Work<span className="text-emerald-500">Tracker</span>
           </h1>
           <Link
-            to={token === undefined ? "/auth" : "/dashboard"}
+            to={token === undefined ? "/auth" : "/boards"}
             className="px-4 py-2 hover:bg-emerald-600 bg-emerald-700 rounded-md text-sm font-semibold text-white"
           >
             {token === undefined ? "Try for free" : "Continue"}

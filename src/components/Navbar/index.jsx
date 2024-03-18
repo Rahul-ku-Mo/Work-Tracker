@@ -2,47 +2,35 @@ import NavbarButton from "../shared/Button/Button";
 import {
   faLock,
   faBolt,
+  faBell,
   faRocket,
   faBarsProgress,
   faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Users from "../shared/User";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = () => {
   return (
-    <div className="flex text-lg justify-between font-semibold text-white items-center mt-2 bg-transparent">
+    <nav className="flex text-lg justify-between font-semibold text-white items-center py-2 bg-white  backdrop-blur-md z-20 fixed top-0 w-full">
       <div className="flex justify-between flex-1">
         <div className="flex items-center">
           <div className="ml-2 px-2">
-            {" "}
-            <h1 className="font-bold text-xl relative text-white tracking-tighter">
+            <h1 className="font-extrabold text-xl relative text-black tracking-tighter">
               Work<span className="text-emerald-500">Tracker</span>
             </h1>
           </div>
-          <div className="px-2 border-x-2 hidden md:block">
-            <NavbarButton icon={faLock} btnInput={"Private"} />
-          </div>
-          <div className="px-2 hidden md:block">
-            <NavbarButton icon={faClipboardList} btnInput={"Board"} />
-          </div>
-        </div>
-        <div className="md:flex mr-2 items-center hidden md:justify-end">
-          <div>
-            <NavbarButton icon={faBolt} btnInput={"Automation"} />
-          </div>
-          <div className="px-2 ">
-            <NavbarButton icon={faRocket} btnInput={"Power-Ups"} />
-          </div>
-          <div className="px-2 border-x-2">
-            <NavbarButton icon={faBarsProgress} btnInput={"Filters"} />
-          </div>
         </div>
       </div>
-      <div className="mx-2">
+      <div className="mx-2 flex items-center gap-4">
+        <FontAwesomeIcon
+          icon={faBell}
+          className="h-4 w-4 bg-slate-600/20 cursor-pointer p-2 rounded-full border hover:border-dashed hover:border-black/30 border-black/30 transition-all text-black"
+        />
         <Users />
       </div>
-    </div>
+    </nav>
   );
 };
 
