@@ -4,11 +4,12 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
+import Cookies from "js-cookie";
 
 const useAuthProvider = () => {
   const navigate = useNavigate();
 
-  const { accessToken, setAccessToken } = useContext(AuthContext);
+  const { setAccessToken } = useContext(AuthContext);
 
   const [username, setUserName] = useState("");
 
@@ -30,11 +31,11 @@ const useAuthProvider = () => {
 
       const token = response.data.data.accessToken;
 
-      if (response.status === 200) {
-        setAccessToken(token);
-        toast.success("Login successful 🎉");
-        navigate("/boards");
-      }
+      Cookies.set("accessToken", token, { expires: 7 });
+      setAccessToken(token);
+
+      toast.success("Login successful 🎉");
+      navigate("/boards");
     } catch (err) {
       toast.error(err.message);
     }
@@ -50,11 +51,11 @@ const useAuthProvider = () => {
 
       const token = response.data.data.accessToken;
 
-      if (response.status === 200) {
-        setAccessToken(token);
-        toast.success("Signed up and logged in successfully 🎉");
-        navigate("/boards");
-      }
+      Cookies.set("accessToken", token, { expires: 7 });
+
+      setAccessToken(token);
+      toast.success("Signed up and logged in successfully 🎉");
+      navigate("/boards");
     } catch (err) {
       toast.error(err.message);
     }

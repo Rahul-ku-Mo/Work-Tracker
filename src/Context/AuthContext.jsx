@@ -17,7 +17,7 @@ const AuthContextProvider = ({ children }) => {
   const { data: user } = useUser(accessToken);
 
   useEffect(() => {
-    if (accessToken === undefined) {
+    if (!accessToken || accessToken === undefined) {
       setIsLoggedIn(false);
 
       navigate("/auth");
