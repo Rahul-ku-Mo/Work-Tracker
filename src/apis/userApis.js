@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const fetchUserProfile = async (accessToken) => {
-  //TODO: Work on context!!
-  if (accessToken === undefined) return {};
+  if (accessToken === undefined) return null;
 
   try {
     const response = await axios.get(
@@ -17,6 +16,7 @@ export const fetchUserProfile = async (accessToken) => {
     return response.data.data;
   } catch (err) {
     console.log(err);
+    return null;
   }
 };
 

@@ -4,11 +4,13 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
+import Cookies from "js-cookie";
 
 const useAuthProvider = () => {
   const navigate = useNavigate();
 
-  const { accessToken, setAccessToken } = useContext(AuthContext);
+  const { accessToken, setAccessToken, setIsLoggedIn } =
+    useContext(AuthContext);
 
   const [username, setUserName] = useState("");
 
@@ -28,11 +30,47 @@ const useAuthProvider = () => {
         values
       );
 
-      const token = response.data.data.accessToken;
+      const token = response.data.accesstoken;
 
       if (response.status === 200) {
         setAccessToken(token);
-        toast.success("Login successful 🎉");
+
+        console.log(token, response.data.accessToken);
+
+        Cookies.set("accessToken", token);
+
+        toast.success("Login successfull 🎉");
+
+        setIsLoggedIn(true);
+
+        navigate("/boards");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const signInAsGuest = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/login`,
+        {
+          email: "test@gmail.com",
+          password: "test123",
+        }
+      );
+
+      const token = response.data.accesstoken;
+
+      if (response.status === 200) {
+        setAccessToken(token);
+
+        Cookies.set("accessToken", token);
+
+        toast.success("Login successful as Guest🎉");
+
+        setIsLoggedIn(true);
+
         navigate("/boards");
       }
     } catch (err) {
@@ -41,20 +79,24 @@ const useAuthProvider = () => {
   };
 
   const signupUser = async () => {
-    const updatedData = { ...values, username };
+    const updatedData = { ...values, username, name: username };
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/signup`,
         updatedData
       );
 
-      const token = response.data.data.accessToken;
+      const token = response.data.accesstoken;
 
-      if (response.status === 200) {
-        setAccessToken(token);
-        toast.success("Signed up and logged in successfully 🎉");
-        navigate("/boards");
-      }
+      Cookies.set("accessToken", token);
+
+      setAccessToken(token);
+
+      toast.success("Signed up and logged in successfully 🎉");
+
+      setIsLoggedIn(true);
+
+      navigate("/boards");
     } catch (err) {
       toast.error(err.message);
     }
@@ -65,6 +107,7 @@ const useAuthProvider = () => {
   return {
     signinUser,
     signupUser,
+    signInAsGuest,
     values,
     handleChange,
     username,

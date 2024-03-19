@@ -42,7 +42,9 @@ const Account = () => {
             <h2 className="font-bold text-3xl text-center tracking-tight">
               {user?.name}
             </h2>
-            <h2 className="opacity-50 leading-3 text-sm font-medium text-center"></h2>
+            <h2 className="opacity-50 leading-3 text-sm font-medium text-center">
+              {user?.username}
+            </h2>
           </div>
           <div className="flex items-center mt-2 gap-2">
             <h2 className="font-semibold bg-emerald-800 text-xs w-fit px-2 flex items-center justify-center text-white rounded-lg">

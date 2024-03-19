@@ -14,13 +14,22 @@ const AuthContextProvider = ({ children }) => {
 
   const [accessToken, setAccessToken] = useState(Cookies.get("accessToken"));
 
-  const { data: user } = useUser(accessToken);
+  const { data: user, error } = useUser(accessToken);
 
   useEffect(() => {
-    if (accessToken === undefined) {
-      setIsLoggedIn(false);
+    const validateAndSetToken = () => {
+      const token = Cookies.get("accessToken");
 
-      navigate("/auth");
+      if (token) {
+        setAccessToken(token);
+        setIsLoggedIn(true);
+      } else {
+        navigate("/auth");
+      }
+    };
+
+    if (!accessToken) {
+      validateAndSetToken();
     }
   }, [accessToken, navigate]);
 

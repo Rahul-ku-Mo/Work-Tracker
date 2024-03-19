@@ -25,6 +25,7 @@ const Auth = () => {
     handleChange,
     signinUser,
     signupUser,
+    signInAsGuest,
     username,
     handleNameChange,
   } = useAuthProvider();
@@ -37,7 +38,7 @@ const Auth = () => {
     );
 
     const messageEventListener = (event) => {
-      if (event.origin !== 'https://work-tracker-backend.onrender.com') {
+      if (event.origin !== "http://localhost:8000") {
         // Not the expected origin: reject the message!
         return;
       }
@@ -114,18 +115,27 @@ const Auth = () => {
             <button
               type="submit"
               onClick={() => signupUser()}
-              className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:bg-emerald-800 hover:text-white text-black w-full bg-emerald-400/95 p-2 font-semibold shadow-lg"
+              className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:opacity-90 hover:text-black text-gray-100 w-full bg-emerald-600 p-2 font-semibold shadow-lg"
             >
               Join now
             </button>
           ) : (
-            <button
-              type="submit"
-              onClick={() => signinUser()}
-              className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:bg-emerald-800 hover:text-white text-black w-full bg-emerald-400/95 p-2 font-semibold shadow-lg"
-            >
-              Log in
-            </button>
+            <>
+              <button
+                type="submit"
+                onClick={() => signinUser()}
+                className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:opacity-90 hover:text-black text-gray-100 w-full bg-emerald-600 p-2 font-semibold shadow-lg"
+              >
+                Log in
+              </button>
+              <button
+                type="submit"
+                onClick={() => signInAsGuest()}
+                className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 bg-red-600 hover:text-black text-gray-100 w-full hover:opacity-90 p-2 font-semibold shadow-lg"
+              >
+                Sign in as Guest
+              </button>
+            </>
           )}
         </form>
 
