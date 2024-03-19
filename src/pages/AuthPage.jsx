@@ -38,7 +38,7 @@ const Auth = () => {
     );
 
     const messageEventListener = (event) => {
-      if (event.origin !== "http://localhost:8000") {
+      if (event.origin !== "https://work-tracker-backend.onrender.com") {
         // Not the expected origin: reject the message!
         return;
       }
