@@ -85,6 +85,7 @@ const Auth = () => {
               <Input
                 value={username}
                 type="text"
+                autocomplete
                 placeholder="eg. Rahul@KMxa.."
                 onHandleChange={handleNameChange}
               />
@@ -95,6 +96,7 @@ const Auth = () => {
             <Input
               value={values.email}
               type="text"
+              autocomplete
               placeholder="test@gmail.com"
               onHandleChange={handleChange("email")}
             />
@@ -104,6 +106,7 @@ const Auth = () => {
             Password
             <Input
               type="password"
+              autocomplete
               placeholder={"test123"}
               isPassword={true}
               value={values.password}
