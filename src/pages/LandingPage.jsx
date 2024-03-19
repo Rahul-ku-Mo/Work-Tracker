@@ -34,7 +34,7 @@ const LandingPage = () => {
           heights of productivity. Save your work with WorkTracker.
         </div>
         <Link
-          to={token === undefined ? "/auth" : "/dashboard"}
+          to={token === undefined ? "/auth" : "/boards"}
           className="px-12 py-2 hover:bg-emerald-600 bg-emerald-700 rounded-md text-sm font-semibold text-white mt-4 transition-all"
         >
           {token === undefined
