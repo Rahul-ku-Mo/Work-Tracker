@@ -1,7 +1,11 @@
 # Work-Tracker
 
 ## Deployed Link: https://work-tracker-rkm.netlify.app/ or https://work-tracker-chi.vercel.app/ : 
-A sophisticated task tracking application unlike Trello Board. The UI is much similar to Trello. Here you can manage your day to day task. 
+a sophisticated task tracking application with a UI similar to Trello, allowing users to manage their day-to-day tasks. 
+Frontend tech stack includes React.js and vite . 
+Tanstack-react-queryv5 is used for state management (server as well as cache).
+
+Backend Tech Stack: Nodejs, Expressjs, Prisma, Postgres, Redis.
 
 *Landing Page*
 ![Screenshot (104)](https://github.com/Rahul-ku-Mo/Work-Tracker/assets/83443927/04965c7c-03c2-42d5-bcd3-d4de8ce64bac)
