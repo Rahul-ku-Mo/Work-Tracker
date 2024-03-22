@@ -111,4 +111,24 @@ export const deleteColumn = async (accessToken, columnId) => {
   }
 };
 
-/***Card CRUD API ***/
+export const updateColumnOrdering = async (accessToken, columns) => {
+  try {
+    const response = await axios.patch(
+      `${import.meta.env.VITE_API_URL}/columns/ordering`,
+      {
+        columns: columns,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      return response.data.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
