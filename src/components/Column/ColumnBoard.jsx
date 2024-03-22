@@ -10,7 +10,7 @@ import SubHeader from "../SubHeader";
 import ColumnView from "./ColumnView";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createColumn } from "../../apis/ColumnApis";
+import { createColumn, updateColumnOrdering } from "../../apis/ColumnApis";
 
 import Cookies from "js-cookie";
 import { toast } from "sonner";
@@ -56,6 +56,12 @@ const ColumnBoard = ({ title }) => {
     },
   });
 
+  const updateColumnsOrderMutation = useMutation({
+    mutationFn: async (columns) => {
+      await updateColumnOrdering(accessToken, columns);
+    },
+  });
+
   const sortedColumns = columns?.sort(
     (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
   );
@@ -74,7 +80,6 @@ const ColumnBoard = ({ title }) => {
   };
 
   const onDragEnd = (result) => {
-    
     const { destination, source, type } = result;
 
     if (!destination) {
@@ -94,35 +99,79 @@ const ColumnBoard = ({ title }) => {
         source.index,
         destination.index
       ).map((item, idx) => ({ ...item, order: idx }));
-      // Here you should update the state of your columns and make a request to your API to persist the new order
-      // setColumns(newColumns);
-      // updateColumnOrderInAPI(newColumns);
 
       queryClient.setQueryData(["columns", "boards", boardId], columnItems);
+
+      updateColumnsOrderMutation.mutate(columnItems);
     }
 
     if (type === "card") {
-      const sourceColumn = columns.find(
-        (column) => column.id === source.droppableId
-      );
-      const destColumn = columns.find(
-        (column) => column.id === destination.droppableId
-      );
-      const [removed] = sourceColumn.cards.splice(source.index, 1);
+      let sourceColumn, destColumn;
+
+      columns.forEach((column) => {
+        if (column.id === parseInt(source.droppableId)) {
+          sourceColumn = column;
+        }
+
+        if (column.id === parseInt(destination.droppableId)) {
+          destColumn = column;
+        }
+      });
+
+      if (!sourceColumn || !destColumn) return;
+
+      sourceColumn.cards = sourceColumn.cards || [];
+      destColumn.cards = destColumn.cards || [];
 
       if (source.droppableId === destination.droppableId) {
-        sourceColumn.cards.splice(destination.index, 0, removed);
+        const reOrderedCards = reOrder(
+          sourceColumn.cards,
+          source.index,
+          destination.index
+        );
 
-        // Here you should update the state of your columns and make a request to your API to persist the new order
-        // setColumns(columns);
-        // updateCardOrderInAPI(sourceColumn);
+        reOrderedCards.forEach((card, idx) => (card.order = idx));
+
+        sourceColumn.cards = reOrderedCards;
+
+        const updatedColumns = sortedColumns.map((column) => {
+          if (column.id === parseInt(source.droppableId)) {
+            return { ...column, cards: reOrderedCards };
+          }
+
+          return column;
+        });
+
+        queryClient.setQueryData(
+          ["columns", "boards", boardId],
+          updatedColumns
+        );
       } else {
-        removed.columnId = destination.droppableId;
-        destColumn.cards.splice(destination.index, 0, removed);
+        const [movedCard] = sourceColumn.cards.splice(source.index, 1);
 
-        // Here you should update the state of your columns and make a request to your API to persist the new order
-        // setColumns(columns);
-        // updateCardOrderInAPI(destColumn);
+        movedCard.columnId = parseInt(destination.droppableId);
+
+        destColumn.cards.splice(destination.index, 0, movedCard);
+
+        sourceColumn.cards.forEach((card, idx) => (card.order = idx));
+        destColumn.cards.forEach((card, idx) => (card.order = idx));
+
+        const updatedColumns = sortedColumns.map((column) => {
+          if (column.id === parseInt(source.droppableId)) {
+            return { ...column, cards: sourceColumn.cards };
+          }
+
+          if (column.id === parseInt(destination.droppableId)) {
+            return { ...column, cards: destColumn.cards };
+          }
+
+          return column;
+        });
+
+        queryClient.setQueryData(
+          ["columns", "boards", boardId],
+          updatedColumns
+        );
       }
     }
   };

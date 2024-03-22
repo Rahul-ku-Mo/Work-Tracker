@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 const useAuthProvider = () => {
   const navigate = useNavigate();
 
-  const { accessToken, setAccessToken, setIsLoggedIn } =
+  const {  setAccessToken, setIsLoggedIn } =
     useContext(AuthContext);
 
   const [username, setUserName] = useState("");

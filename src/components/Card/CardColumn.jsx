@@ -52,9 +52,7 @@ const CardColumns = ({ columnId, columnName, cards }) => {
             className="px-1 flex-1 flex flex-col h-full overflow-x-hidden overflow-y-auto list-none"
           >
             {cards
-              ?.sort(
-                (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
-              )
+              ?.sort((a, b) => a.order - b.order)
               .map((card, index) => {
                 return (
                   <Card
