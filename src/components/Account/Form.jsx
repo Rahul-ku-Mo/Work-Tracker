@@ -76,7 +76,7 @@ const Form = ({ user }) => {
             <input
               type="text"
               id="name"
-              value={formState.name === null ? "" : formState.name}
+              value={formState.name}
               onChange={handleChange("name")}
               placeholder="Rahul K.M"
               className="px-3 py-2 mt-2 rounded-md peer border text-sm border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
@@ -110,9 +110,7 @@ const Form = ({ user }) => {
             <input
               id="phoneNumber"
               type="text"
-              value={
-                formState.phoneNumber === null ? "" : formState.phoneNumber
-              }
+              value={formState.phoneNumber}
               onChange={handleChange("phoneNumber")}
               placeholder="86905-41514"
               className="px-3 py-2 mt-2 rounded-md border text-sm border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
@@ -128,7 +126,7 @@ const Form = ({ user }) => {
             <input
               id="state/region"
               type="text"
-              value={formState.state === null ? "" : formState.state}
+              value={formState.state}
               onChange={handleChange("state")}
               placeholder="Virginia, USA"
               className="px-3 py-2 mt-2 rounded-md text-sm border border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
@@ -147,7 +145,7 @@ const Form = ({ user }) => {
             <input
               type="text"
               id="address"
-              value={formState.address === null ? "" : formState.address}
+              value={formState.address}
               onChange={handleChange("address")}
               placeholder="1234, Main Street, Apt 2B"
               className="px-3 py-2 mt-2 rounded-md border text-sm border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
@@ -163,7 +161,7 @@ const Form = ({ user }) => {
             <input
               id="zip/code"
               type="text"
-              value={formState.zipCode === null ? "" : formState.zipCode}
+              value={formState.zipCode}
               onChange={handleChange("zipCode")}
               placeholder="758-221"
               className="px-3 py-2 mt-2 rounded-md text-sm border border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
@@ -181,7 +179,7 @@ const Form = ({ user }) => {
             <input
               type="text"
               id="company"
-              value={formState.company === null ? "" : formState.company}
+              value={formState.company}
               onChange={handleChange("company")}
               placeholder="Goggle, Microsoft, Airbnb...."
               className="px-3 py-2 mt-2 rounded-md border text-sm border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
@@ -197,7 +195,7 @@ const Form = ({ user }) => {
             <input
               id="role"
               type="text"
-              value={formState.Role === null ? "" : formState.Role}
+              value={formState.Role}
               onChange={handleChange("Role")}
               placeholder="Full-Stack Developer, etc.."
               className="px-3 py-2 mt-2 rounded-md text-sm border border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
