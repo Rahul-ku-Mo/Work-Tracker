@@ -17,16 +17,16 @@ const Form = () => {
     zipCode = "",
     company = "",
     Role = "",
-  } = user;
+  } = user || {};
 
   const [formState, setFormState] = useState({
-    name,
-    phoneNumber,
-    state,
-    address,
-    zipCode,
-    company,
-    Role,
+    name: name,
+    phoneNumber: phoneNumber,
+    state: state,
+    address: address,
+    zipCode: zipCode,
+    company: company,
+    Role: Role,
   });
 
   const handleChange = (prop) => (event) => {
@@ -76,7 +76,7 @@ const Form = () => {
             <input
               type="text"
               id="name"
-              value={formState.name}
+              value={formState.name === null ? "" : formState.name}
               onChange={handleChange("name")}
               placeholder="Rahul K.M"
               className="px-3 py-2 mt-2 rounded-md peer border text-sm border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
