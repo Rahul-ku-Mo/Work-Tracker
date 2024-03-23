@@ -5,8 +5,8 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useMutation } from "@tanstack/react-query";
 import { updateUserProfile } from "../../apis/userApis";
 
-const Form = () => {
-  const { user, accessToken } = useContext(AuthContext);
+const Form = ({ user }) => {
+  const { accessToken } = useContext(AuthContext);
 
   const {
     name = "",

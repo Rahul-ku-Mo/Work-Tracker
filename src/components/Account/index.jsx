@@ -67,7 +67,7 @@ const Account = () => {
             Deactivate account
           </button>
         </div>
-        <Form />
+        <Form user={user}/>
       </div>
     </Container>
   );
