@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useGoogleLogin } from "@react-oauth/google";
 import useAuthProvider from "../hooks/useAuthProvider";
+import axios from "axios";
 
 import { Link } from "react-router-dom";
 
@@ -30,40 +31,23 @@ const Auth = () => {
     handleNameChange,
   } = useAuthProvider();
 
-  const signinWithGoogle = async () => {
-    const popup = window.open(
-      `${import.meta.env.VITE_API_URL}/oauth2/google`,
-      "Google Sign in",
-      "popup=true"
-    );
-
-    const messageEventListener = (event) => {
-      if (event.origin !== "https://work-tracker-backend.onrender.com") {
-        // Not the expected origin: reject the message!
-        return;
-      }
-      // Expected origin. Handle the message.
-      if (event.data.status === "login-success") {
-        if (popup && !popup.closed) {
-          popup.close();
+  const signinWithGoogle = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: async (codeResponse) => {
+      const tokenResponse = await axios.post(
+        "http://localhost:8000/api/v1/oauth2/google",
+        {
+          code: codeResponse.code,
         }
+      );
 
-        setIsLoggedIn("accessToken", event.data.accessToken); // set the access token in the cookie
-
-        setAccessToken(event.data.accessToken);
-
-        Cookies.set("accessToken", event.data.accessToken); //update the state
-
-        navigate("/boards");
-      }
-    };
-
-    window.addEventListener("message", messageEventListener, false);
-
-    return () => {
-      window.removeEventListener("message", messageEventListener, false);
-    };
-  };
+      setIsLoggedIn(true);
+      setAccessToken(tokenResponse.data.token);
+      Cookies.set("accessToken", tokenResponse.data.token); //update the state
+      navigate("/boards");
+    },
+    onError: (errorResponse) => console.log(errorResponse),
+  });
 
   return (
     <>

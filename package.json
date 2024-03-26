@@ -15,6 +15,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^1.7.17",
     "@hello-pangea/dnd": "^16.5.0",
+    "@react-oauth/google": "^0.12.1",
     "@tanstack/react-query": "^5.28.2",
     "@tanstack/react-query-devtools": "^5.28.4",
     "axios": "^1.6.7",

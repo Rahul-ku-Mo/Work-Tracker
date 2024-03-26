@@ -20,13 +20,13 @@ const Form = ({ user }) => {
   } = user || {};
 
   const [formState, setFormState] = useState({
-    name: name,
-    phoneNumber: phoneNumber,
-    state: state,
-    address: address,
-    zipCode: zipCode,
-    company: company,
-    role: role,
+    name,
+    phoneNumber,
+    state,
+    address,
+    zipCode,
+    company,
+    role,
   });
 
   const handleChange = (prop) => (event) => {
