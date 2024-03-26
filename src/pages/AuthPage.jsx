@@ -35,7 +35,7 @@ const Auth = () => {
     flow: "auth-code",
     onSuccess: async (codeResponse) => {
       const tokenResponse = await axios.post(
-        "http://localhost:8000/api/v1/oauth2/google",
+        `${import.meta.env.VITE_API_URL}/oauth2/google`,
         {
           code: codeResponse.code,
         }
@@ -43,7 +43,7 @@ const Auth = () => {
 
       setIsLoggedIn(true);
       setAccessToken(tokenResponse.data.token);
-      Cookies.set("accessToken", tokenResponse.data.token); //update the state
+      Cookies.set("accessToken", tokenResponse.data.token);
       navigate("/boards");
     },
     onError: (errorResponse) => console.log(errorResponse),
