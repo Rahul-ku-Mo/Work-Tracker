@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
 import Cookies from "js-cookie";
+import { useQueryClient } from "@tanstack/react-query";
 
 const useAuthProvider = () => {
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   const { setAccessToken, setIsLoggedIn } = useContext(AuthContext);
 
@@ -40,6 +43,8 @@ const useAuthProvider = () => {
 
         setIsLoggedIn(true);
 
+        queryClient.setQueryData(["user"], response.data.data);
+
         navigate("/boards");
       }
     } catch (err) {
@@ -68,6 +73,8 @@ const useAuthProvider = () => {
 
         setIsLoggedIn(true);
 
+        queryClient.setQueryData(["user"], response.data.data);
+
         navigate("/boards");
       }
     } catch (err) {
@@ -92,6 +99,8 @@ const useAuthProvider = () => {
       toast.success("Signed up and logged in successfully 🎉");
 
       setIsLoggedIn(true);
+
+      queryClient.setQueryData(["user"], response.data.data);
 
       navigate("/boards");
     } catch (err) {
