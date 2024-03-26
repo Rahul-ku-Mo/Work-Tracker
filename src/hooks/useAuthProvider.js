@@ -9,8 +9,7 @@ import Cookies from "js-cookie";
 const useAuthProvider = () => {
   const navigate = useNavigate();
 
-  const {  setAccessToken, setIsLoggedIn } =
-    useContext(AuthContext);
+  const { setAccessToken, setIsLoggedIn } = useContext(AuthContext);
 
   const [username, setUserName] = useState("");
 
@@ -34,8 +33,6 @@ const useAuthProvider = () => {
 
       if (response.status === 200) {
         setAccessToken(token);
-
-        console.log(token, response.data.accessToken);
 
         Cookies.set("accessToken", token);
 
