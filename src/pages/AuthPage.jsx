@@ -13,11 +13,14 @@ import Input from "../components/shared/Input";
 
 import Cookies from "js-cookie";
 import { AuthContext } from "../Context/AuthContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Auth = () => {
   const navigate = useNavigate();
 
   const [signupStatus, setSignupStatus] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const { setIsLoggedIn, setAccessToken } = useContext(AuthContext);
 
@@ -44,6 +47,8 @@ const Auth = () => {
       setIsLoggedIn(true);
       setAccessToken(tokenResponse.data.token);
       Cookies.set("accessToken", tokenResponse.data.token);
+
+      queryClient.setQueryData(["user"], tokenResponse.data.data);
       navigate("/boards");
     },
     onError: (errorResponse) => console.log(errorResponse),
