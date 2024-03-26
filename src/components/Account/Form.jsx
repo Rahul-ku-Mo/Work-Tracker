@@ -16,7 +16,7 @@ const Form = ({ user }) => {
     address = "",
     zipCode = "",
     company = "",
-    Role = "",
+    role = "",
   } = user || {};
 
   const [formState, setFormState] = useState({
@@ -26,7 +26,7 @@ const Form = ({ user }) => {
     address: address,
     zipCode: zipCode,
     company: company,
-    Role: Role,
+    role: role,
   });
 
   const handleChange = (prop) => (event) => {
@@ -190,13 +190,13 @@ const Form = ({ user }) => {
               className="text-xs tracking-tight text-black px-1 font-bold absolute bg-white z-20 left-2"
               htmlFor="role"
             >
-              Role
+              role
             </label>
             <input
               id="role"
               type="text"
-              value={formState.Role}
-              onChange={handleChange("Role")}
+              value={formState.role}
+              onChange={handleChange("role")}
               placeholder="Full-Stack Developer, etc.."
               className="px-3 py-2 mt-2 rounded-md text-sm border border-slate-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
             />
