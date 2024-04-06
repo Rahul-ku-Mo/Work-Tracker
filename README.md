@@ -1,6 +1,6 @@
 # Work-Tracker
 
-## Deployed Link: https://work-tracker-rkm.netlify.app/ or https://work-tracker-chi.vercel.app/ : 
+## Deployed Link: https://work-tracker-chi.vercel.app/ : 
 a sophisticated task tracking application with a UI similar to Trello, allowing users to manage their day-to-day tasks. 
 Frontend tech stack includes React.js and vite . 
 Tanstack-react-queryv5 is used for state management (server as well as cache).
