@@ -1,12 +1,9 @@
 import Container from "../../layouts/Container";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import NonPaidOrganization from "./NonPaidOrganization";
-import MemberTable from "../OrganizationDashboard/MemberTable";
 import PaidOrganization from "./PaidOrganization";
-import { AuthContext } from "../../Context/AuthContext";
 import OrganizationSidebar from "../Sidebar/OrganizationSidebar";
-import { useOrganizations } from "../../hooks/useQueries";
 import { UserContext } from "../../Context/UserContext";
 
 const Organization = () => {
@@ -14,9 +11,6 @@ const Organization = () => {
 
   //1.check for the user is a paid or not
   const paidUser = user?.isPaidUser;
-
-  //2. if paid user check for is a lead .i.e has an organization
-  const isOrganizationHead = user?.organizationLead?.teamLeadId === user?.id;
 
   if (isPending) {
     return (

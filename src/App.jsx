@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { CardContextProvider } from "./Context/CardContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -31,7 +32,7 @@ const App = () => {
               </SidebarContextProvider>
             </AuthContextProvider>
           </BrowserRouter>
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </QueryClientProvider>
       </GoogleOAuthProvider>
     </>

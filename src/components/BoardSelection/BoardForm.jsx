@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { faBan, faCheck } from "@fortawesome/free-solid-svg-icons";
 import useBoardForm from "../../hooks/useBoardForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useOrganizations } from "../../hooks/useQueries";
+import { useOrganizationLead } from "../../hooks/useQueries";
 import Cookies from "js-cookie";
 const BoardForm = ({ count }) => {
   const {
@@ -28,7 +28,7 @@ const BoardForm = ({ count }) => {
   const { user } = useContext(UserContext);
 
   const { data: organizations, isPending: isOrganizationsPending } =
-    useOrganizations(accessToken, user?.id);
+    useOrganizationLead(accessToken, user?.id);
 
   if (isLoading) {
     return (

@@ -17,7 +17,7 @@ export const fetchOrganization = async (accessToken, organizationId) => {
   }
 };
 
-export const fetchOrganizations = async (accessToken) => {
+export const fetchOrganizationsAsLead = async (accessToken) => {
   try {
     const response = await axios.get(
       `${import.meta.env.VITE_API_URL}/organizations/leads`,

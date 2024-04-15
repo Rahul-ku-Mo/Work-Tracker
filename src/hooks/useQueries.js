@@ -6,9 +6,10 @@ import { fetchUserProfile, fetchUsers } from "../apis/userApis";
 import { fetchLabels } from "../apis/LabelApis";
 import {
   fetchOrganization,
-  fetchOrganizations,
+  fetchOrganizationsAsLead,
+  fetchOrganizationsAsMember,
 } from "../apis/OrganizationApis";
-import {fetchNotifications} from "../apis/NotificationApis";
+import { fetchNotifications } from "../apis/NotificationApis";
 export const useCard = (accessToken, cardId) => {
   return useQuery({
     queryKey: ["cards", cardId],
@@ -78,17 +79,23 @@ export const useOrganization = (accessToken, organizationId) => {
   });
 };
 
-export const useOrganizations = (accessToken, userId) => {
+export const useOrganizationLead = (accessToken, userId) => {
   return useQuery({
-    queryKey: ["organizations", "team", userId],
-    queryFn: async () => await fetchOrganizations(accessToken),
+    queryKey: ["organizations", "leads", userId],
+    queryFn: async () => await fetchOrganizationsAsLead(accessToken),
   });
 };
 
+export const useOrganizationMember = (accessToken, userId) => {
+  return useQuery({
+    queryKey: ["organizations", "members", userId],
+    queryFn: async () => await fetchOrganizationsAsMember(accessToken),
+  });
+};
 
 export const useNotifications = (accessToken) => {
   return useQuery({
     queryKey: ["notifications"],
     queryFn: async () => await fetchNotifications(accessToken),
   });
-}
+};

@@ -1,15 +1,29 @@
 import OrganizationPopover from "../Organization/OrganizationPopover";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../../Context/AuthContext";
+import {
+  useOrganizationLead,
+  useOrganizationMember,
+} from "../../hooks/useQueries";
+import Cookies from "js-cookie";
 import { UserContext } from "../../Context/UserContext";
+
 const OrganizationSidebar = () => {
   const navigate = useNavigate();
+
+  const accessToken = Cookies.get("accessToken");
+
   const { user, isPending } = useContext(UserContext);
 
-  const organizationsLead = user?.organizationLead;
+  const { data: organizationsLead } = useOrganizationLead(
+    accessToken,
+    user?.id
+  );
 
-  const organizationsMember = user?.organizationMember;
+  const { data: organizationsMember } = useOrganizationMember(
+    accessToken,
+    user?.id
+  );
 
   const paidUser = user?.isPaidUser;
 
