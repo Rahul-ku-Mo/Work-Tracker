@@ -14,7 +14,6 @@ export const fetchUserProfile = async (accessToken) => {
     return response.data.data;
   } catch (err) {
     console.log(err);
-    return null;
   }
 };
 
@@ -33,5 +32,19 @@ export const updateUserProfile = async (accessToken, formState) => {
     return response.data.data;
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const fetchUsers = async (accessToken) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/users`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
   }
 };

@@ -15,9 +15,10 @@ const useBoardForm = (count) => {
 
   const [currentBoardInput, setCurrentBoardInput] = useState("");
   const [selectedImageId, setSelectedImageId] = useState(null);
+  const [selectedOrganizationId, setSelectedOrganizationId] = useState("");
 
   const createBoardMutation = useMutation({
-    mutationFn: async ({ boardTitle, selectedImageTitle }) => {
+    mutationFn: async ({ boardTitle, selectedImageTitle, organizationId }) => {
       const [
         imageId,
         imageThumbUrl,
@@ -33,6 +34,7 @@ const useBoardForm = (count) => {
         imageFullUrl: imageFullUrl,
         imageLinkHTML: imageLinkHTML,
         imageUserName: imageUserName,
+        organizationId: organizationId,
       };
 
       return await createBoard(accessToken, kanbanBoardData);
@@ -44,6 +46,7 @@ const useBoardForm = (count) => {
 
       setCurrentBoardInput("");
       setSelectedImageId(null);
+      setSelectedOrganizationId("");
     },
     onSettled: () => {
       return queryClient.invalidateQueries({
@@ -51,11 +54,13 @@ const useBoardForm = (count) => {
       });
     },
   });
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const boardTitle = event.target.elements.title.value;
     const selectedImageTitle = event.target.elements.image.value;
+    const organizationId = selectedOrganizationId;
 
     if (boardTitle === "") {
       toast.error("Board title shouldn't be empty!");
@@ -63,7 +68,7 @@ const useBoardForm = (count) => {
     }
 
     if (selectedImageTitle === "") {
-      toast.error("Board background shouldnt' be empty!");
+      toast.error("Board background shouldn't be empty!");
       return;
     }
 
@@ -77,7 +82,11 @@ const useBoardForm = (count) => {
       return;
     }
 
-    createBoardMutation.mutate({ boardTitle, selectedImageTitle });
+    createBoardMutation.mutate({
+      boardTitle,
+      selectedImageTitle,
+      organizationId,
+    });
   };
 
   const { data: images, isPending } = useQuery({
@@ -106,6 +115,8 @@ const useBoardForm = (count) => {
     currentBoardInput,
     setSelectedImageId,
     handleSubmit,
+    selectedOrganizationId,
+    setSelectedOrganizationId,
   };
 };
 

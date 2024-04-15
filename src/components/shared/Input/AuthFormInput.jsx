@@ -5,7 +5,13 @@ import clsx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 
-const Input = ({ value, type, onHandleChange, placeholder, isPassword }) => {
+const AuthFormInput = ({
+  value,
+  type,
+  onHandleChange,
+  placeholder,
+  isPassword,
+}) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
@@ -61,4 +67,4 @@ const Input = ({ value, type, onHandleChange, placeholder, isPassword }) => {
   );
 };
 
-export default Input;
+export default AuthFormInput;

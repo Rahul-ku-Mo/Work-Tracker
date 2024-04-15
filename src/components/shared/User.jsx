@@ -5,11 +5,14 @@ import { useNavigate } from "react-router-dom";
 import Placeholder from "../../assets/placeholder.png";
 import { useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
+import { UserContext } from "../../Context/UserContext";
 
 const User = () => {
   const navigate = useNavigate();
 
-  const { user, setIsLoggedIn, setAccessToken } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
+
+  const { setIsLoggedIn, setAccessToken } = useContext(AuthContext);
 
   const queryClient = useQueryClient();
 

@@ -1,12 +1,14 @@
 import {
   faUser,
   faTableColumns,
+  faCity,
   faDoorOpen,
   faMoneyBill,
   faAngleRight,
   faAngleLeft,
   faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { Link, useLocation } from "react-router-dom";
@@ -38,6 +40,7 @@ const SidebarItem = ({ icon, text, active, onClick }) => {
 const ITEMS = [
   { icon: faUser, text: "profile", id: "pf" },
   { icon: faMoneyBill, text: "pricing", id: "pi" },
+  { icon: faCity, text: "organization", id: "org" },
   { icon: faClipboardList, text: "boards", id: "bd" },
 ];
 
@@ -46,7 +49,7 @@ const Sidebar = () => {
 
   const SidebarClass = clsx(
     isOpen ? "translate-x-0 " : "-translate-x-full",
-    "bg-white text-slate-800 fixed h-screen transition-transform border-slate-500 top-0 left-0 z-20 border-r border-dashed w-64"
+    "bg-white text-slate-800 fixed h-screen transition-transform border-slate-500 top-0 left-0 z-30 border-r border-dashed w-64"
   );
 
   const { pathname } = useLocation();
@@ -70,7 +73,7 @@ const Sidebar = () => {
         )}
       </div>
       <nav className="flex flex-col justify-between h-full">
-        <div>
+        <div className="flex flex-col grow">
           <h1 className="font-extrabold text-xl relative text-black tracking-tighter p-3">
             Work<span className="text-emerald-500">Tracker</span>
           </h1>

@@ -1,15 +1,16 @@
 import { Tooltip } from "react-tooltip";
 import { useContext } from "react";
-import { AuthContext } from "../../Context/AuthContext";
+
 import Placeholder from "../../assets/placeholder.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import Container from "../../layouts/Container";
 import Form from "./Form";
+import { UserContext } from "../../Context/UserContext";
 
 const Account = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Container background={"bg-slate-100/90"}>
@@ -67,7 +68,7 @@ const Account = () => {
             Deactivate account
           </button>
         </div>
-        <Form user={user}/>
+        <Form user={user} />
       </div>
     </Container>
   );

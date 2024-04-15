@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import ColumnBoard from "../components/Column/ColumnBoard";
 import { useBoard } from "../hooks/useQueries";
 import { useParams } from "react-router-dom";
@@ -23,7 +22,7 @@ const KanbanPage = () => {
         src={boardDetail?.imageFullUrl}
         alt="Dashboard"
       />
-      <Navbar />
+
       <ColumnBoard title={boardDetail?.title} />
     </>
   );

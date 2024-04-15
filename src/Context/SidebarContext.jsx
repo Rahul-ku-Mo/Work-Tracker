@@ -13,7 +13,11 @@ export const SidebarContextProvider = ({ children }) => {
   const closeSidebar = () => setIsOpen(false);
 
   useEffect(() => {
-    setIsOpen(pathname.startsWith("/kanban") ? false : true);
+    setIsOpen(
+      pathname.startsWith("/kanban") || pathname.startsWith("/organization")
+        ? false
+        : true
+    );
   }, [pathname]);
 
   return (

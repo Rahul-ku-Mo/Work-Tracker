@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Google from "../assets/google.svg";
 import Github from "../assets/github.svg";
 
-import Input from "../components/shared/Input";
+import AuthFormInput from "../components/shared/Input/AuthFormInput";
 
 import Cookies from "js-cookie";
 import { AuthContext } from "../Context/AuthContext";
@@ -71,7 +71,7 @@ const Auth = () => {
           {signupStatus && (
             <label className="text-sm ">
               Username
-              <Input
+              <AuthFormInput
                 value={username}
                 type="text"
                 autocomplete
@@ -82,7 +82,7 @@ const Auth = () => {
           )}
           <label className="text-sm">
             Email
-            <Input
+            <AuthFormInput
               value={values.email}
               type="text"
               autocomplete
@@ -93,7 +93,7 @@ const Auth = () => {
 
           <label className="text-sm ">
             Password
-            <Input
+            <AuthFormInput
               type="password"
               autocomplete
               placeholder={"test123"}

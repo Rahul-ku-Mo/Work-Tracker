@@ -2,9 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchCard, fetchCards } from "../apis/CardApis";
 import { fetchColumn, fetchColumns } from "../apis/ColumnApis";
 import { fetchBoards, fetchBoard } from "../apis/BoardApis";
-import { fetchUserProfile } from "../apis/userApis";
+import { fetchUserProfile, fetchUsers } from "../apis/userApis";
 import { fetchLabels } from "../apis/LabelApis";
-
+import {
+  fetchOrganization,
+  fetchOrganizations,
+} from "../apis/OrganizationApis";
+import {fetchNotifications} from "../apis/NotificationApis";
 export const useCard = (accessToken, cardId) => {
   return useQuery({
     queryKey: ["cards", cardId],
@@ -53,10 +57,38 @@ export const useUser = (accessToken) => {
   });
 };
 
+export const useUsers = (accessToken) => {
+  return useQuery({
+    queryKey: ["users"],
+    queryFn: async () => await fetchUsers(accessToken),
+  });
+};
 
 export const useLabels = (accessToken, cardId) => {
   return useQuery({
     queryKey: ["labels", cardId],
-    queryFn: async () => await fetchLabels(accessToken, cardId)
-  })
+    queryFn: async () => await fetchLabels(accessToken, cardId),
+  });
+};
+
+export const useOrganization = (accessToken, organizationId) => {
+  return useQuery({
+    queryKey: ["organizations", organizationId],
+    queryFn: async () => await fetchOrganization(accessToken, organizationId),
+  });
+};
+
+export const useOrganizations = (accessToken, userId) => {
+  return useQuery({
+    queryKey: ["organizations", "team", userId],
+    queryFn: async () => await fetchOrganizations(accessToken),
+  });
+};
+
+
+export const useNotifications = (accessToken) => {
+  return useQuery({
+    queryKey: ["notifications"],
+    queryFn: async () => await fetchNotifications(accessToken),
+  });
 }

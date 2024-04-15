@@ -14,7 +14,7 @@ const AuthContextProvider = ({ children }) => {
 
   const [accessToken, setAccessToken] = useState(Cookies.get("accessToken"));
 
-  const { data: user, error } = useUser(accessToken);
+  // const { data: user, isPending } = useUser(accessToken);
 
   useEffect(() => {
     const validateAndSetToken = () => {
@@ -35,7 +35,14 @@ const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isLoggedIn, setIsLoggedIn, accessToken, setAccessToken }}
+      value={{
+        // user,
+        isLoggedIn,
+        setIsLoggedIn,
+        accessToken,
+        setAccessToken,
+        // isPending,
+      }}
     >
       {children}
     </AuthContext.Provider>
