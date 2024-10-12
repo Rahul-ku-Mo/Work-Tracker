@@ -18,7 +18,7 @@ const FormInput = ({
         value={formStateValue || ""}
         placeholder={placeholder}
         onChange={handleChange(id)}
-        className="peer px-3 py-2 mt-2 rounded-md peer w-full border text-sm dark:border-zinc-200 border-zinc-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:placeholder-zinc-400 placeholder-transparent"
+        className="peer px-3 py-2 mt-2 rounded-md peer w-full border text-sm dark:border-zinc-800 border-zinc-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:placeholder-zinc-400 placeholder-transparent"
       />
       <label
         className={`peer-focus:text-xs text-sm peer-focus:top-0 transition-all ease-linear px-0.5 peer-focus:text-emerald-500 dark:text-zinc-200 text-zinc-600  font-bold dark:peer-focus:bg-zinc-900 peer-focus:bg-zinc-200 absolute z-10 left-2 ${
