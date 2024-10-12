@@ -37,8 +37,6 @@ const Form = ({ user }) => {
 
   const [initialState, setInitialState] = useState(formState);
 
-  const queryClient = useQueryClient();
-
   useEffect(() => {
     setInitialState(formState);
   }, [user]);
@@ -52,11 +50,6 @@ const Form = ({ user }) => {
     },
     onError: (error) => {
       console.log(error);
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ["user"],
-      });
     },
   });
 

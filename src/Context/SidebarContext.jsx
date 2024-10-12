@@ -8,9 +8,7 @@ export const SidebarContextProvider = ({ children }) => {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const openSidebar = () => setIsOpen(true);
-
-  const closeSidebar = () => setIsOpen(false);
+  const toggleSidebar = () => setIsOpen(prev => !prev)
 
   useEffect(() => {
     setIsOpen(
@@ -24,8 +22,7 @@ export const SidebarContextProvider = ({ children }) => {
     <SidebarContext.Provider
       value={{
         isOpen,
-        openSidebar,
-        closeSidebar,
+       toggleSidebar
       }}
     >
       {children}

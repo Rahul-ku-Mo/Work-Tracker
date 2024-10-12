@@ -3,11 +3,9 @@ import {
   faLock,
   faBolt,
   faRocket,
-faBarsProgress,
+  faBarsProgress,
   faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
-
-import Users from "../shared/User";
 
 const SubNavbar = () => {
   return (

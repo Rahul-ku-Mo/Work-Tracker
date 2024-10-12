@@ -6,9 +6,9 @@ import clsx from "clsx";
 const NotificationPanel = ({ notifications }) => {
   return (
     <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-      <div className="relative bg-white flex flex-col overflow-y-auto gap-8 p-7 max-h-[23.5rem]">
+      <div className="relative bg-white dark:bg-zinc-800 flex flex-col overflow-y-auto gap-8 p-7 max-h-[23.5rem]">
         {notifications?.length === 0 && (
-          <div className="relative text-black text-sm">
+          <div className="relative text-black dark:text-zinc-100 text-sm">
             No notifications yet.
           </div>
         )}
@@ -17,10 +17,10 @@ const NotificationPanel = ({ notifications }) => {
             key={"notifcation" + "-" + idx}
             className="-m-3 relative flex gap-3 items-start bg-white rounded-lg p-2 group transition duration-300 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center text-black bg-gray-500/20 transition-all ease-linear duration-500 group-hover:bg-gray-500/50 rounded-md sm:h-12 sm:w-12">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center text-black dark:text-zinc-100 dark:bg-gray-500/20 bg-zinc-100 transition-all ease-linear duration-500 group-hover:bg-gray-500/50 rounded-md sm:h-12 sm:w-12">
               <FontAwesomeIcon icon={faBuildingCircleCheck} />
             </div>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 darK:text-white">
               {item.message === "JOIN"
                 ? "You have been invited to"
                 : "You have been"}
@@ -36,7 +36,7 @@ const NotificationPanel = ({ notifications }) => {
               </span>
               the organization.
             </p>
-            <div className="absolute bottom-0 right-0 text-black/50 text-xs p-2">
+            <div className="absolute bottom-0 right-0 dark:text-white/50 text-black/50 text-xs p-2">
               {formatDate(item.createdAt)}
             </div>
           </div>

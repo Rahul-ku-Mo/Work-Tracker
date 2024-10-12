@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { useUser } from "../hooks/useQueries";
+
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -13,8 +13,6 @@ const AuthContextProvider = ({ children }) => {
   );
 
   const [accessToken, setAccessToken] = useState(Cookies.get("accessToken"));
-
-  // const { data: user, isPending } = useUser(accessToken);
 
   useEffect(() => {
     const validateAndSetToken = () => {
@@ -36,12 +34,10 @@ const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        // user,
         isLoggedIn,
         setIsLoggedIn,
         accessToken,
         setAccessToken,
-        // isPending,
       }}
     >
       {children}

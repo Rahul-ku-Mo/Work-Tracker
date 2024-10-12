@@ -1,11 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
 import Router from "./routes";
 import { Toaster } from "sonner";
-import { AuthContextProvider } from "./Context/AuthContext";
-import { SidebarContextProvider } from "./Context/SidebarContext";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { CardContextProvider } from "./Context/CardContext";
+import { QueryClient, QueryClientProvider,  } from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const queryClient = new QueryClient({
@@ -24,15 +21,9 @@ const App = () => {
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
-            <AuthContextProvider>
-              <SidebarContextProvider>
-                <CardContextProvider>
-                  <Router />
-                </CardContextProvider>
-              </SidebarContextProvider>
-            </AuthContextProvider>
+            <Router />
           </BrowserRouter>
-          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </GoogleOAuthProvider>
     </>

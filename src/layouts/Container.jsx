@@ -12,7 +12,7 @@ const Container = ({ background, children }) => {
       <Navbar/>
       <main
         className={clsx(
-          isOpen ? "pl-[16.5rem]" : "pl-1",
+          isOpen ? "ml-[16.5rem]" : "ml-16 pl-2",
           "pt-12 pr-1 relative h-screen transition overflow-auto",
           background
         )}

@@ -1,63 +1,114 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ChevronRight, BarChart2, Users, Clock, Sun, Moon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { LogoBar } from "../components/shared/LogoBar";
 
-import github from "../assets/github.svg";
-import Cookies from "js-cookie";
+const FeatureCard = ({ icon: Icon, title, description }) => (
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-lg"
+  >
+    <Icon className="w-12 h-12 text-emerald-500 mb-4" />
+    <h3 className="text-xl font-semibold mb-2 text-zinc-800 dark:text-white">
+      {title}
+    </h3>
+    <p className="text-zinc-600 dark:text-zinc-300">{description}</p>
+  </motion.div>
+);
 
-const LandingPage = () => {
-  const token = Cookies.get("accessToken");
+export default function LandingPage() {
+  const navigate = useNavigate();
 
   return (
-    <div className="bg-slate-100 h-screen transition-all">
-      <header>
-        <nav className="bg-transparent py-3 px-4 flex justify-between items-center bg-zinc-100 shadow-lg fixed top-0 w-full">
-          <h1 className="font-bold text-xl relative text-slate-800 tracking-tighter">
-            Work<span className="text-emerald-500">Tracker</span>
-          </h1>
-          <Link
-            to={token === undefined ? "/auth" : "/boards"}
-            className="px-4 py-2 hover:bg-emerald-600 bg-emerald-700 rounded-md text-sm font-semibold text-white"
-          >
-            {token === undefined ? "Try for free" : "Continue"}
-          </Link>
+    <div className={`min-h-screen `}>
+      <div className="bg-zinc-50 dark:bg-zinc-900 min-h-screen transition-colors duration-300">
+        <nav className="bg-white dark:bg-zinc-800 shadow-md">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16">
+              <div className="flex-shrink-0 flex items-center">
+              <LogoBar/>
+              </div>
+              <div className="flex items-center">
+                <button
+                  // onClick={toggleDarkMode}
+                  className="p-2 rounded-full text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                >
+                  {/* {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />} */}
+                </button>
+                <button
+                  onClick={() => navigate("/auth")}
+                  className="ml-4 px-4 py-2 rounded-md bg-emerald-500 text-white hover:bg-emerald-600 transition-colors duration-300"
+                >
+                  Sign In
+                </button>
+              </div>
+            </div>
+          </div>
         </nav>
-      </header>
-      <main className="flex flex-col pt-60 pb-20 items-center justify-center bg-slate-100">
-        <h1 className="text-3xl md:text-6xl text-center text-neutral-800 mb-6 font-bold tracking-tighter">
-          Track your work seamlessly
-        </h1>
-        <div className="text-3xl md:text-5xl bg-gradient-to-r from-emerald-600 to-green-600 text-white px-4 p-2 rounded-md pb-4 w-fit font-semibold">
-          work forward.
-        </div>
-        <div className="text-sm md:text-xl text-neutral-500 mt-4 max-w-xs md:max-w-2xl text-center mx-auto __className_6d1a03">
-          Priortize your time. Collaborate and Manage seamlessly, reaching new
-          heights of productivity. Save your work with WorkTracker.
-        </div>
-        <Link
-          to={token === undefined ? "/auth" : "/boards"}
-          className="px-12 py-2 hover:bg-emerald-600 bg-emerald-700 rounded-md text-sm font-semibold text-white mt-4 transition-all"
-        >
-          {token === undefined
-            ? "Try WorkTracker for free"
-            : "Continue with WorkTracker"}
-        </Link>
-      </main>
-      <footer className="bg-slate-100 shadow-lg py-3 px-4 flex justify-between items-center fixed bottom-0 w-full border-t-slate-200 border-t-2">
-        <h1 className="font-bold text-xl relative text-slate-800 tracking-tighter">
-          Work<span className="text-emerald-500">Tracker</span>
-        </h1>
 
-        <Link
-          to="https://github.com/Rahul-ku-Mo/Work-Tracker"
-          className="text-sm text-gray-600 hover:text-gray-400 font-bold flex gap-2 items-center "
-          target="_blank"
-        >
-          <img src={github} className="w-4 h-4" />
-          Check out this page
-        </Link>
-      </footer>
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-4xl sm:text-6xl font-extrabold text-zinc-900 dark:text-white mb-4"
+            >
+              Track your work seamlessly
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-2xl sm:text-4xl font-bold text-emerald-500 mb-8 capitalize tracking-tighter"
+            >
+              work forward.
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-xl text-zinc-600 dark:text-zinc-300 mb-12 max-w-2xl mx-auto"
+            >
+              Prioritize your time. Collaborate and Manage seamlessly, reaching
+              new heights of productivity. Save your work with WorkTracker.
+            </motion.p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/auth")}
+              className="px-8 py-4 bg-emerald-500 text-white rounded-full text-xl font-semibold hover:bg-emerald-600 transition-colors duration-300 flex items-center mx-auto"
+            >
+              Get Started
+              <ChevronRight className="ml-2 w-6 h-6" />
+            </motion.button>
+          </div>
+
+          <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <FeatureCard
+              icon={BarChart2}
+              title="Advanced Analytics"
+              description="Gain insights into your work patterns and team performance with our powerful analytics tools."
+            />
+            <FeatureCard
+              icon={Users}
+              title="Seamless Collaboration"
+              description="Work together effortlessly with real-time updates and intuitive sharing features."
+            />
+            <FeatureCard
+              icon={Clock}
+              title="Time Management"
+              description="Optimize your productivity with our intelligent time tracking and task prioritization system."
+            />
+          </div>
+        </main>
+
+        <footer className="bg-zinc-100 dark:bg-zinc-800  py-6 border-t border-zinc-200 dark:border-zinc-700 pt-8 text-center">
+          <p className="text-zinc-500 dark:text-zinc-400">
+            &copy; 2024 WorkTracker. All rights reserved.
+          </p>
+        </footer>
+      </div>
     </div>
   );
-};
-
-export default LandingPage;
+}

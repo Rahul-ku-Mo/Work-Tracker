@@ -13,6 +13,8 @@ import Cookies from "js-cookie";
 import DeleteDialog from "./Dialog/DeleteDialog";
 import { deleteBoard } from "../apis/BoardApis";
 import { toast } from "sonner";
+import { useSidebarContext } from "../Context/SidebarContext";
+import clsx from "clsx";
 
 const SubHeader = ({ title }) => {
   const { id: boardId } = useParams();
@@ -31,6 +33,8 @@ const SubHeader = ({ title }) => {
     setIsOpen(true);
   };
 
+  const { isOpen: isOpenSidebar } = useSidebarContext();
+
   const deleteBoardMutation = useMutation({
     mutationFn: async (boardId) => {
       await deleteBoard(accessToken, boardId);
@@ -48,7 +52,12 @@ const SubHeader = ({ title }) => {
 
   return (
     <>
-      <nav className="flex w-full top-12 z-20 px-4 bg-black/30 fixed h-fit py-2 justify-between items-center">
+      <nav
+        className={clsx(
+          "flex w-full top-14 z-20 pr-2  bg-black/30 fixed h-fit py-2 justify-between items-center",
+          !isOpenSidebar ? "pl-[4.5rem]" : "pl-[16.5rem]"
+        )}
+      >
         <div className="text-xl tracking-tighter font-black text-white uppercase ">
           {title}
         </div>

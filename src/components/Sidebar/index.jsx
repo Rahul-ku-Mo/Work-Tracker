@@ -1,89 +1,97 @@
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  faUser,
-  faTableColumns,
-  faCity,
-  faDoorOpen,
-  faMoneyBill,
-  faAngleRight,
-  faAngleLeft,
-  faClipboardList,
-} from "@fortawesome/free-solid-svg-icons";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import clsx from "clsx";
-import { Link, useLocation } from "react-router-dom";
-import { useSidebarContext } from "../../Context/SidebarContext";
+  Building2,
+  ClipboardList,
+  ChevronLeft,
+  ChevronRight,
+  Inbox,
+  BrainCircuit,
+  BarChart,
+} from "lucide-react";
 import Cookies from "js-cookie";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSidebarContext } from "../../Context/SidebarContext";
+import { LogoBar } from "../shared/LogoBar";
 
-const SidebarItem = ({ icon, text, active, onClick }) => {
+const SidebarItem = ({ icon: Icon, text, active, onClick, isOpen }) => {
   return (
     <li>
       <Link
         onClick={onClick}
-        to={`/${text}`}
-        className={clsx(
-          active
-            ? "text-slate-100 bg-emerald-800 hover:bg-emerald-700"
-            : "text-black hover:bg-slate-600",
-          "flex gap-2 cursor-pointer group mx-2 my-0.5 hover:text-white items-center rounded-lg transition-all ease-in-out duration-300 px-2 py-3"
-        )}
+        to={`/${text.toLowerCase()}`}
+        className={`
+          flex items-center gap-3 cursor-pointer mx-2 my-1 rounded-lg transition-all duration-300 ease-in-out px-3 py-2
+          ${
+            active
+              ? "text-emerald-500 bg-slate-100 dark:text-emerald-500 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700"
+              : "text-slate-700 hover:bg-slate-100 hover:text-emerald-500 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white"
+          }
+        `}
       >
-        <FontAwesomeIcon icon={icon} className=" w-5 h-5" />
-        <span className="text-sm capitalize tracking-wide font-medium">
-          {text}
-        </span>
+        <Icon className="w-5 h-5" />
+        {isOpen && (
+          <span className="text-sm font-medium capitalize">{text}</span>
+        )}
       </Link>
     </li>
   );
 };
 
 const ITEMS = [
-  { icon: faUser, text: "profile", id: "pf" },
-  { icon: faMoneyBill, text: "pricing", id: "pi" },
-  { icon: faCity, text: "organization", id: "org" },
-  { icon: faClipboardList, text: "boards", id: "bd" },
+  { icon: BarChart, text: "Analysis", id: "ana" },
+  { icon: Building2, text: "organization", id: "org" },
+  { icon: Inbox, text: "conversations", id: "conv" },
+  { icon: ClipboardList, text: "boards", id: "bd" },
+  { icon: BrainCircuit, text: "Generative AI", id: "genAi" },
 ];
 
 const Sidebar = () => {
-  const { isOpen, openSidebar, closeSidebar } = useSidebarContext();
-
-  const SidebarClass = clsx(
-    isOpen ? "translate-x-0 " : "-translate-x-full",
-    "bg-white text-slate-800 fixed h-screen transition-transform border-slate-500 top-0 left-0 z-30 border-r border-dashed w-64"
-  );
+  const { isOpen, toggleSidebar } = useSidebarContext();
 
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const handleLogout = () => {
+    Cookies.remove("accessToken");
+    navigate("/auth");
+    queryClient.clear();
+  };
 
   return (
-    <aside className={SidebarClass}>
-      <div
-        onClick={isOpen ? closeSidebar : openSidebar}
-        className="absolute w-2 h-2 p-2.5 rounded-full bg-white -right-2.5 z-20 border-dashed border cursor-pointer hover:scale-95 transition-transform border-black top-10"
-      >
-        {isOpen ? (
-          <FontAwesomeIcon
-            icon={faAngleLeft}
-            className="absolute inset-0 w-full h-full"
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            className="absolute inset-0 w-full h-full"
-          />
-        )}
-      </div>
-      <nav className="flex flex-col justify-between h-full">
-        <div className="flex flex-col grow">
-          <h1 className="font-extrabold text-xl relative text-black tracking-tighter p-3">
-            Work<span className="text-emerald-500">Tracker</span>
-          </h1>
-          <h1 className="text-xs uppercase font-bold pt-1 tracking-tight p-2 cursor-pointer inline-block">
-            overview
-          </h1>
+    <aside
+      className={`
+        fixed top-0 left-0 z-30 h-screen bg-white dark:bg-zinc-900 text-slate-900 dark:text-white transition-all duration-300 ease-in-out
+        ${isOpen ? "w-64" : "w-16"}
+      `}
+    >
+      <div className="flex flex-col h-full">
+        <div className="flex items-center justify-between p-4">
+          {isOpen && (
+            <LogoBar />
+          )}
+          <button
+            onClick={toggleSidebar}
+            className="p-1 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors duration-200"
+          >
+            {isOpen ? (
+              <ChevronLeft className="w-5 h-5" />
+            ) : (
+              <ChevronRight className="w-5 h-5" />
+            )}
+          </button>
+        </div>
+        <nav className="flex-grow overflow-y-auto">
+          {isOpen && (
+            <h2 className="text-xs uppercase font-bold tracking-wider px-5 py-3 text-slate-500 dark:text-zinc-500">
+              Overview
+            </h2>
+          )}
           <ol className="list-none flex flex-col">
             {ITEMS.map((item) => {
               return (
                 <SidebarItem
+                  isOpen={isOpen}
                   key={item.id}
                   icon={item.icon}
                   text={item.text}
@@ -91,27 +99,29 @@ const Sidebar = () => {
                 />
               );
             })}
-            <SidebarItem
-              icon={faDoorOpen}
-              text="logout"
-              key={"lo"}
-              onClick={() => {
-                Cookies.remove("accessToken");
-                navigate("/auth");
-              }}
-            ></SidebarItem>
           </ol>
-        </div>
-
-        <h1 className="font-bold text-xl text-white tracking-tighter pb-2 mx-auto flex flex-col">
-          <span className="text-black">
-            Work<span className="text-emerald-500">Tracker</span>
-          </span>
-          <span className="text-xs font-thin text-center tracking-normal text-black">
-            Made by Rahul K.M 😏
-          </span>
-        </h1>
-      </nav>
+        </nav>
+        {isOpen && (
+          <div className="p-4 text-center">
+            <h2 className="font-bold text-lg tracking-tight">
+              Work<span className="text-emerald-500">Tracker</span>
+            </h2>
+            <p className="text-xs font-light tracking-wide text-slate-500 dark:text-zinc-500 mt-1">
+              Made by Rahul K.M 😏
+            </p>
+            {/* <button
+              onClick={toggleDarkMode}
+              className="mt-2 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors duration-200"
+            >
+              {isDarkMode ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </button> */}
+          </div>
+        )}
+      </div>
     </aside>
   );
 };

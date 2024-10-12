@@ -1,4 +1,5 @@
 import { useRoutes, Navigate } from "react-router-dom";
+import { useContext } from "react";
 import {
   LandingPage,
   KanbanPage,
@@ -9,91 +10,72 @@ import {
   OrganizationPage,
   OrganizationManagementPage,
 } from "./element";
-import { useContext } from "react";
-
+import AuthenticatedRoutes from "./AuthenticatedRoutes";
 import { KanbanContextProvider } from "../Context/KanbanContext";
-import { AuthContext } from "../Context/AuthContext";
 import { UserContextProvider } from "../Context/UserContext";
 import { NotificationContextProvider } from "../Context/NotificationContext";
+import { AuthContext, AuthContextProvider } from "../Context/AuthContext";
 
-const withUserContext = (Component) => {
-  return (props) => (
-    <UserContextProvider>
-      <NotificationContextProvider>
-        <Component {...props} />
-      </NotificationContextProvider>
-    </UserContextProvider>
-  );
+const withContexts =
+  (Component, includeKanban = false) =>
+  (props) =>
+    (
+      <UserContextProvider>
+        <NotificationContextProvider>
+          {includeKanban ? (
+            <KanbanContextProvider>
+              <Component {...props} />
+            </KanbanContextProvider>
+          ) : (
+            <Component {...props} />
+          )}
+        </NotificationContextProvider>
+      </UserContextProvider>
+    );
+
+const ProtectedRoute = ({ children }) => {
+  const { isLoggedIn } = useContext(AuthContext);
+  return isLoggedIn ? children : <Navigate to="/auth" replace />;
 };
 
-const withUserAndKanbanContext = (Component) => {
-  return (props) => (
-    <UserContextProvider>
-      <NotificationContextProvider>
-        <KanbanContextProvider>
-          <Component {...props} />
-        </KanbanContextProvider>
-      </NotificationContextProvider>
-    </UserContextProvider>
-  );
+const AuthRoute = ({ children }) => {
+  const { isLoggedIn } = useContext(AuthContext);
+  return isLoggedIn ? <Navigate to="/boards" replace /> : children;
 };
 
 const Router = () => {
-  const { isLoggedIn } = useContext(AuthContext);
-
   return useRoutes([
-    {
-      path: "/",
-      element: <LandingPage />,
-    },
-    {
-      path: "/kanban/:id",
-      element: isLoggedIn ? (
-        withUserAndKanbanContext(KanbanPage)()
-      ) : (
-        <Navigate to="/auth" replace />
-      ),
-    },
-    {
-      path: "/boards",
-      element: isLoggedIn ? (
-        withUserContext(BoardPage)()
-      ) : (
-        <Navigate to="/auth" replace />
-      ),
-    },
+    { path: "/", element: <LandingPage /> },
     {
       path: "/auth",
-      element: isLoggedIn ? <Navigate to="/boards" replace /> : <AuthPage />,
-    },
-    {
-      path: "/profile",
-      element: isLoggedIn ? (
-        withUserContext(AccountPage)()
-      ) : (
-        <Navigate to="/auth" replace />
+      element: (
+        <AuthContextProvider>
+          <AuthRoute>
+            <AuthPage />
+          </AuthRoute>
+        </AuthContextProvider>
       ),
     },
     {
-      path: "/organization",
-      element: isLoggedIn ? (
-        withUserContext(OrganizationPage)()
-      ) : (
-        <Navigate to="/auth" replace />
+      element: (
+        <AuthContextProvider>
+          <ProtectedRoute>
+            <AuthenticatedRoutes />
+          </ProtectedRoute>
+        </AuthContextProvider>
       ),
+      children: [
+        { path: "/kanban/:id", element: withContexts(KanbanPage, true)() },
+        { path: "/boards", element: withContexts(BoardPage)() },
+        { path: "/profile", element: withContexts(AccountPage)() },
+        { path: "/organization", element: withContexts(OrganizationPage)() },
+        {
+          path: "/organization/:organizationId",
+          element: withContexts(OrganizationManagementPage)(),
+        },
+      ],
     },
-    {
-      path: "/organization/:organizationId",
-      element: isLoggedIn ? (
-        withUserContext(OrganizationManagementPage)()
-      ) : (
-        <Navigate to="/auth" replace />
-      ),
-    },
-    {
-      path: "*",
-      element: <NotFoundPage />,
-    },
+    { path: "*", element: <NotFoundPage /> },
   ]);
 };
 

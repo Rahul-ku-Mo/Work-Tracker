@@ -25,7 +25,7 @@ const NotificationPopover = () => {
       <Popover.Button className="flex items-center flex-col relative">
         <FontAwesomeIcon
           icon={faBell}
-          className="h-4 w-4 bg-slate-600/20 cursor-pointer p-2 rounded-full border hover:border-dashed hover:border-black/30 border-black/30 transition-all text-black"
+          className="h-4 w-4 dark:bg-white bg-slate-600/20 cursor-pointer p-2 rounded-full border hover:border-dashed hover:border-black/30 border-black/30 transition-all text-black"
         />
         {isNewNotification && (
           <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse "></span>

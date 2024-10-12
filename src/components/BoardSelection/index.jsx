@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useBoards } from "../../hooks/useQueries";
 
-// import { Loader2 } from "lucide-react";
 import { MAX_BOARDS } from "../../constant";
 const BoardSelection = () => {
   const accessToken = Cookies.get("accessToken");
