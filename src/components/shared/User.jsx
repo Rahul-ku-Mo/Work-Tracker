@@ -32,7 +32,7 @@ const User = () => {
           />
         ) : (
           <div className="w-6 h-6 text-sm font-bold flex items-center justify-center  ">
-            {user.name.slice(0, 2).toUpperCase()}
+            {user?.name?.slice(0, 2).toUpperCase()}
           </div>
         )}
       </Popover.Button>
