@@ -12,16 +12,16 @@ const BoardSelection = () => {
 
   if (isPending) {
     return (
-      <Container>
-        <h1 className="text-2xl font-bold text-black capitalize tracking-tight my-4 border-l-4 h-6 inline-flex items-center pl-2 border-gray-800 ">
+      <Container fwdClassName="pl-2 bg-white dark:bg-zinc-800">
+        <h1 className="text-2xl font-bold text-black dark:text-white capitalize tracking-tight my-4 border-l-4 h-6 inline-flex items-center pl-2 border-zinc-800 dark:border-white ">
           Your Boards
         </h1>
         <div className="absolute z-0 inset-0 flex items-center justify-center pointer-events-none">
-          <div className="bg-white/50 rounded-md p-4  text-center">
-            <h1 className="text-2xl font-bold text-black/50">
+          <div className="bg-white/50 dark:bg-zinc-800 rounded-md p-4  text-center">
+            <h1 className="text-2xl font-bold dark:text-white text-black/50">
               Create your first board
             </h1>
-            <p className="text-sm font-medium text-black/40">
+            <p className="text-sm font-medium dark:text-white text-black/40">
               Start by creating a board to organize your tasks
             </p>
           </div>
@@ -31,8 +31,8 @@ const BoardSelection = () => {
   }
 
   return (
-    <Container background="bg-white">
-      <h1 className="text-2xl font-bold text-black capitalize tracking-tight my-4 border-l-4 h-6 inline-flex items-center pl-2 border-gray-800 ">
+    <Container fwdClassName="pl-2 bg-white dark:bg-zinc-800">
+      <h1 className="text-2xl font-bold dark:text-zinc-100 text-black capitalize tracking-tight my-4 border-l-4 h-6 inline-flex items-center pl-2 dark:border-white border-zinc-800 ">
         Your Boards
       </h1>
 
@@ -53,7 +53,7 @@ const BoardSelection = () => {
                 <span className="text-white font-bold text-lg">
                   {board.title}
                 </span>
-                <span className="text-white/10 font-medium text-xs self-end ">
+                <span className="text-white/10 dark:text-white/80 font-medium text-xs self-end ">
                   {board.imageUserName}
                 </span>
               </div>

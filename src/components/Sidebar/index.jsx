@@ -40,7 +40,7 @@ const SidebarItem = ({ icon: Icon, text, active, onClick, isOpen }) => {
 const ITEMS = [
   { icon: BarChart, text: "Analysis", id: "ana" },
   { icon: Building2, text: "organization", id: "org" },
-  { icon: Inbox, text: "conversations", id: "conv" },
+  { icon: Inbox, text: "conversation", id: "conv" },
   { icon: ClipboardList, text: "boards", id: "bd" },
   { icon: BrainCircuit, text: "Generative AI", id: "genAi" },
 ];

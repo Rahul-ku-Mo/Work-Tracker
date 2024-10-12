@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-const DeleteDialog = ({ closeModal, isOpen, deleteItem, title , id }) => {
+const DeleteDialog = ({ closeModal, isOpen, deleteItem, title, id }) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -32,12 +32,12 @@ const DeleteDialog = ({ closeModal, isOpen, deleteItem, title , id }) => {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-semibold leading-6 text-gray-900"
+                    className="text-lg font-semibold leading-6 text-zinc-900"
                   >
                     Delete <span className="capitalize">{title}</span>
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-800">
+                    <p className="text-sm text-zinc-800">
                       Are you sure you want to delete this {title} ?
                     </p>
                   </div>

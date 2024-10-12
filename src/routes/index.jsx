@@ -9,6 +9,7 @@ import {
   NotFoundPage,
   OrganizationPage,
   OrganizationManagementPage,
+  ConversationPage
 } from "./element";
 import AuthenticatedRoutes from "./AuthenticatedRoutes";
 import { KanbanContextProvider } from "../Context/KanbanContext";
@@ -72,6 +73,10 @@ const Router = () => {
         {
           path: "/organization/:organizationId",
           element: withContexts(OrganizationManagementPage)(),
+        },
+        {
+          path: "/conversation",
+          element: withContexts(ConversationPage)(),
         },
       ],
     },

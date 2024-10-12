@@ -18,7 +18,7 @@ const OrganizationPopover = ({ teamLeader, paidUser }) => {
       <Tooltip
         place="top-start"
         id="information-tooltip"
-        className="!bg-white-700 !text-gray-200 !px-2 !py-1 !rounded-md"
+        className="!bg-white-700 !text-zinc-200 !px-2 !py-1 !rounded-md"
       />
       <Popover.Panel className="absolute top-0 left-20 z-10 w-[20rem] p-2 bg-white rounded-md shadow-lg">
         <OrganizationForm teamLeader={teamLeader} />

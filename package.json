@@ -33,6 +33,7 @@
     "react-router-dom": "^6.19.0",
     "react-tooltip": "^5.26.3",
     "react-transition-group": "^4.4.5",
+    "recharts": "^2.13.0",
     "sonner": "^1.2.4",
     "sort-by": "^1.2.0",
     "unsplash-js": "^7.0.19"

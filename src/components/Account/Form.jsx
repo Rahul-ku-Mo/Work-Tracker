@@ -65,9 +65,9 @@ const Form = ({ user }) => {
   };
 
   return (
-    <div className="bg-white/90 rounded-xl text-black p-8 flex flex-col gap-4 justify-between w-full">
+    <div className="dark:bg-zinc-900 dark:text-white bg-white/90 rounded-md text-black p-8 flex flex-col gap-4 justify-between w-full">
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-        <div className="flex flex-wrap gap-4">
+        <div className="grid gap-4">
           <FormInput
             id="name"
             type="text"
@@ -76,19 +76,21 @@ const Form = ({ user }) => {
             handleChange={handleChange}
             placeholder="Rahul K.M"
             value="Name"
+            description="This is the name that will be displayed on your profile and in emails."
           />
           <FormInput
             id="email"
             type="email"
             htmlFor="email"
             formStateValue={formState.email}
-            handleChange={handleChange}
             placeholder="Rahu@km.com"
+            handleChange={handleChange}
             readOnly
             value="Email"
+            description="You cannot change your email since it's unique."
           />
         </div>
-        <div className="flex gap-4 flex-wrap ">
+        <div className="grid gap-4 grid-cols-2">
           <FormInput
             id="phoneNumber"
             type="tel"
@@ -97,6 +99,7 @@ const Form = ({ user }) => {
             handleChange={handleChange}
             placeholder="12345-67890"
             value="Phone Number"
+            description="Update your phone number if it has changed. Leave it as is if it's still current."
           />
           <FormInput
             id="state"
@@ -106,10 +109,11 @@ const Form = ({ user }) => {
             handleChange={handleChange}
             placeholder="Karnataka"
             value="State"
+            description="Enter your state of residence. This helps us provide location-specific services."
           />
         </div>
 
-        <div className="flex gap-4 flex-wrap ">
+        <div className="grid gap-4 grid-cols-2">
           <FormInput
             type="text"
             id="address"
@@ -118,6 +122,7 @@ const Form = ({ user }) => {
             handleChange={handleChange}
             placeholder="1234, Main Street, Apt 2B"
             value="Address"
+            description="Enter your full address including street, apartment number, city, and state if applicable."
           />
           <FormInput
             id="zipCode"
@@ -127,9 +132,10 @@ const Form = ({ user }) => {
             handleChange={handleChange}
             placeholder="560001"
             value="Zip Code"
+            description="Enter your postal code. This helps us provide location-specific services if needed."
           />
         </div>
-        <div className="flex gap-4 flex-wrap ">
+        <div className="grid gap-4 grid-cols-2">
           <FormInput
             id="company"
             type="text"
@@ -138,6 +144,7 @@ const Form = ({ user }) => {
             handleChange={handleChange}
             placeholder="Company Name"
             value="Company"
+            description="Enter the name of your current employer or your own company if you're self-employed."
           />
           <FormInput
             id="role"
@@ -147,13 +154,14 @@ const Form = ({ user }) => {
             handleChange={handleChange}
             placeholder="Software Developer"
             value="Role"
+            description="Enter your current job title or role within your company. This helps us assign you task to your professional needs."
           />
         </div>
       </form>
       <button
         onClick={handleSubmit}
         disabled={isEqual(formState, initialState)}
-        className="bg-slate-800 self-end disabled:opacity-50 disabled:cursor-not-allowed font-bold text-sm w-fit text-white rounded-lg px-4 cursor-pointer py-2 hover:opacity-80 transition-all ease-in-out"
+        className="dark:bg-zinc-100 dark:text-black bg-zinc-800 self-end disabled:opacity-50 disabled:cursor-not-allowed font-bold text-sm w-fit text-white rounded-lg px-4 cursor-pointer py-2 hover:opacity-80 transition-all ease-in-out"
       >
         Save Changes
       </button>

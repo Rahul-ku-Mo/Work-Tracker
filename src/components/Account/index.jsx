@@ -13,14 +13,13 @@ const Account = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <Container background={"bg-slate-100/90"}>
-      <h1 className="text-2xl font-bold text-black capitalize tracking-tight my-4 border-l-4 h-6 inline-flex items-center pl-2 border-gray-800 ">
-        Personal Account
+    <Container fwdClassName="dark:bg-zinc-800 bg-white pl-2 pb-2 pr-2 flex flex-col">
+      <h1 className="text-2xl font-bold text-black dark:text-white capitalize tracking-tight my-4 border-l-4 h-6 inline-flex items-center pl-2 dark:border-white border-zinc-800 ">
+        Account
       </h1>
-
-      <div className="flex gap-4 lg:flex-nowrap flex-wrap">
-        <div className="flex flex-col bg-white rounded-2xl items-center max-w-2xl w-full p-8">
-          <div className="relative   border-2 rounded-full p-2 border-dashed">
+      <div className="flex gap-2 lg:flex-nowrap flex-wrap overflow-auto">
+        <div className="flex flex-col bg-white dark:bg-zinc-900 dark:text-white text-black rounded-md items-center max-w-full w-full p-8 lg:max-w-sm">
+          <div className="relative border-2 rounded-full p-2 border-dashed">
             <img
               src={user?.imageUrl || Placeholder}
               alt="profile"
@@ -36,15 +35,12 @@ const Account = () => {
               className="text-white bg-emerald-500 rounded-full p-2 absolute bottom-0 right-4 hover:scale-95 transition-all ease-linear cursor-pointer"
             />
           </div>
-          <span className="text-xs text-center  py-6">
+          <span className="text-xs text-center py-6">
             Allowed *.jpeg, *.jpg, *.png, *.gif max size of 3 Mb
           </span>
-          <div className="flex flex-col pb-10 text-black">
+          <div className="flex flex-col pb-10">
             <h2 className="font-bold text-3xl text-center tracking-tight">
               {user?.name}
-            </h2>
-            <h2 className="opacity-50 leading-3 text-sm font-medium text-center">
-              {user?.username}
             </h2>
           </div>
           <div className="flex items-center mt-2 gap-2">
@@ -60,7 +56,7 @@ const Account = () => {
             <Tooltip
               place="right"
               id="pricing-tooltip"
-              className="!bg-white-700 !text-gray-200 !px-2 !py-1 !rounded-md"
+              className="!bg-white-700 !text-zinc-200 !px-2 !py-1 !rounded-md"
             />
           </div>
 

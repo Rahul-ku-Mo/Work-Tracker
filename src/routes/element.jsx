@@ -28,3 +28,7 @@ export const OrganizationPage = Loadable(
 export const OrganizationManagementPage = Loadable(
   lazy(() => import("../pages/Organization[orgId].jsx"))
 );
+
+export const ConversationPage = Loadable(
+  lazy(() => import("../pages/ConversationPage.jsx"))
+)

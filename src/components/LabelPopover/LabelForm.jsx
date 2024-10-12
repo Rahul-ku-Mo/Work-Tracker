@@ -33,11 +33,9 @@ const LabelForm = ({ cardId }) => {
   //     );
   //   }
 
-  
-
   return (
     <form
-      className="flex flex-col bg-gray-200 p-2 rounded-md"
+      className="flex flex-col bg-zinc-200 p-2 rounded-md"
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col ">

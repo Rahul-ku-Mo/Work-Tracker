@@ -34,7 +34,6 @@ const NotificationContextProvider = ({ children }) => {
       );
 
       timeoutId = setTimeout(() => {
-        // Store timeout ID
         setIsNewNotification(false);
       }, 10000);
     };
@@ -42,7 +41,7 @@ const NotificationContextProvider = ({ children }) => {
     pusherClient.bind(`invite:${user?.id}`, messageHandler);
 
     return () => {
-      clearTimeout(timeoutId); // Clear timeout
+      clearTimeout(timeoutId); 
       pusherClient.unsubscribe("notification");
       pusherClient.unbind(`invite:${user?.id}`, messageHandler);
     };

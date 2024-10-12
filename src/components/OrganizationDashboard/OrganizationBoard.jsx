@@ -59,7 +59,7 @@ const OrganizationBoard = ({ boards }) => {
             return (
               <li
                 key={board.id}
-                className="flex justify-between gap-2 hover:bg-gray-200 p-1 rounded-md transition-all ease-in-out duration-300"
+                className="flex justify-between gap-2 hover:bg-zinc-200 p-1 rounded-md transition-all ease-in-out duration-300"
               >
                 <img
                   src={board.imageThumbUrl}

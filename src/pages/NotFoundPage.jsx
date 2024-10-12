@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const NotFoundPage = () => {
   return (
     <>
-      <main className="absolute inset-0 bg-gray-200">
+      <main className="absolute inset-0 bg-zinc-200">
         <div className="flex flex-col items-center justify-center gap-4 h-full w-full">
           <h1 className="text-8xl text-center font-black tracking-tight uppercase text-emerald-900 ">
             404 Page not found

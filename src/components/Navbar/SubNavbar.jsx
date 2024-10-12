@@ -9,7 +9,7 @@ import {
 
 const SubNavbar = () => {
   return (
-    <nav className="flex text-lg justify-between font-semibold text-white items-center py-2 bg-gray-200 z-20 fixed top-0 w-full">
+    <nav className="flex text-lg justify-between font-semibold text-white items-center py-2 bg-zinc-200 z-20 fixed top-0 w-full">
       <div className="flex justify-between flex-1">
         <div className="flex items-center">
           <div className="px-2 border-x-2 hidden md:block">

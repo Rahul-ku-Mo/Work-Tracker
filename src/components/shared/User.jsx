@@ -45,10 +45,10 @@ const User = () => {
         leaveTo="transform scale-95 opacity-0"
       >
         {" "}
-        <Popover.Panel className="absolute right-4 mt-2 p-2 w-max bg-white dark:bg-zinc-800 rounded-md shadow-lg z-10">
+        <Popover.Panel className="absolute right-4 mt-3 p-2 w-max bg-white dark:bg-zinc-900 rounded-md shadow-lg z-10">
           <a
             href="/profile"
-            className="block px-4 py-2 text-sm text-gray-700 rounded-md transition-all ease-in  dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-700"
+            className="block pr-4 pl-2 py-2 text-sm text-zinc-700 rounded-md transition-all ease-in  dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700"
           >
             <UserIcon className="inline-block w-4 h-4 mr-2" />
             Account
@@ -56,14 +56,14 @@ const User = () => {
 
           <a
             href="/pricing"
-            className="block px-4 py-2 text-sm text-gray-700 rounded-md transition-all ease-in  dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-700"
+            className="block pr-4 pl-2 py-2 text-sm text-zinc-700 rounded-md transition-all ease-in  dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700"
           >
             <CreditCard className="inline-block w-4 h-4 mr-2" />
             Pricing Plans
           </a>
           <button
             onClick={logOut}
-            className="block w-full text-left px-4 py-2 text-sm text-gray-700 rounded-md transition-all ease-in  dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-700"
+            className="block w-full text-left pr-4 pl-2 py-2 text-sm text-zinc-700 rounded-md transition-all ease-in  dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700"
           >
             <LogOut className="inline-block w-4 h-4 mr-2" />
             Logout

@@ -2,10 +2,9 @@ import { Popover } from "@headlessui/react";
 import BoardForm from "./BoardForm";
 
 const BoardPopover = ({ count }) => {
-
   return (
     <Popover className="relative w-fit">
-      <Popover.Button className="w-52 p-2 flex cursor-pointer flex-col items-center justify-center h-36 rounded-md bg-gray-300">
+      <Popover.Button className="w-52 p-2 flex cursor-pointer flex-col items-center justify-center h-36 rounded-md bg-zinc-300">
         <span className="font-bold text-sm">Create New Board</span>
         <span className="font-medium text-xs">{count} Remaining</span>
       </Popover.Button>

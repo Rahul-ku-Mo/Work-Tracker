@@ -578,9 +578,9 @@ export const DEFAULT_IMAGES = [
   },
   {
     id: "_MCLUFQlZ_c",
-    slug: "snow-covered-mountain-under-gray-sky-_MCLUFQlZ_c",
+    slug: "snow-covered-mountain-under-zinc-sky-_MCLUFQlZ_c",
     alternative_slugs: {
-      en: "snow-covered-mountain-under-gray-sky-_MCLUFQlZ_c",
+      en: "snow-covered-mountain-under-zinc-sky-_MCLUFQlZ_c",
     },
     created_at: "2020-03-07T16:20:00Z",
     updated_at: "2024-03-14T05:41:09Z",
@@ -590,7 +590,7 @@ export const DEFAULT_IMAGES = [
     color: "#c0c0c0",
     blur_hash: "LcI5**IUNFa|_NfkWBj[9FkBoffP",
     description: null,
-    alt_description: "snow covered mountain under gray sky",
+    alt_description: "snow covered mountain under zinc sky",
     breadcrumbs: [],
     urls: {
       raw: "https://images.unsplash.com/photo-1583597974512-13fe608d4600?ixid=M3w1Nzg5NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTA0NDc4MDB8&ixlib=rb-4.0.3",
@@ -605,8 +605,8 @@ export const DEFAULT_IMAGES = [
         "https://s3.us-west-2.amazonaws.com/images.unsplash.com/small/photo-1583597974512-13fe608d4600",
     },
     links: {
-      self: "https://api.unsplash.com/photos/snow-covered-mountain-under-gray-sky-_MCLUFQlZ_c",
-      html: "https://unsplash.com/photos/snow-covered-mountain-under-gray-sky-_MCLUFQlZ_c",
+      self: "https://api.unsplash.com/photos/snow-covered-mountain-under-zinc-sky-_MCLUFQlZ_c",
+      html: "https://unsplash.com/photos/snow-covered-mountain-under-zinc-sky-_MCLUFQlZ_c",
       download:
         "https://unsplash.com/photos/_MCLUFQlZ_c/download?ixid=M3w1Nzg5NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTA0NDc4MDB8",
       download_location:
@@ -1032,6 +1032,6 @@ export const DEFAULT_COLORS = [
   { color: "bg-indigo-500", value: "Indigo" },
   { color: "bg-purple-500", value: "Purple" },
   { color: "bg-pink-500", value: "Pink" },
-  { color: "bg-gray-500", value: "Gray" },
+  { color: "bg-zinc-500", value: "zinc" },
   { color: "bg-black", value: "Black" },
 ];

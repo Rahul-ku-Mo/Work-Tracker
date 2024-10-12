@@ -134,7 +134,7 @@ const Auth = () => {
           <div className="flex items-center justify-center gap-2 ">
             <div className="w-full flex items-center gap-2 justify-center py-2 bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100 p-2 rounded-lg cursor-pointer hover:opacity-70 transition-all ease-in-out duration-300">
               <img
-                onClick={() => signinWithGoogle()}
+                onClick={signinWithGoogle}
                 src={Google}
                 className="w-4 h-4"
                 alt="Google logo"

@@ -35,7 +35,7 @@ const OrganizationDashboard = () => {
   return (
     <>
       <Container background={"bg-slate-100/90"}>
-        <h1 className="text-2xl font-bold text-black capitalize tracking-tight my-4 border-l-4 h-6 inline-flex items-center pl-2 border-gray-800 ">
+        <h1 className="text-2xl font-bold text-black capitalize tracking-tight my-4 border-l-4 h-6 inline-flex items-center pl-2 border-zinc-800 ">
           Manage Organization
         </h1>
         <OrganizationSidebar />
