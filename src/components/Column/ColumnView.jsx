@@ -97,7 +97,7 @@ const ColumnView = ({ columnId, title, cards, index }) => {
           >
             <div
               {...provided.dragHandleProps}
-              className="bg-zinc-200 flex justify-between max-h-full flex-col relative whitespace-normal scroll-m-1 w-64 rounded-md"
+              className="bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-200 flex justify-between max-h-full flex-col relative whitespace-normal scroll-m-1 w-64 rounded-md"
             >
               {/* {showEditColumnInput ? (
                 <EditColumnForm
@@ -112,12 +112,8 @@ const ColumnView = ({ columnId, title, cards, index }) => {
                 
               )} */}
               <div className="flex py-3 pb-1 px-2 grow-0 gap-y-0 relative justify-between items-center wrap text-sm font-bold">
-                <span
-                  className="w-full"
-                  // onClick={handleshowEditColumn}
-                >
-                  {columnName}
-                </span>
+                <span className="w-full">{columnName}</span>
+
                 <FontAwesomeIcon
                   className="cursor-pointer rounded-full hover:rotate-90 transition-all ease-linear h-4 w-4 p-1"
                   icon={faXmark}
@@ -174,7 +170,7 @@ const EditColumnForm = ({
       value={columnName}
       id="column-input"
       name="column"
-      inputRef={inputRef}
+      ref={inputRef}
     />
   </form>
 );

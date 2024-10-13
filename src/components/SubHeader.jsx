@@ -54,11 +54,11 @@ const SubHeader = ({ title }) => {
     <>
       <nav
         className={clsx(
-          "flex w-full top-14 z-20 pr-2  bg-black/30 fixed h-fit py-2 justify-between items-center",
+          "flex w-full top-12 z-20 pr-2 bg-black/30 fixed h-fit py-2 justify-between items-center",
           !isOpenSidebar ? "pl-[4.5rem]" : "pl-[16.5rem]"
         )}
       >
-        <div className="text-xl tracking-tighter font-black text-white uppercase ">
+        <div className="text-2xl font-black text-white uppercase ">
           {title}
         </div>
         <div

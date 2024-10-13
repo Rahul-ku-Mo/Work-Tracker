@@ -1,11 +1,12 @@
-const CardInputForm = ({
+import React, { forwardRef } from 'react';
+
+const CardInputForm = forwardRef(({
   input,
   onInputChange,
   onHideInput,
-  inputRef,
   handleUpdate,
   prevInput,
-}) => (
+}, ref) => (
   <form
     className="p-1 flex gap-2 flex-col w-full"
     onSubmit={(e) => {
@@ -24,7 +25,7 @@ const CardInputForm = ({
     }}
   >
     <input
-      ref={inputRef}
+      ref={ref}
       value={input}
       className="flex w-full !h-8 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
         focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
@@ -35,6 +36,8 @@ const CardInputForm = ({
       onChange={onInputChange}
     />
   </form>
-);
+));
+
+CardInputForm.displayName = 'CardInputForm';
 
 export default CardInputForm;

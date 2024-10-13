@@ -120,33 +120,13 @@ const Card = ({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
-            className="bg-white transition m-1 rounded-md p-2 flex flex-col gap-1 card list-none"
+            className="bg-white dark:bg-zinc-800 dark:text-zinc-200 text-black dark:border dark:border-zinc-700 hover:shadow-sm transition m-1 rounded-md p-2 flex flex-col gap-1 card list-none"
           >
             <div className="flex justify-between items-start">
               <CardLabelGroup labelGroup={labelGroup} />
-              <CardHeader
-                onOpenModal={handleOpenModal}
-                id={id}
-                deleteCardMutation={deleteCardMutation}
-              />
             </div>
-            {/* {showInput ? (
-          <CardInputForm
-            input={editCardName}
-            onInputChange={handleInputChange}
-            onHideInput={handleHideInput}
-            inputRef={inputRef}
-            handleUpdate={handleUpdate}
-            prevInput={title}
-          />
-        ) : (
-          <CardTitle title={title} onShowInput={handleShowInput} />
-        )} */}
-            <CardTitle
-              title={title}
 
-              // onShowInput={handleShowInput}
-            />
+            <CardTitle title={title} />
             <FontAwesomeIcon
               className="cursor-pointer w-3"
               onClick={handleOpenModal}
@@ -159,16 +139,6 @@ const Card = ({
         closeModal={handleCloseModal}
         isOpen={isOpen}
         {...cardViewProps}
-        // taskName={title}
-        // updateTaskDes={updateTaskDes}
-        // listId={listId}
-        // taskId={taskId}
-        // comments={comments}
-        // fetchTask={fetchTask}
-        // listName={listName}
-        // setTaskLabel={setTaskLabel}
-        // taskLabel={currentLabelGroup}
-        // updateTaskLabel={updateTaskLabel}
       />
     </>
   );
