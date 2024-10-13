@@ -1,29 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
-import CardDialog from "../Dialog/CardDialog";
-import Button from "../shared/Button/Button";
-import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import React, { useState, Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Tab } from "@headlessui/react";
 import {
-  faBars,
-  faBookBookmark,
-  faPaperclip,
-  faLaptopCode,
-  faUser,
-  faTag,
-  faCheckToSlot,
-  faClock,
-  faPlus,
-  faShare,
-  faCopy,
-  faMobile,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import LabelPopover from "../LabelPopover/LabelPopover";
-import CardDialogLabel from "../Label/CardDialogLabel";
-import Cookies from "js-cookie";
-import { fetchCard, updateCard } from "../../apis/CardApis";
-import { toast } from "sonner";
+  BookOpen,
+  Paperclip,
+  MessageSquare,
+  Bot,
+  X,
+  Plus,
+  User,
+  Tag,
+  CheckSquare,
+  Clock,
+  Share2,
+  Copy,
+  Eye,
+} from "lucide-react";
 
 const CardView = ({
   cardId,
@@ -31,217 +23,219 @@ const CardView = ({
   columnName,
   title,
   description,
-
   isOpen,
   closeModal,
-
   updateCardMutation,
 }) => {
   const [cardDescription, setCardDescription] = useState(description);
 
-  const [showTextArea, setShowTextArea] = useState(false);
-  const textAreaRef = useRef(null);
-
-  useEffect(() => {
-    if (showTextArea) {
-      textAreaRef.current.focus();
-    }
-  }, [showTextArea]);
+  const handleDescriptionUpdate = () => {
+    if (!cardDescription) return;
+    updateCardMutation.mutate({
+      cardDescription,
+      cardId,
+      columnId,
+    });
+  };
 
   return (
-    <CardDialog closeModal={closeModal} isOpen={isOpen}>
-      <div className="text-base mb-10 flex justify-between">
-        <div>
-          <FontAwesomeIcon className="px-2 " icon={faBookBookmark} />{" "}
-          <span className="text-lg font-semibold">{title}</span>
-          <div className="text-sm leading-3 text-slate-600 pl-9">
-            in the list{" "}
-            <span className="underline hover:text-slate-300">{columnName}</span>{" "}
-          </div>
-          <div className="flex flex-col pl-9 pt-4">
-            <div className="text-xs font-bold tracking-wide">Labels</div>
-            <CardDialogLabel cardId={cardId} />
-          </div>
-        </div>
-        <div className="cursor-pointer" onClick={closeModal}>
-          <FontAwesomeIcon
-            icon={faPlus}
-            className="rotate-45 hover:bg-slate-200 p-2 rounded-full "
-          />
-        </div>
-      </div>
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={closeModal}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" />
+        </Transition.Child>
 
-      <div className="flex justify-between gap-8">
-        <div className="relative grow">
-          <div className="text-base mb-10 flex flex-col ">
-            <div className="flex items-center gap-1">
-              <FontAwesomeIcon className="w-5 h-5 p-2" icon={faBars} />{" "}
-              <span className="font-semibold text-base py-2">Description</span>
-            </div>
-            <div className="w-full max-w-xl flex flex-col pl-10">
-              {showTextArea ? (
-                <>
-                  <textarea
-                    ref={textAreaRef}
-                    className="my-2 px-3 py-2 font-semibold w-full bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
-                focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
-              disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-              invalid:border-pink-500 invalid:text-pink-600
-              focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
-                    type="text"
-                    value={cardDescription === null ? "" : cardDescription}
-                    placeholder="Add a more detailed desciption..."
-                    onChange={(e) => setCardDescription(e.target.value)}
-                  />
-                  <button
-                    className={`bg-emerald-500 hover:bg-emerald-700 px-4 py-2 rounded-md text-white text-sm font-semibold w-fit`}
-                    onClick={() => {
-                      updateCardMutation.mutate({
-                        cardDescription,
-                        cardId,
-                        columnId,
-                      });
-                      setShowTextArea(false);
-                    }}
-                  >
-                    Save
-                  </button>
-                </>
-              ) : (
-                <p
-                  className="text-sm w-full"
-                  onClick={() => {
-                    setShowTextArea(true);
-                  }}
-                >
-                  {cardDescription ||
-                    ` Click on here to add some description to your task`}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="text-base mb-10 flex flex-col">
-            <div className="flex items-center">
-              <FontAwesomeIcon className="p-2 w-5 h-5" icon={faPaperclip} />{" "}
-              <span className="py-2">Attachments</span>
-            </div>
-            <div className="ml-9 w-fit text-white hover:text-black">
-              <Button btnInput={"Add an attachment"} />
-            </div>
-          </div>
-
-          <div className="flex flex-col mb-10 gap-2">
-            <div className="flex items-center justify-between pb-2">
-              <div className="flex items-center">
-                <FontAwesomeIcon className="p-2 w-5 h-5" icon={faLaptopCode} />
-                <span className="py-2">Activity</span>
-              </div>
-              <div className=" text-white hover:text-black">
-                {" "}
-                <Button btnInput={"Show Details"} />
-              </div>
-            </div>
-            {/* <form className="flex items-center gap-1" onSubmit={handleSubmit}>
-            <User />
-
-            <input
-              className=" flex-1 pl-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 outline-none
-              focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500
-              disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-              invalid:border-pink-500 invalid:text-pink-600
-              focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-              type="text"
-              value={comment}
-              placeholder="Write a comment..."
-              onChange={(e) => setComment(e.target.value)}
-            />
-            <button
-              type="submit"
-              className="py-2 px-4 text-sm font-semibold bg-emerald-500  rounded-md text-white  hover:bg-emerald-700 "
+        <div className="fixed inset-0 overflow-hidden min-h-[70vh]">
+          <div className="flex  items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
             >
-              Add Comment
-            </button>
-          </form> */}
-            {/****add time stamp and array of strings */}
-            {/* <div className="h-[40vh] overflow-auto flex flex-col gap-2">
-            {comments
-              ?.sort(
-                (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-              )
-              .map((c, i) => {
-                return (
-                  <div
-                    className="md:ml-10 m-0 md:p-2 p-1 bg-zinc-200 text-sm leading-5 rounded-md"
-                    key={`c.timeStamp${i}`}
-                  >
-                    <div className="text-xs font-black flex justify-between">
-                      Rahul KM
-                      <span className="font-light text-slate-800">
-                        {formatDate(c.timeStamp)}
-                      </span>
-                    </div>
-                    <p>{c.comment}</p>
+              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-lg bg-white dark:bg-zinc-900 p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-semibold leading-6 text-gray-900 dark:text-zinc-100 flex items-center gap-2"
+                >
+                  <BookOpen className="h-5 w-5" />
+                  <span>{title}</span>
+                </Dialog.Title>
+                <p className="mt-2 text-sm text-gray-500 dark:text-zinc-400">
+                  in list <span className="underline">{columnName}</span>
+                </p>
+                <button
+                  type="button"
+                  className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 dark:text-zinc-400 dark:hover:text-zinc-300 transition-colors"
+                  onClick={closeModal}
+                >
+                  <span className="sr-only">Close</span>
+                  <X className="h-6 w-6" aria-hidden="true" />
+                </button>
+
+                <div className="mt-6">
+                  <Tab.Group>
+                    <Tab.List className="flex space-x-1 rounded-md bg-zinc-100 dark:bg-zinc-800 p-1">
+                      {["Details", "Activity", "AI Summary"].map((category) => (
+                        <Tab
+                          key={category}
+                          className={({ selected }) =>
+                            `w-full rounded-md py-2.5 text-sm font-medium leading-5 text-zinc-700 dark:text-zinc-300
+                             focus:outline-none
+                            transition-all ${
+                              selected
+                                ? "bg-white dark:bg-emerald-700 shadow"
+                                : "hover:bg-emerald/[0.12] hover:text-zinc-900 dark:hover:text-zinc-100"
+                            }`
+                          }
+                        >
+                          {category}
+                        </Tab>
+                      ))}
+                    </Tab.List>
+                    <Tab.Panels className="mt-4">
+                      <Tab.Panel className="rounded-md bg-white dark:bg-zinc-800 p-4 space-y-6">
+                        <div>
+                          <h3 className="text-lg font-semibold mb-2 dark:text-zinc-100">
+                            Description
+                          </h3>
+                          <textarea
+                            value={cardDescription}
+                            onChange={(e) => setCardDescription(e.target.value)}
+                            placeholder="Add a more detailed description..."
+                            className="w-full min-h-[100px] p-3 border border-zinc-300 dark:border-zinc-700 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-zinc-800 dark:text-zinc-100 transition-all"
+                          />
+                          <button
+                            onClick={handleDescriptionUpdate}
+                            className="mt-2 px-4 py-2 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all"
+                          >
+                            Save
+                          </button>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold mb-2 dark:text-zinc-100">
+                            Attachments
+                          </h3>
+                          <button className="flex items-center px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-zinc-100 transition-all">
+                            <Paperclip className="mr-2 h-4 w-4" /> Add
+                            attachment
+                          </button>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold mb-2 dark:text-zinc-100">
+                            Labels
+                          </h3>
+                          <div className="flex gap-2 font-medium">
+                            <span className="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs dark:bg-emerald-900 dark:text-emerald-100">
+                              Important
+                            </span>
+                            <span className="px-3 py-1 border border-zinc-300 dark:border-zinc-700 rounded-full text-xs dark:text-zinc-100">
+                              Feature
+                            </span>
+                            <button className="p-1 border border-zinc-300 dark:border-zinc-700 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-all">
+                              <Plus className="h-4 w-4 dark:text-zinc-100" />
+                            </button>
+                          </div>
+                        </div>
+                      </Tab.Panel>
+                      <Tab.Panel className="rounded-md bg-white dark:bg-zinc-800 p-4">
+                        <div className="space-y-4 overflow-y-auto h-40">
+                          {[1, 2, 3, 4, 5].map((i) => (
+                            <div key={i} className="flex items-start space-x-4">
+                              <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300">
+                                U{i}
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-sm font-medium dark:text-zinc-100">
+                                  User {i}
+                                </p>
+                                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                                  Added a comment: "This is a placeholder
+                                  comment."
+                                </p>
+                                <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-1">
+                                  2 hours ago
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </Tab.Panel>
+                      <Tab.Panel className="rounded-md bg-white dark:bg-zinc-800 p-4">
+                        <div className="rounded-md border border-zinc-200 dark:border-zinc-700 p-4">
+                          <div className="flex items-center space-x-2 mb-4">
+                            <Bot className="h-5 w-5 text-emerald-500" />
+                            <h3 className="text-lg font-semibold dark:text-zinc-100">
+                              AI Summary
+                            </h3>
+                          </div>
+                          <p className="text-sm text-zinc-600 dark:text-zinc-300">
+                            This task involves implementing a new feature for
+                            the user dashboard. Key points: - Requires backend
+                            API changes - Frontend updates needed in React
+                            components - Estimated completion time: 3-5 days -
+                            High priority due to client request
+                          </p>
+                        </div>
+                      </Tab.Panel>
+                    </Tab.Panels>
+                  </Tab.Group>
+                </div>
+
+                <div className="mt-6 border-t border-zinc-200 dark:border-zinc-700 pt-4">
+                  <h3 className="font-semibold text-sm mb-3 dark:text-zinc-100">
+                    Add to card
+                  </h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { icon: User, label: "Members" },
+                      { icon: Tag, label: "Labels" },
+                      { icon: CheckSquare, label: "Checklist" },
+                      { icon: Clock, label: "Dates" },
+                    ].map(({ icon: Icon, label }) => (
+                      <button
+                        key={label}
+                        className="flex items-center text-sm justify-start px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-zinc-100 transition-all"
+                      >
+                        <Icon className="mr-2 h-4 w-4" /> {label}
+                      </button>
+                    ))}
                   </div>
-                );
-              })}
-          </div> */}
+                  <h3 className="font-semibold text-sm mt-4 mb-3 dark:text-zinc-100">
+                    Actions
+                  </h3>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { icon: Share2, label: "Share" },
+                      { icon: Copy, label: "Copy" },
+                      { icon: Eye, label: "Watch" },
+                    ].map(({ icon: Icon, label }) => (
+                      <button
+                        key={label}
+                        className="flex text-sm items-center justify-start px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-zinc-100 transition-all"
+                      >
+                        <Icon className="mr-2 h-4 w-4" /> {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
           </div>
         </div>
-        <div className="w-full max-w-[144px] text-white md:block hidden">
-          <div className="text-xs !text-slate-400 font-semibold">
-            Add to card
-          </div>
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"Members"} icon={faUser} />
-          </div>
-          {/* <div className="my-2 hover:text-black">
-          <Button btnInput={"Label"} icon={faTag} />
-        </div> */}
-          <LabelPopover cardId={cardId} />
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"CheckList"} icon={faCheckToSlot} />
-          </div>
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"Dates"} icon={faClock} />
-          </div>
-
-          <div className="my-2 hover:text-black cursor-not-allowed">
-            <Button btnInput={"Attachments"} icon={faPaperclip} />
-          </div>
-
-          <div className="text-slate-400 text-xs">
-            Add dropdowns, text fields, dates, and more to your cards.
-          </div>
-          <div className="text-xs text-slate-400 font-semibold mt-8">
-            Power-Ups
-          </div>
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"Dates"} icon={faPlus} />
-          </div>
-          <div className="text-xs text-slate-400 font-semibold mt-8">
-            Automations
-          </div>
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"Add Buttons"} icon={faPlus} />
-          </div>
-          <div className="text-xs text-slate-400 font-semibold mt-8">
-            Actions
-          </div>
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"Move"} icon={faMobile} />
-          </div>
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"Copy"} icon={faCopy} />
-          </div>
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"Share"} icon={faShare} />
-          </div>
-          <div className="my-2 hover:text-black">
-            <Button btnInput={"Watch"} icon={faEye} />
-          </div>
-        </div>
-      </div>
-    </CardDialog>
+      </Dialog>
+    </Transition>
   );
 };
 
