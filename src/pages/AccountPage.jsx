@@ -1,10 +1,13 @@
 import React from "react";
 import Account from "../components/Account";
+import { Outlet } from "react-router-dom";
 
 const AccountPage = () => {
   return (
     <>
-      <Account />
+      <Account>
+        <Outlet />
+      </Account>
     </>
   );
 };

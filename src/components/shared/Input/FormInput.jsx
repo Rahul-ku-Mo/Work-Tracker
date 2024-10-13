@@ -10,7 +10,13 @@ const FormInput = ({
   description,
 }) => {
   return (
-    <div className="flex flex-col relative grow">
+    <div className="flex flex-col relative gap-1.5">
+      <label
+        className="font-bold text-sm text-zinc-800 dark:text-white"
+        htmlFor={htmlFor}
+      >
+        {value}
+      </label>
       <input
         readOnly={readOnly}
         type={type}
@@ -18,20 +24,10 @@ const FormInput = ({
         value={formStateValue || ""}
         placeholder={placeholder}
         onChange={handleChange(id)}
-        className="peer px-3 py-2 mt-2 rounded-md peer w-full border text-sm dark:border-zinc-800 border-zinc-300 bg-transparent focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:placeholder-zinc-400 placeholder-transparent"
+        className="w-full px-3 py-2 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-white border border-zinc-300 dark:border-zinc-700 rounded-md text-sm focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600"
       />
-      <label
-        className={`peer-focus:text-xs text-sm peer-focus:top-0 transition-all ease-linear px-0.5 peer-focus:text-emerald-500 dark:text-zinc-200 text-zinc-600  font-bold dark:peer-focus:bg-zinc-900 peer-focus:bg-zinc-200 absolute z-10 left-2 ${
-          formStateValue
-            ? "top-0 text-xs dark:bg-zinc-900 bg-zinc-200 dark:text-zinc-200 placeholder:text-transparent"
-            : "top-4 "
-        }`}
-        htmlFor={htmlFor}
-      >
-        {value}
-      </label>
       {description !== "" && (
-        <span className="text-[0.8rem] dark:text-zinc-100 text-zinc-800 font-regular opacity-80 pt-1">
+        <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400 mt-1">
           {description}
         </span>
       )}

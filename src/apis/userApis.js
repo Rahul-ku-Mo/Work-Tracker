@@ -48,3 +48,20 @@ export const fetchUsers = async (accessToken) => {
     console.log(err);
   }
 };
+
+export const updateUserIntegrations = async (accessToken, integrations) => {
+  const response = await fetch(`${API_URL}/user/integrations`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(integrations),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update user integrations');
+  }
+
+  return response.json();
+};

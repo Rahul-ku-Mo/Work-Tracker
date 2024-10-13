@@ -31,4 +31,24 @@ export const OrganizationManagementPage = Loadable(
 
 export const ConversationPage = Loadable(
   lazy(() => import("../pages/ConversationPage.jsx"))
-)
+);
+
+export const ProfileForm = Loadable(
+  lazy(() => import("../components/Account/ProfileForm.jsx"))
+);
+
+export const AccountForm = Loadable(
+  lazy(() => import("../components/Account/AccountForm.jsx"))
+);
+
+export const LocationForm = Loadable(
+  lazy(() => import("../components/Account/LocationForm.jsx"))
+);
+
+export const RoleForm = Loadable(
+  lazy(() => import("../components/Account/RoleForm.jsx"))
+);
+
+export const IntegrationsForm = Loadable(
+  lazy(() => import("../components/Account/IntegrationsForm.jsx"))
+);

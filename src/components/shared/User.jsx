@@ -4,7 +4,7 @@ import { UserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { LogOut, CreditCard, User as UserIcon } from "lucide-react";
+import { LogOut, CreditCard, User as UserIcon, Settings } from "lucide-react";
 import Placeholder from "../../assets/placeholder.png";
 import { Popover, Transition } from "@headlessui/react";
 
@@ -47,11 +47,11 @@ const User = () => {
         {" "}
         <Popover.Panel className="absolute right-4 mt-3 p-2 w-max bg-white dark:bg-zinc-900 rounded-md shadow-lg z-10">
           <a
-            href="/profile"
+            href="/setting/profile"
             className="block pr-4 pl-2 py-2 text-sm text-zinc-700 rounded-md transition-all ease-in  dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700"
           >
             <UserIcon className="inline-block w-4 h-4 mr-2" />
-            Account
+            Profile
           </a>
 
           <a
@@ -60,6 +60,13 @@ const User = () => {
           >
             <CreditCard className="inline-block w-4 h-4 mr-2" />
             Pricing Plans
+          </a>
+          <a
+            href="/setting/account"
+            className="block pr-4 pl-2 py-2 text-sm text-zinc-700 rounded-md transition-all ease-in  dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700"
+          >
+            <Settings className="inline-block w-4 h-4 mr-2" />
+            Settings
           </a>
           <button
             onClick={logOut}

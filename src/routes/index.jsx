@@ -1,4 +1,4 @@
-import { useRoutes, Navigate } from "react-router-dom";
+import { useRoutes, Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import {
   LandingPage,
@@ -9,7 +9,12 @@ import {
   NotFoundPage,
   OrganizationPage,
   OrganizationManagementPage,
-  ConversationPage
+  ConversationPage,
+  AccountForm,
+  ProfileForm,
+  LocationForm,
+  RoleForm,
+  IntegrationsForm,
 } from "./element";
 import AuthenticatedRoutes from "./AuthenticatedRoutes";
 import { KanbanContextProvider } from "../Context/KanbanContext";
@@ -68,7 +73,17 @@ const Router = () => {
       children: [
         { path: "/kanban/:id", element: withContexts(KanbanPage, true)() },
         { path: "/boards", element: withContexts(BoardPage)() },
-        { path: "/profile", element: withContexts(AccountPage)() },
+        {
+          path: "/setting",
+          element: withContexts(AccountPage)(),
+          children: [
+            { path: "profile", element: <ProfileForm /> },
+            { path: "account", element: <AccountForm /> },
+            { path: "location", element: <LocationForm /> },
+            { path: "role", element: <RoleForm /> },
+            { path: "integrations", element: <IntegrationsForm /> },
+          ],
+        },
         { path: "/organization", element: withContexts(OrganizationPage)() },
         {
           path: "/organization/:organizationId",
