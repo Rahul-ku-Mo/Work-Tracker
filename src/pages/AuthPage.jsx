@@ -139,13 +139,13 @@ const Auth = () => {
                 {isLoading ? "Signing in..." : "Login as guest"}
               </button>
             )}
-            <button
+            {/* <button
               onClick={signinWithGoogle}
               className="text-sm flex items-center gap-2 justify-center cursor-pointer  rounded-lg transition-all ease-in-out duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 w-full bg-zinc-100 dark:bg-zinc-800 py-2 font-semibold border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-100"
             >
               <img src={Google} className="w-4 h-4 mr-2" alt="Google logo" />
               {signupStatus ? "Sign up with Google" : "Login with Google"}
-            </button>
+            </button> */}
           </form>
           <p className="text-sm text-center text-zinc-600 dark:text-zinc-400">
             {signupStatus
