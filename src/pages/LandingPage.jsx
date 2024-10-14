@@ -1,90 +1,107 @@
 import { motion } from "framer-motion";
-import { ChevronRight, BarChart2, Users, Clock, Sun, Moon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { LogoBar } from "../components/shared/LogoBar";
-
+import { ArrowRight, BarChart2, Clock, Users } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <motion.div
+    className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-emerald-500/50 transition-all duration-300"
     whileHover={{ scale: 1.05 }}
-    className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-lg"
+    whileTap={{ scale: 0.95 }}
   >
     <Icon className="w-12 h-12 text-emerald-500 mb-4" />
-    <h3 className="text-xl font-semibold mb-2 text-zinc-800 dark:text-white">
-      {title}
-    </h3>
-    <p className="text-zinc-600 dark:text-zinc-300">{description}</p>
+    <h3 className="text-xl font-semibold mb-2 text-zinc-100">{title}</h3>
+    <p className="text-zinc-400">{description}</p>
   </motion.div>
 );
 
-export default function LandingPage() {
-  const navigate = useNavigate();
+const GlowingButton = ({ children }) => {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className={`min-h-screen `}>
-      <div className="bg-zinc-50 dark:bg-zinc-900 min-h-screen transition-colors duration-300">
-        <nav className="bg-white dark:bg-zinc-800 shadow-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex-shrink-0 flex items-center">
-              <LogoBar/>
-              </div>
-              <div className="flex items-center">
-                <button
-                  // onClick={toggleDarkMode}
-                  className="p-2 rounded-full text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700"
-                >
-                  {/* {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />} */}
-                </button>
-                <button
-                  onClick={() => navigate("/auth")}
-                  className="ml-4 px-4 py-2 rounded-md bg-emerald-500 text-white hover:bg-emerald-600 transition-colors duration-300"
-                >
-                  Sign In
-                </button>
-              </div>
-            </div>
+    <motion.button
+      className="relative px-6 py-3 bg-emerald-500 text-black font-medium rounded-full overflow-hidden"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
+      {children}
+      <motion.div
+        className="absolute inset-0 bg-white mix-blend-soft-light"
+        animate={{
+          opacity: isHovered ? 0.5 : 0,
+        }}
+        transition={{ duration: 0.3 }}
+      />
+    </motion.button>
+  );
+};
+
+const BackgroundGradient = () => (
+  <div
+    className="absolute inset-0 max-w-md mx-auto h-[27rem] blur-[118px] sm:h-[40rem] opacity-20"
+    style={{
+      background:
+        "linear-gradient(152.92deg, rgba(16, 185, 129, 0.2) 4.54%, rgba(16, 185, 129, 0.1) 34.2%, rgba(16, 185, 129, 0.05) 77.55%)",
+    }}
+  ></div>
+);
+
+const TextGradient = ({ children }) => (
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-emerald-200">
+    {children}
+  </span>
+);
+
+export default function LandingPage() {
+  return (
+    <div className="min-h-screen bg-black text-zinc-100 overflow-hidden">
+      <BackgroundGradient />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        <nav className="flex justify-between items-center mb-16">
+          <div className="text-2xl font-bold tracking-tight">
+            <TextGradient>WorkTracker</TextGradient>
           </div>
         </nav>
 
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
+        <main>
+          <div className="text-center mb-16">
             <motion.h1
-              initial={{ opacity: 0, y: -20 }}
+              className="text-5xl sm:text-7xl font-bold mb-6 leading-tight"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-4xl sm:text-6xl font-extrabold text-zinc-900 dark:text-white mb-4"
             >
-              Track your work seamlessly
+              Track your work <TextGradient>seamlessly</TextGradient>
             </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
+            <motion.p
+              className="text-xl text-zinc-300 mb-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-2xl sm:text-4xl font-bold text-emerald-500 mb-8 capitalize tracking-tighter"
-            >
-              work forward.
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-xl text-zinc-600 dark:text-zinc-300 mb-12 max-w-2xl mx-auto"
             >
               Prioritize your time. Collaborate and Manage seamlessly, reaching
               new heights of productivity. Save your work with WorkTracker.
             </motion.p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/auth")}
-              className="px-8 py-4 bg-emerald-500 text-white rounded-full text-xl font-semibold hover:bg-emerald-600 transition-colors duration-300 flex items-center mx-auto"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
-              Get Started
-              <ChevronRight className="ml-2 w-6 h-6" />
-            </motion.button>
+              <Link to="/boards">
+                <GlowingButton>
+                  Get Started <ArrowRight className="inline-block ml-2" />
+                </GlowingButton>
+              </Link>
+            </motion.div>
           </div>
 
-          <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <FeatureCard
               icon={BarChart2}
               title="Advanced Analytics"
@@ -100,14 +117,66 @@ export default function LandingPage() {
               title="Time Management"
               description="Optimize your productivity with our intelligent time tracking and task prioritization system."
             />
+          </motion.div>
+
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">
+              Trusted by My Teammates for now.
+            </h2>
+          </div>
+
+          <div className="bg-zinc-900 rounded-xl p-8 mb-16">
+            <h2 className="text-3xl font-bold mb-4">How it works</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Sign Up",
+                  description: "Create your account in seconds",
+                },
+                {
+                  title: "Set Up Projects",
+                  description: "Organize your work into projects and tasks",
+                },
+                {
+                  title: "Start Tracking",
+                  description:
+                    "Track time, collaborate, and boost productivity",
+                },
+              ].map((step, index) => (
+                <motion.div
+                  key={step.title}
+                  className="flex items-start"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                >
+                  <div className="bg-emerald-500 text-black font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                    <p className="text-zinc-400">{step.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-4">
+              Ready to boost your productivity?
+            </h2>
+            <p className="text-xl text-zinc-300 mb-8 max-w-2xl mx-auto">
+              Join thousands of professionals who have already transformed their
+              work with WorkTracker.
+            </p>
+            <Link to="/boards">
+              <GlowingButton>
+                Start Free Trial <ArrowRight className="inline-block ml-2" />
+              </GlowingButton>
+            </Link>
           </div>
         </main>
-
-        <footer className="bg-zinc-100 dark:bg-zinc-800  py-6 border-t border-zinc-200 dark:border-zinc-700 pt-8 text-center">
-          <p className="text-zinc-500 dark:text-zinc-400">
-            &copy; 2024 WorkTracker. All rights reserved.
-          </p>
-        </footer>
       </div>
     </div>
   );

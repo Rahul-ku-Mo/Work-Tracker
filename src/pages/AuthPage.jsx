@@ -1,10 +1,8 @@
 import { useContext, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import useAuthProvider from "../hooks/useAuthProvider";
 import axios from "axios";
-
-import { Link } from "react-router-dom";
 
 import Google from "../assets/google.svg";
 import Github from "../assets/github.svg";
@@ -60,9 +58,20 @@ const Auth = () => {
         <LogoBar />
       </nav>
       <main className="flex grow items-center justify-center bg-zinc-100 dark:bg-zinc-900">
-        <div className="flex flex-col gap-4 bg-zinc-100 dark:bg-zinc-800 dark:text-zinc-100 text-zinc-800 px-10 pt-10 pb-6 rounded-lg w-full max-w-sm shadow-md ">
+        <div className="flex flex-col gap-6 bg-zinc-100 dark:bg-zinc-800 dark:text-zinc-100 text-zinc-800 p-8 rounded-xl w-full max-w-sm shadow-lg">
+          <div>
+            <h2 className="text-2xl font-bold">
+              {signupStatus ? "Sign up" : "Login"}
+            </h2>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              {signupStatus
+                ? "Enter your email below to sign up to your account"
+                : "Enter your email below to login to your account"}
+            </p>
+          </div>
+
           <form
-            className="flex flex-col gap-3 h-fit"
+            className="flex flex-col gap-2"
             onSubmit={(e) => e.preventDefault()}
           >
             {signupStatus && (
@@ -79,81 +88,76 @@ const Auth = () => {
             <AuthFormInput
               label="Email"
               value={values.email}
-              type="text"
-              placeholder="test@gmail.com"
+              type="email"
+              placeholder="m@example.com"
               onHandleChange={handleChange("email")}
               error={errors.email}
             />
-            <AuthFormInput
-              label="Password"
-              isPassword
-              value={values.password}
-              type="password"
-              placeholder="Not your name@123"
-              onHandleChange={handleChange("password")}
-              error={errors.password}
-            />
-
-            {signupStatus ? (
-              <button
-                type="submit"
-                onClick={() => signupUser()}
-                disabled={isLoading}
-                className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:opacity-80 text-zinc-100 w-full bg-emerald-600 p-2 font-semibold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? "Signing up..." : "New user"}
-              </button>
-            ) : (
-              <>
-                <button
-                  type="submit"
-                  onClick={() => signinUser()}
-                  disabled={isLoading}
-                  className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:opacity-80 text-zinc-100 w-full bg-emerald-600 p-2 font-semibold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            <div>
+              <div className="flex justify-between items-center">
+                <label htmlFor="password" className="text-sm font-medium">
+                  Password
+                </label>
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-emerald-600 hover:underline dark:text-emerald-400"
                 >
-                  {isLoading ? "Logging in..." : "Log in"}
-                </button>
-                <button
-                  type="submit"
-                  onClick={() => signInAsGuest()}
-                  disabled={isLoading}
-                  className="text-sm inline-flex justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 bg-red-600 text-zinc-100 w-full hover:opacity-80 p-2 font-semibold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? "Signing in..." : "Sign in as Guest"}
-                </button>
-              </>
-            )}
-          </form>
-
-          <div className="flex gap-4 items-center">
-            <div className="w-full border-t-2 border-black" />
-            <span className="text-sm leading-3">or</span>
-            <div className="w-full border-t-2 border-black" />
-          </div>
-
-          <div className="flex items-center justify-center gap-2 ">
-            <div className="w-full flex items-center gap-2 justify-center py-2 bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100 p-2 rounded-lg cursor-pointer hover:opacity-70 transition-all ease-in-out duration-300">
-              <img
-                onClick={signinWithGoogle}
-                src={Google}
-                className="w-4 h-4"
-                alt="Google logo"
+                  Forgot your password?
+                </Link>
+              </div>
+              <AuthFormInput
+                id="password"
+                isPassword
+                value={values.password}
+                type="password"
+                placeholder="••••••••"
+                onHandleChange={handleChange("password")}
+                error={errors.password}
               />
-              <span className="text-sm dark:text-white text-zinc-800 font-semibold">
-                Sign in with Google
-              </span>
             </div>
-          </div>
 
-          <div className="text-sm text-center">
-            {signupStatus ? "Returning Explorer?" : "First time here?"}{" "}
-            <span
-              className="font-bold cursor-pointer hover:underline transition duration-300 ease-in-out"
+            <button
+              type="submit"
+              onClick={() => (signupStatus ? signupUser() : signinUser())}
+              disabled={isLoading}
+              className="text-sm justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:opacity-90 text-zinc-100 w-full bg-emerald-600 py-2 font-semibold shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading
+                ? signupStatus
+                  ? "Signing up..."
+                  : "Logging in..."
+                : signupStatus
+                ? "Sign up"
+                : "Login"}
+            </button>
+            {!signupStatus && (
+              <button
+                onClick={() => signInAsGuest()}
+                disabled={isLoading}
+                className="text-sm justify-center cursor-pointer items-center rounded-lg transition-all ease-in-out duration-300 hover:opacity-90 text-zinc-100 w-full bg-red-600 py-2 font-semibold shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? "Signing in..." : "Login as guest"}
+              </button>
+            )}
+            <button
+              onClick={signinWithGoogle}
+              className="text-sm flex items-center gap-2 justify-center cursor-pointer  rounded-lg transition-all ease-in-out duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 w-full bg-zinc-100 dark:bg-zinc-800 py-2 font-semibold border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-100"
+            >
+              <img src={Google} className="w-4 h-4 mr-2" alt="Google logo" />
+              {signupStatus ? "Sign up with Google" : "Login with Google"}
+            </button>
+          </form>
+          <p className="text-sm text-center text-zinc-600 dark:text-zinc-400">
+            {signupStatus
+              ? "Already have an account?"
+              : "Don't have an account?"}{" "}
+            <button
+              className="text-emerald-600 hover:underline dark:text-emerald-400 font-medium"
               onClick={() => setSignupStatus((prev) => !prev)}
             >
               {signupStatus ? "Log in" : "Sign up"}
-            </span>
-          </div>
+            </button>
+          </p>
         </div>
       </main>
       <footer className="bg-zinc-100 dark:bg-zinc-800 shadow-lg py-3 px-4 flex justify-end items-center fixed bottom-0 w-full">

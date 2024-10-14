@@ -1,27 +1,51 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
-const NotFoundPage = () => {
+export default function NotFound() {
   return (
-    <>
-      <main className="absolute inset-0 bg-zinc-200">
-        <div className="flex flex-col items-center justify-center gap-4 h-full w-full">
-          <h1 className="text-8xl text-center font-black tracking-tight uppercase text-emerald-900 ">
-            404 Page not found
+    <div className="min-h-screen flex items-center justify-center bg-zinc-900 text-zinc-100">
+      <div className="max-w-md w-full space-y-8 p-8">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-5xl font-extrabold tracking-tight text-center">
+            404
           </h1>
-          <p className="text-base font-medium text-center max-w-md">
-            Sorry, we can't find the page. <br />
-            This page doesn't exist!!!!
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <p className="text-xl text-center font-medium">I am still working on this page.</p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          <p className="text-zinc-400 text-center">
+            I am working hard at work to bring you something amazing!
           </p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="flex justify-center"
+        >
           <Link
-            to="/auth"
-            className="text-sm font-semibold shadow-md shadow-black/20 bg-emerald-800 transition-all ease-linear hover:bg-emerald-400 text-white hover:text-black rounded-md px-4 py-2 flex items-center justify-center"
+            to="/"
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-emerald-800 text-zinc-100 hover:bg-emerald-800/90 h-10 py-2 px-4"
           >
-            Go home page
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Return Home
           </Link>
-        </div>
-      </main>
-    </>
+        </motion.div>
+      </div>
+    </div>
   );
-};
-
-export default NotFoundPage;
+}
