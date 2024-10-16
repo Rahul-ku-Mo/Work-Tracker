@@ -202,7 +202,7 @@ const ColumnBoard = ({ title }) => {
 const AddColumnForm = React.memo(
   ({ columnName, setColumnName, onAddColumn, onCancel, inputRef }) => (
     <form
-      className="p-1 flex gap-2 flex-col min-w-[272px] dark:bg-zinc-800 shadow-md hover:shadow-slate-700/50 rounded-md"
+      className="p-1 flex gap-2 flex-col min-w-[272px] dark:bg-zinc-900 shadow-md hover:shadow-slate-700/50 rounded-md"
       onSubmit={(e) => {
         e.preventDefault();
         onAddColumn();
