@@ -53,8 +53,8 @@ const CardView = ({
           <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-hidden min-h-[70vh]">
-          <div className="flex  items-center justify-center p-4 text-center">
+        <div className="fixed inset-0 overflow-hidden flex items-center justify-center ">
+          <div className="flex  items-center justify-center p-4 text-center w-full">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

@@ -103,12 +103,7 @@ const Sidebar = () => {
         </nav>
         {isOpen && (
           <div className="p-4 text-center">
-            <h2 className="font-bold text-lg tracking-tight">
-              Work<span className="text-emerald-500">Tracker</span>
-            </h2>
-            <p className="text-xs font-light tracking-wide text-slate-500 dark:text-zinc-500 mt-1">
-              Made by Rahul K.M 😏
-            </p>
+          
             {/* <button
               onClick={toggleDarkMode}
               className="mt-2 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors duration-200"

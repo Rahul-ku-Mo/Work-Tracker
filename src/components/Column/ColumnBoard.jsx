@@ -202,7 +202,7 @@ const ColumnBoard = ({ title }) => {
 const AddColumnForm = React.memo(
   ({ columnName, setColumnName, onAddColumn, onCancel, inputRef }) => (
     <form
-      className="p-1 flex gap-2 flex-col min-w-[272px] shadow-md hover:shadow-slate-700/50 rounded-md"
+      className="p-1 flex gap-2 flex-col min-w-[272px] dark:bg-zinc-800 shadow-md hover:shadow-slate-700/50 rounded-md"
       onSubmit={(e) => {
         e.preventDefault();
         onAddColumn();
@@ -223,7 +223,7 @@ const AddColumnForm = React.memo(
           Create
         </button>
         <FontAwesomeIcon
-          className="cursor-pointer h-5 pr-2"
+          className="cursor-pointer rounded-full hover:rotate-90 transition-all ease-linear h-4 w-4 p-1 dark:text-white"
           onClick={onCancel}
           icon={faXmark}
         />
