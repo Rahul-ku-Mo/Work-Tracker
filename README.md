@@ -5,23 +5,6 @@ a sophisticated task tracking application with a UI similar to Trello, allowing 
 Frontend tech stack includes React.js and vite . 
 Tanstack-react-queryv5 is used for state management (server as well as cache).
 
-Backend Tech Stack: Nodejs, Expressjs, Prisma, Postgres, Redis.
-
-*Landing Page*
-![Screenshot (104)](https://github.com/Rahul-ku-Mo/Work-Tracker/assets/83443927/04965c7c-03c2-42d5-bcd3-d4de8ce64bac)
-
-*Authenticate using Google or Github*
-![Screenshot (114)](https://github.com/Rahul-ku-Mo/Work-Tracker/assets/83443927/c2f6e1f9-66ed-40b0-a6e2-16024a3dd076)
-
-*Track cards and work-flows in different lanes*
-![Screenshot (115)](https://github.com/Rahul-ku-Mo/Work-Tracker/assets/83443927/cb87e222-220a-4e9c-9c30-668b55592de4)
-
-*View cards to add comments so that other can know what you are working on.*
-![Screenshot (117)](https://github.com/Rahul-ku-Mo/Work-Tracker/assets/83443927/3b91637e-7bf9-402e-9581-e61de189033d)
-
-![Screenshot (118)](https://github.com/Rahul-ku-Mo/Work-Tracker/assets/83443927/a19184ba-3dfc-4bb4-9ef1-ea4360c77336)
-
-
 Tech-stacks you will find here: **React**, **Firebase**, **Custom Hooks**, **Tailwind CSS**,  **Vite** (Bundler)
 
 ## Things to add Real-time user Updates and collaboration and much more......
